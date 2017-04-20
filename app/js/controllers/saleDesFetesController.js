@@ -1,6 +1,13 @@
 angular.module('app')
     .controller('SDFController', function($scope) {
         $scope.sallesDesFetes = [];
+          $scope.modalShown = false;
+          $scope.toggleModal = function() {
+            $scope.modalShown = !$scope.modalShown;
+        };
+        $scope.openModal = function() {
+          $scope.modalShown = !$scope.modalShown;
+      };
 
         $scope.addSDF = function() {
             maSDF = {
