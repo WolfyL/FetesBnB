@@ -217,6 +217,7 @@ angular.module("app").run(["$templateCache", function($templateCache) {
     "            <li ui-sref-active=\"active\"><a ui-sref=\"user.home\">Home</a></li>\n" +
     "            <li ui-sref-active=\"active\"><a ui-sref=\"user.dashboard\" ng-show=\"auth.isAuthenticated()\">Favoris</a></li>\n" +
     "            <li ui-sref-active=\"active\"><a ui-sref=\"user.profile\" ng-show=\"auth.isAuthenticated()\">Profile</a></li>\n" +
+    "            <li ui-sref-active=\"active\"><a ui-sref=\"user.salleDesFetes\" ng-if=\"user.isAdmin\">Mes salles des fêtes</a></li>\n" +
     "            <li><a ng-click=\"logout()\" ng-show=\"auth.isAuthenticated()\" href='#'>Logout</a></li>\n" +
     "        </li>\n" +
     "    </ul>\n" +
@@ -226,13 +227,64 @@ angular.module("app").run(["$templateCache", function($templateCache) {
 
   $templateCache.put("user/profile.html",
     "<div id=\"profileTop\">\n" +
-    "  <h3 style=\"text-decoration : underline\">Profile de {{user.email}}</h3>\n" +
-    "  <div class=\"container-fluid\" style=\"border : 1px black solid; border-radius: 5px;\">\n" +
-    "    <label style=\"color: black;\">Nom : </label><br/>\n" +
-    "    <label style=\"color: black;\">Prénom : </label><br/>\n" +
-    "    <label style=\"color: black;\">Email : {{user.email}}</label> <br/>\n" +
-    "    <button type=\"button\" ng-click=\"changePassword()\">Change password</button>\n" +
-    "  </div>\n" +
+    "    <h3 style=\"text-decoration : underline\">Profile de {{user.email}}</h3>\n" +
+    "    <div class=\"container-fluid\" style=\"border : 1px black solid; border-radius: 5px;\">\n" +
+    "        <label style=\"color: black;\">Nom : </label><br/>\n" +
+    "        <label style=\"color: black;\">Prénom : </label><br/>\n" +
+    "        <label style=\"color: black;\">Email : {{user.email}}</label> <br/>\n" +
+    "        <button type=\"button\" ng-click=\"changePassword()\">Change password</button>\n" +
+    "    </div>\n" +
+    "</div>\n"
+  );
+
+  $templateCache.put("user/salleDesFetes.html",
+    "<div container-fluid class=\"marginTop\">\n" +
+    "    <form>\n" +
+    "        <div class=\"input-field col s4\">\n" +
+    "            <label>Nom de la salle :</label>\n" +
+    "            <input type=\"text\" ng-model=\"nomSDF\">\n" +
+    "        </div>\n" +
+    "        <!-- <button type=\"button\">Ajouter une ou plusieurs photos</button> -->\n" +
+    "        <div class=\"input-field col s4\">\n" +
+    "            <label>Description de la salle :</label>\n" +
+    "            <input type=\"text\" ng-model=\"descriptionSDF\">\n" +
+    "        </div>\n" +
+    "        <div class=\"input-field col s4\">\n" +
+    "            <label>Capacité maximale de la salle :</label>\n" +
+    "            <input type=\"text\" ng-model=\"capaciteSDF\">\n" +
+    "        </div>\n" +
+    "        <div class=\"input-field col s4\">\n" +
+    "            <label>Surface de la salle :</label>\n" +
+    "            <input type=\"text\" ng-model=\"surfaceSDF\">\n" +
+    "        </div>\n" +
+    "        <button type=\"submit\" name=\"button\" ng-click=\"addSDF()\">Ajouter une salle des fêtes</button></div>\n" +
+    "<ul ng-repeat=\"salleDesFetes in sallesDesFetes track by $index\">\n" +
+    "    <li>\n" +
+    "        <div class=\"input-field col s4\">\n" +
+    "            <h5>Nom de la salle :</h5> {{salleDesFetes.nom}}\n" +
+    "        </div>\n" +
+    "        <div class=\"input-field col s4\">\n" +
+    "            <h5>Description de la salle :</h5> {{salleDesFetes.description}}\n" +
+    "        </div>\n" +
+    "        <div class=\"input-field col s4\">\n" +
+    "            <h5>Capacité maximale de la salle :</h5> {{salleDesFetes.capacite}}\n" +
+    "        </div>\n" +
+    "        <div class=\"input-field col s4\">\n" +
+    "            <h5>Surface de la salle :</h5> {{salleDesFetes.surface}}\n" +
+    "        </div>\n" +
+    "        <button type=\"button\" ng-click=\"editSDF($index)\">Modifier des informations</button>\n" +
+    "        <ng-show ng-show=\"editSDF[$index]\">\n" +
+    "            <input type=\"text\" ng-model=\"newNomSDF\">\n" +
+    "            <input type=\"text\" ng-model=\"newDescriptionSDF\">\n" +
+    "            <input type=\"text\" ng-model=\"newCapaciteSDF\">\n" +
+    "            <input type=\"text\" ng-model=\"newSurfaceSDF\">\n" +
+    "            <button type=\"button\" ng-click=\"editSDFDone($index, {nom : newNomSDF, description: newDescriptionSDF, capacite: newCapaciteSDF, surface: newSurfaceSDF})\">Valider vos modifications</button>\n" +
+    "        </ng-show>\n" +
+    "        <button type=\"button\" name=\"button\" ng-click=\"deleteSDF($index)\">Supprimer une salle des fêtes</button>\n" +
+    "    </li>\n" +
+    "</ul>\n" +
+    "</form>\n" +
+    "</div>\n" +
     "</div>\n"
   );
 

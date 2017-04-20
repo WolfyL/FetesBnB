@@ -18,6 +18,7 @@
             <li ui-sref-active="active"><a ui-sref="user.home">Home</a></li>
             <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Favoris</a></li>
             <li ui-sref-active="active"><a ui-sref="user.profile" ng-show="auth.isAuthenticated()">Profile</a></li>
+            <li ui-sref-active="active"><a ui-sref="user.salleDesFetes" ng-if="user.isAdmin">Mes salles des fêtes</a></li>
             <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'>Logout</a></li>
         </li>
     </ul>
