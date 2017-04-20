@@ -1,3 +1,9 @@
 <div id="profileTop">
-    Profile de {{user.email}}
+  <h3 style="text-decoration : underline">Profile de {{user.email}}</h3>
+  <div class="container-fluid" style="border : 1px black solid; border-radius: 5px;">
+    <label style="color: black;">Nom : </label><br/>
+    <label style="color: black;">Prénom : </label><br/>
+    <label style="color: black;">Email : {{user.email}}</label> <br/>
+    <button type="button" ng-click="changePassword()">Change password</button>
+  </div>
 </div>
