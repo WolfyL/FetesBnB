@@ -226,7 +226,13 @@ angular.module("app").run(["$templateCache", function($templateCache) {
 
   $templateCache.put("user/profile.html",
     "<div id=\"profileTop\">\n" +
-    "    Profile de {{user.email}}\n" +
+    "  <h3 style=\"text-decoration : underline\">Profile de {{user.email}}</h3>\n" +
+    "  <div class=\"container-fluid\" style=\"border : 1px black solid; border-radius: 5px;\">\n" +
+    "    <label style=\"color: black;\">Nom : </label><br/>\n" +
+    "    <label style=\"color: black;\">Prénom : </label><br/>\n" +
+    "    <label style=\"color: black;\">Email : {{user.email}}</label> <br/>\n" +
+    "    <button type=\"button\" ng-click=\"changePassword()\">Change password</button>\n" +
+    "  </div>\n" +
     "</div>\n"
   );
 
