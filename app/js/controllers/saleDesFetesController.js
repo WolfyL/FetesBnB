@@ -1,13 +1,14 @@
 angular.module('app')
     .controller('SDFController', function($scope) {
         $scope.sallesDesFetes = [];
-          $scope.modalShown = false;
-          $scope.toggleModal = function() {
-            $scope.modalShown = !$scope.modalShown;
+        $scope.sdf={};
+        $('#myModal').on('shown.bs.modal', function() {
+            $('#myInput').focus();
+        });
+
+        $scope.modal = function(index){
+          $scope.sdf = $scope.sallesDesFetes[index];
         };
-        $scope.openModal = function() {
-          $scope.modalShown = !$scope.modalShown;
-      };
 
         $scope.addSDF = function() {
             maSDF = {
@@ -30,12 +31,6 @@ angular.module('app')
         };
 
         $scope.editSDFDone = function(index, maNewSDF) {
-            // maNewSDF = {
-            //     nom: $scope.newNomSDF,
-            //     description: $scope.newDescriptionSDF,
-            //     capacite: $scope.newCapaciteSDF,
-            //     surface: $scope.newSurfaceSDF
-            // };
             console.log('maNewSDF', maNewSDF);
             $scope.sallesDesFetes[index] = maNewSDF;
             $scope.editSDF[index] = false;
