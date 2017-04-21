@@ -1,4 +1,5 @@
 node_module/
+generated/
 
 ######################
 .DS_Store

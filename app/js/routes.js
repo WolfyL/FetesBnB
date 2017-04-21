@@ -72,6 +72,15 @@ angular.module('app')
                     }
                 }
             })
+            .state('user.salleDesFetes', {
+                url: '/salleDesFetes',
+                views: {
+                    'content@': {
+                        templateUrl: 'user/salleDesFetes.html',
+                        controller: 'SDFController'
+                    }
+                }
+            })
             .state('user.profile', {
                 url: '/profile',
                 views: {
