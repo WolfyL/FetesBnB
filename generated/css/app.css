@@ -16520,4 +16520,43 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 }
 
 
+#monLogo {
+  margin-left: 150px;
+  width: 200px;
+}
+#head_top {
+  background-image: url("http://www.entrebeauceetperche.fr/public/images/header.jpg");
+  background-size: cover;
+}
+.marginTop {
+  margin-top: 60px;
+}
+section {
+  color: #edc34e;
+}
+.styleNavbar {
+  margin-bottom: -50px;
+}
+.nav {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+nav {
+  box-shadow: none;
+  background-color: white;
+}
+nav ul a {
+  color: black;
+}
+label {
+  color: black;
+  font-size: 14px;
+}
+.active {
+  font-size: 20px;
+}
+h1 {
+  font-size: 50px;
+}
+
 /*# sourceMappingURL=app.css.map */
