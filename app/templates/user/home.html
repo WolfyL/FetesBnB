@@ -1,4 +1,4 @@
-<section class="section section-quaternary mt-none mb-sm " style="background-color: {{section.backColor}}; color:{{section.color}};">
+<section class="section section-quaternary mt-none mb-sm ">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -14,7 +14,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 ">
+                        <div class="col-md-4 ">
                             <div class="formBlock select typeahead-container">
                                 <label>Rayon de recherche</label>
                                 <input type="search" name="" autocomplete="off" placeholder="Rayon ?" class="formDropdown form-control" />
@@ -42,12 +42,6 @@
         </div>
     </div>
 </section>
-
-<div class="row" ng-if="user.isAdmin">
-    <label class="control-label">Color</label>
-    <color-picker class='col-sm-1' ng-model="section.color" options="{'format':'hex', 'placeholder': '', 'round': false}"></color-picker>
-    <color-picker class='col-sm-1' ng-model="section.backColor" options="{'format':'hex', 'placeholder': '', 'round': false}"></color-picker>
-</div>
 
 <div class="container-fluid">
     <div class="row">
