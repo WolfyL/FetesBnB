@@ -1,9 +1,35 @@
-<div id="profileTop">
-    <h3 style="text-decoration : underline">Profile de {{user.email}}</h3>
+<div class="marginTop">
+    <h3 style="text-decoration : underline">Profile de {{user.firstName}}</h3>
     <div class="container-fluid" style="border : 1px black solid; border-radius: 5px;">
-        <label style="color: black;">Nom : </label><br/>
-        <label style="color: black;">Prénom : </label><br/>
+        <label style="color: black;">Nom : {{ user.firstName }}</label><br/>
+        <label style="color: black;">Prénom : {{ user.lastName }}</label><br/>
         <label style="color: black;">Email : {{user.email}}</label> <br/>
-        <button type="button" ng-click="changePassword()">Change password</button>
+        <label style="color: black;">Date inscription : {{user.date | date: "medium"}}</label> <br/>
+        <button  class="waves-effect waves-light btn" type="button" ng-click="changePassword()">Change password</button>
+
     </div>
+</div>
+<h4>Changer les informations</h4>
+<div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col offset-l1 s4">
+        <i class="material-icons prefix">account_circle</i>
+        <input placeholder="{{ user.firstName }}" id="first_name" type="text" class="validate">
+        <label for="first_name">Nom</label>
+      </div>
+      <div class="input-field col offset-l2 s4">
+        <i class="material-icons prefix">account_circle</i>
+        <input placeholder="{{ user.lastName }}" id="last_name" type="text" class="validate">
+        <label for="last_name">Prénom</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col offset-l1 s10">
+        <i class="material-icons prefix">email</i>
+        <input placeholder="{{ user.email }}" id="email" type="email" class="validate">
+        <label for="email">Email</label>
+      </div>
+    </div>
+  </form>
 </div>
