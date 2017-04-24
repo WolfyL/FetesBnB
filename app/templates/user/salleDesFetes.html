@@ -3,56 +3,101 @@
         <form>
             <div class="input-field col s6">
                 <label>Nom de la salle :</label>
-                <input type="text" ng-model="nomSDF">
+                <input type="text" ng-model="nameSDF">
             </div>
             <div class="input-field col s6">
                 <label>Description de la salle :</label>
-                <input type="text" ng-model="descriptionSDF">
+                <input type="text" ng-model="textSDF">
             </div>
             <div class="input-field col s6">
                 <label>Capacité maximale de la salle :</label>
-                <input type="text" ng-model="capaciteSDF">
+                <input type="text" ng-model="capacitySDF">
             </div>
             <div class="input-field col s6">
                 <label>Surface de la salle :</label>
                 <input type="text" ng-model="surfaceSDF">
             </div>
+            <div class="input-field col s6">
+                <label>Ville :</label>
+                <input type="text" ng-model="citySDF">
+            </div>
+            <div class="input-field col s6">
+                <label>Code postal :</label>
+                <input type="text" ng-model="postalCodeSDF">
+            </div>
+            <div class="input-field col s6">
+                <label>Adresse :</label>
+                <input type="text" ng-model="adressSDF">
+            </div>
             <button type="submit" name="button" ng-click="addSDF()">Ajouter une salle des fêtes</button>
     </div>
     </form>
-<!-- </div> -->
-<div class="col-xs-6" ng-repeat="salleDesFetes in sallesDesFetes track by $index">
+    <!-- </div> -->
+    <div class="col-xs-6" ng-repeat="salleDesFetes in sallesDesFetes track by $index">
 
-    <div class="box">
-        <a href="" ng-click="modal($index)" data-toggle="modal" data-target="#myModal"><button type="button">Salle</button>
-
-        </button></a>
-        <!-- Button trigger modal -->
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: black; opacity: 0.8;">
-
-            <div class="input-field col s4">
-                <h5>Nom de la salle :</h5> {{sdf.nom}}
+        <div class="box">
+            <a href="" ng-click="modal($index)" data-toggle="modal" data-target="#myModal">
+                <button type="button">Salle: {{sdf.name}}</button></a>
+            <!-- Button trigger modal -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background-color: black; opacity: 0.9;">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <h5>Nom de la salle :</h5> {{sdf.name}}
+                    </div>
+                    <div class="input-field col s6">
+                        <h5>Description de la salle :</h5> {{sdf.text}}
+                    </div>
+                    <div class="input-field col s6">
+                        <h5>Capacité maximale de la salle :</h5> {{sdf.capacity}}
+                    </div>
+                    <div class="input-field col s6">
+                        <h5>Surface de la salle :</h5> {{sdf.surface}}
+                    </div>
+                    <div class="input-field col s6">
+                        <h5>Ville :</h5> {{sdf.city}}
+                    </div>
+                    <div class="input-field col s6">
+                        <h5>Code postal :</h5> {{sdf.postalCode}}
+                    </div>
+                    <div class="input-field col s6">
+                        <h5>Adresse :</h5> {{sdf.adress}}
+                    </div>
+                </div>
+                <button type="button" ng-click="editSDF($index)">Modifier des informations</button>
+                <ng-show ng-show="editSDF[$index]">
+                  <div class="input-field col s6">
+                      <label>Nom de la salle :</label>
+                      <input type="text" ng-model="newNameSDF">
+                  </div>
+                  <div class="input-field col s6">
+                      <label>Description de la salle :</label>
+                      <input type="text" ng-model="newTextSDF">
+                  </div>
+                  <div class="input-field col s6">
+                      <label>Capacité maximale de la salle :</label>
+                      <input type="text" ng-model="newCapacitySDF">
+                  </div>
+                  <div class="input-field col s6">
+                      <label>Surface de la salle :</label>
+                      <input type="text" ng-model="newSurfaceSDF">
+                  </div>
+                  <div class="input-field col s6">
+                      <label>Ville :</label>
+                      <input type="text" ng-model="newCitySDF">
+                  </div>
+                  <div class="input-field col s6">
+                      <label>Code postal :</label>
+                      <input type="text" ng-model="newPostalCodeSDF">
+                  </div>
+                  <div class="input-field col s6">
+                      <label>Adresse :</label>
+                      <input type="text" ng-model="newAdressSDF">
+                  </div>
+                    <button type="button" ng-click="editSDFDone($index, {nom : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
+                </ng-show>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
-            <div class="input-field col s4">
-                <h5>Description de la salle :</h5> {{sdf.description}}
-            </div>
-            <div class="input-field col s4">
-                <h5>Capacité maximale de la salle :</h5> {{sdf.capacite}}
-            </div>
-            <div class="input-field col s4">
-                <h5>Surface de la salle :</h5> {{sdf.surface}}
-            </div>
-            <button type="button" ng-click="editSDF($index)">Modifier des informations</button>
-            <ng-show ng-show="editSDF[$index]">
-                <input type="text" ng-model="newNomSDF">
-                <input type="text" ng-model="newDescriptionSDF">
-                <input type="text" ng-model="newCapaciteSDF">
-                <input type="text" ng-model="newSurfaceSDF">
-                <button type="button" ng-click="editSDFDone($index, {nom : newNomSDF, description: newDescriptionSDF, capacite: newCapaciteSDF, surface: newSurfaceSDF})">Valider vos modifications</button>
-            </ng-show>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" name="button" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{sdf.name}}</button>
         </div>
-        <button type="button" name="button" ng-click="deleteSDF($index)">Supprimer une salle des fêtes</button>
     </div>
-</div>

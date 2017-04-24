@@ -1,29 +1,41 @@
 angular.module('app')
-    .controller('SDFController', function($scope) {
+    .controller('SDFController', function($scope, SDFService) {
         $scope.sallesDesFetes = [];
-        $scope.sdf={};
+        $scope.sdf = {};
         $('#myModal').on('shown.bs.modal', function() {
             $('#myInput').focus();
         });
 
-        $scope.modal = function(index){
-          $scope.sdf = $scope.sallesDesFetes[index];
+        $scope.modal = function(index) {
+            $scope.sdf = $scope.sallesDesFetes[index];
         };
 
-        $scope.addSDF = function() {
-            maSDF = {
-                nom: $scope.nomSDF,
-                description: $scope.descriptionSDF,
-                capacite: $scope.capaciteSDF,
-                surface: $scope.surfaceSDF
-            };
-            $scope.sallesDesFetes.push(maSDF);
-            $scope.nomSDF = '';
-            $scope.descriptionSDF = '';
-            $scope.capaciteSDF = '';
-            $scope.surfaceSDF = '';
-
+        SDFService.getAll().then(function(res) {
+            $scope.sallesDesFetes = res.data;
             console.log($scope.sallesDesFetes);
+        });
+
+        $scope.addSDF = function() {
+            SDFService.create({
+                name: $scope.nameSDF,
+                city: $scope.citySDF,
+                postalCode: $scope.postalCodeSDF,
+                adress: $scope.adressSDF,
+                capacity: $scope.capacitySDF,
+                surface: $scope.surfaceSDF,
+                text: $scope.textSDF
+            });
+            SDFService.getAll().then(function(res) {
+                $scope.sallesDesFetes = res.data;
+                console.log($scope.sallesDesFetes);
+            });
+            $scope.nameSDF = '';
+            $scope.citySDF = '';
+            $scope.postalCodeSDF = '';
+            $scope.adressSDF = '';
+            $scope.capacitySDF = '';
+            $scope.surfaceSDF = '';
+            $scope.textSDF = '';
         };
 
         $scope.editSDF = function(index) {
@@ -36,7 +48,16 @@ angular.module('app')
             $scope.editSDF[index] = false;
         };
 
-        $scope.deleteSDF = function(index) {
-            $scope.sallesDesFetes.splice(index, 1);
+        $scope.deleteSDF = function(sdf) {
+            SDFService.delete(sdf._id).then(function(res){
+              console.log("delete succeed");
+              SDFService.getAll().then(function(res) {
+                  $scope.sallesDesFetes = res.data;
+                  console.log($scope.sallesDesFetes);
+              });
+
+            }, function(err) {
+              console.log("Delete failed");
+          });
         };
     });

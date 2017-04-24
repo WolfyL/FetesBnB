@@ -13,6 +13,10 @@ const sdfSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    adress: {
+        type: String,
+        required: true
+    },
     capacity: {
         type: Number,
         required: true
@@ -35,11 +39,11 @@ export default class SDF {
     findAll(req, res) {
         model.find({}, {
             password: 0
-        }, (err, users) => {
-            if (err || !users) {
+        }, (err, sallesDesFetes) => {
+            if (err || !sallesDesFetes) {
                 res.sendStatus(403);
             } else {
-                res.json(users);
+                res.json(sallesDesFetes);
             }
         });
     }
@@ -47,27 +51,25 @@ export default class SDF {
     findById(req, res) {
         model.findById(req.params.id, {
             password: 0
-        }, (err, user) => {
-            if (err || !user) {
+        }, (err, salleDesFetes) => {
+            if (err || !salleDesFetes) {
                 res.sendStatus(403);
             } else {
-                res.json(user);
+                res.json(salleDesFetes);
             }
         });
     }
 
     create(req, res) {
         model.create(req.body,
-            (err, user) => {
-                if (err || !user) {
-                    if (err.code === 11000 || err.code === 11001) {
-                        err.message = "Email " + req.body.email + " already exist";
-                    }
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    console.log(err);
                     res.status(500).send(err.message);
                 } else {
                     res.json({
                         success: true,
-                        user: user,
+                        salleDesFetes: salleDesFetes,
                     });
                 }
             });
@@ -76,13 +78,13 @@ export default class SDF {
     update(req, res) {
         model.update({
             _id: req.params.id
-        }, req.body, (err, user) => {
-            if (err || !user) {
+        }, req.body, (err, salleDesFetes) => {
+            if (err || !salleDesFetes) {
                 res.status(500).send(err.message);
             } else {
                 res.json({
                     success: true,
-                    user: user,
+                    salleDesFetes: salleDesFetes,
                 });
             }
         });

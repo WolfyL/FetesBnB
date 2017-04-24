@@ -16,16 +16,16 @@ module.exports = (app) => {
     //     res.sendStatus(200);
     // });
 
-    router.get('/', Auth.hasAuthorization, user.findAll);
+    router.get('/', Auth.hasAuthorization, sdf.findAll);
 
-    router.get('/:id', Auth.hasAuthorization, user.findById);
+    router.get('/:id', Auth.hasAuthorization, sdf.findById);
 
-    router.post('/', user.create);
+    router.post('/', sdf.create);
 
-    router.put('/:id', Auth.isAdministrator, user.update);
+    router.put('/:id', Auth.isAdministrator, sdf.update);
 
-    router.delete('/:id', Auth.isAdministrator, user.delete);
+    router.delete('/:id', Auth.isAdministrator, sdf.delete);
 
-    app.use('/users', router);
+    app.use('/sallesDesFetes', router);
 
 };
