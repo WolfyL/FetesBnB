@@ -1,23 +1,26 @@
 <div container-fluid class="marginTop">
-    <form>
-        <div class="input-field col s4">
-            <label>Nom de la salle :</label>
-            <input type="text" ng-model="nomSDF">
-        </div>
-        <div class="input-field col s4">
-            <label>Description de la salle :</label>
-            <input type="text" ng-model="descriptionSDF">
-        </div>
-        <div class="input-field col s4">
-            <label>Capacité maximale de la salle :</label>
-            <input type="text" ng-model="capaciteSDF">
-        </div>
-        <div class="input-field col s4">
-            <label>Surface de la salle :</label>
-            <input type="text" ng-model="surfaceSDF">
-        </div>
-        <button type="submit" name="button" ng-click="addSDF()">Ajouter une salle des fêtes</button></div>
-</form>
+    <div class="row">
+        <form>
+            <div class="input-field col s6">
+                <label>Nom de la salle :</label>
+                <input type="text" ng-model="nomSDF">
+            </div>
+            <div class="input-field col s6">
+                <label>Description de la salle :</label>
+                <input type="text" ng-model="descriptionSDF">
+            </div>
+            <div class="input-field col s6">
+                <label>Capacité maximale de la salle :</label>
+                <input type="text" ng-model="capaciteSDF">
+            </div>
+            <div class="input-field col s6">
+                <label>Surface de la salle :</label>
+                <input type="text" ng-model="surfaceSDF">
+            </div>
+            <button type="submit" name="button" ng-click="addSDF()">Ajouter une salle des fêtes</button>
+    </div>
+    </form>
+<!-- </div> -->
 <div class="col-xs-6" ng-repeat="salleDesFetes in sallesDesFetes track by $index">
 
     <div class="box">
