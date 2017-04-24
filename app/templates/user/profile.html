@@ -1,35 +1,59 @@
-<div class="marginTop">
+<!-- <div class="marginTop">
     <h3 style="text-decoration : underline">Profile de {{user.firstName}}</h3>
     <div class="container-fluid" style="border : 1px black solid; border-radius: 5px;">
         <label style="color: black;">Nom : {{ user.firstName }}</label><br/>
         <label style="color: black;">Prénom : {{ user.lastName }}</label><br/>
         <label style="color: black;">Email : {{user.email}}</label> <br/>
         <label style="color: black;">Date inscription : {{user.date | date: "medium"}}</label> <br/>
-        <button  class="waves-effect waves-light btn" type="button" ng-click="changePassword()">Change password</button>
+        <button class="waves-effect waves-light btn" type="button" ng-click="changePassword()">Remplacer mot de passe</button>
 
     </div>
-</div>
-<h4>Changer les informations</h4>
+</div> -->
+
 <div class="row">
-  <form class="col s12">
-    <div class="row">
-      <div class="input-field col offset-l1 s4">
-        <i class="material-icons prefix">account_circle</i>
-        <input placeholder="{{ user.firstName }}" id="first_name" type="text" class="validate">
-        <label for="first_name">Nom</label>
-      </div>
-      <div class="input-field col offset-l2 s4">
-        <i class="material-icons prefix">account_circle</i>
-        <input placeholder="{{ user.lastName }}" id="last_name" type="text" class="validate">
-        <label for="last_name">Prénom</label>
-      </div>
-    </div>
-    <div class="row">
-      <div class="input-field col offset-l1 s10">
-        <i class="material-icons prefix">email</i>
-        <input placeholder="{{ user.email }}" id="email" type="email" class="validate">
-        <label for="email">Email</label>
-      </div>
-    </div>
-  </form>
+    <form class="marginTop">
+        <div class="row">
+            <div class="col s12 m6 l4">
+                <div class="card light-green">
+                    <div class="card-content white-text">
+                        <span class="card-title"><h4><b>Profile de {{user.firstName}}</b></h4></span>
+                        <div class="white-text">
+                            <h5>Nom : {{ user.firstName }}</h5>
+                            <h5>Prénom : {{ user.lastName }}</h5>
+                            <h5>Email : {{user.email}}</h5>
+                            <h5>Date inscription : {{user.date | date: "medium"}}</h5>
+                        </div>
+                        <button class="waves-effect brown darken-2 btn" type="button" ng-click="changePassword()">Nouveau mot de passe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l8">
+                <div class="col offset-s1 s12 m11 offset-l1 l8">
+                    <h4>Modifier donnée personnelle</h4>
+                </div>
+
+                <div class="input-field col offset-s1 s5 m5 offset-l1 l4">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input placeholder="{{ user.firstName }}" id="first_name" type="text" class="validate">
+                    <label for="first_name">Nom</label>
+                </div>
+                <div class="input-field col s5 m5 offset-l1 l4">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input placeholder="{{ user.lastName }}" id="last_name" type="text" class="validate">
+                    <label for="last_name">Prénom</label>
+                </div>
+
+                <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
+                    <i class="material-icons prefix">email</i>
+                    <input placeholder="{{ user.email }}" id="email" type="email" class="validate">
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
+                  <button class="btn waves-effect brown darken-2 btn" type="submit" name="action">Modifier
+                    <i class="material-icons left">send</i>
+                  </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
