@@ -34,22 +34,22 @@
 
                 <div class="input-field col offset-s1 s5 m5 offset-l1 l4">
                     <i class="material-icons prefix">account_circle</i>
-                    <input placeholder="{{ user.firstName }}" id="first_name" type="text" class="validate" ng-model="user.changeFirstName">
+                    <input placeholder="{{ user.firstName }}" id="first_name" type="text" class="validate" ng-model="user.firstName">
                     <label for="first_name">Nom</label>
                 </div>
                 <div class="input-field col s5 m5 offset-l1 l4">
                     <i class="material-icons prefix">account_circle</i>
-                    <input placeholder="{{ user.lastName }}" id="last_name" type="text" class="validate" ng-model="user.changeLastName">
+                    <input placeholder="{{ user.lastName }}" id="last_name" type="text" class="validate" ng-model="user.lastName">
                     <label for="last_name">Prénom</label>
                 </div>
 
                 <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
                     <i class="material-icons prefix">email</i>
-                    <input placeholder="{{ user.email }}" id="email" type="email" class="validate" ng-model="user.changeEmail">
+                    <input placeholder="{{ user.email }}" id="email" type="email" class="validate" ng-model="user.email">
                     <label for="email">Email</label>
                 </div>
                 <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
-                    <button class="btn waves-effect brown darken-2 btn" type="submit" name="action" ng-click="changeProfil()">Modifier
+                    <button class="btn waves-effect brown darken-2 btn" name="action" ng-click="changeProfil()">Modifier
                     <i class="material-icons left">send</i>
                   </button>
                 </div>
