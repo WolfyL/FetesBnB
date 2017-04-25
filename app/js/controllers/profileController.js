@@ -4,7 +4,9 @@ angular.module('app')
             $scope.user = res.data;
             console.log($scope.user);
         });
+        
       var id = CurrentUser.user()._id;
+
       $scope.user = [];
 
       $scope.changeProfil = function () {

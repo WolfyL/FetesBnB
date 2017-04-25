@@ -20,23 +20,23 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     isAdmin: {
         type: Boolean,
         default: false
     },
     firstName: {
-      type: String,
-      required: true
+        type: String,
+        required: true
     },
     lastName: {
-      type: String,
-      required: true
+        type: String,
+        required: true
     },
     date: {
-      type: Date,
-      default: Date.now
+        type: Date,
+        default: Date.now
     }
 });
 
@@ -112,34 +112,41 @@ export default class User {
     }
 
     create(req, res) {
-        if (req.body.password) {
-            var salt = bcrypt.genSaltSync(10);
-            req.body.password = bcrypt.hashSync(req.body.password, salt);
-        }
-        model.create(req.body,
-            (err, user) => {
-                if (err || !user) {
-                    if (err.code === 11000 || err.code === 11001) {
-                        err.message = "Email " + req.body.email + " already exist";
+        if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(req.body.password)) {
+            res.status(400).send("Mot de passe de 6 carractères avec au moin un chiffre");
+        } else {
+
+            if (req.body.password) {
+                var salt = bcrypt.genSaltSync(10);
+                req.body.password = bcrypt.hashSync(req.body.password, salt);
+            }
+            model.create(req.body,
+                (err, user) => {
+                    if (err || !user) {
+                        if (err.code === 11000 || err.code === 11001) {
+                            err.message = "Email " + req.body.email + " already exist";
+                        }
+                        res.status(500).send(err.message);
+                    } else {
+                        let tk = jsonwebtoken.sign(user, token, {
+                            expiresIn: "24h"
+                        });
+                        res.json({
+                            success: true,
+                            user: user,
+                            token: tk
+                        });
                     }
-                    res.status(500).send(err.message);
-                } else {
-                    let tk = jsonwebtoken.sign(user, token, {
-                        expiresIn: "24h"
-                    });
-                    res.json({
-                        success: true,
-                        user: user,
-                        token: tk
-                    });
-                }
-            });
+                });
+        }
     }
 
     update(req, res) {
         model.update({
             _id: req.params.id
-        }, req.body, (err, user) => {
+        }, req.body, {
+            runValidators: true
+        }, (err, user) => {
             if (err || !user) {
                 res.status(500).send(err.message);
             } else {

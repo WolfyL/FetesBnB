@@ -16,7 +16,7 @@
             <div class="col s12 m6 l4">
                 <div class="card light-green">
                     <div class="card-content white-text">
-                        <span class="card-title"><h4><b>Profile de {{user.firstName}}</b></h4></span>
+                        <span class="card-title"><h4><b>Profile de {{ user.lastName }}</b></h4></span>
                         <div class="white-text">
                             <h5>Nom : {{ user.firstName }}</h5>
                             <h5>Prénom : {{ user.lastName }}</h5>
@@ -29,7 +29,7 @@
             </div>
             <div class="col s12 m6 l8">
                 <div class="col offset-s1 s12 m11 offset-l1 l8">
-                    <h4><b>Modifier donnée personnelle</b></h4>
+                    <h4><b>Remplacer donnée personnelle</b></h4>
                 </div>
 
                 <div class="input-field col offset-s1 s5 m5 offset-l1 l4">
@@ -50,7 +50,7 @@
                 </div>
                 <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
                     <button class="btn waves-effect brown darken-2 btn" name="action" ng-click="changeProfil()">Modifier
-                    <i class="material-icons left">send</i>
+                    <i class="material-icons left">done</i>
                   </button>
                 </div>
             </div>
