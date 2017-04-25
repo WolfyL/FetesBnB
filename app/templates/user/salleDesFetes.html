@@ -40,6 +40,9 @@
         <div id="modal{{$index}}" class="modal modal-fixed-footer">
             <div class="modal-content">
                 <div class="row">
+                  <div class="modal-header">
+                      <a class="modal-action modal-close waves-effect waves-green btn-flat ">Fermer</a>
+                  </div>
                     <div class="input-field col s6">
                         <h5>Nom de la salle :</h5> {{salleDesFetes.name}}
                     </div>
@@ -66,37 +69,34 @@
                 <ng-show ng-show="editSDF[$index]">
                     <div class="input-field col s6">
                         <label>Nom de la salle :</label>
-                        <input type="text" ng-model="newNameSDF">
+                        <input type="text" ng-model="newNameSDF" placeholder="{{salleDesFetes.name}}">
                     </div>
                     <div class="input-field col s6">
                         <label>Description de la salle :</label>
-                        <input type="text" ng-model="newTextSDF">
+                        <input type="text" ng-model="newTextSDF" placeholder="{{salleDesFetes.text}}">
                     </div>
                     <div class="input-field col s6">
                         <label>Capacité maximale de la salle :</label>
-                        <input type="text" ng-model="newCapacitySDF">
+                        <input type="text" ng-model="newCapacitySDF" placeholder="{{salleDesFetes.capacity}}">
                     </div>
                     <div class="input-field col s6">
                         <label>Surface de la salle :</label>
-                        <input type="text" ng-model="newSurfaceSDF">
+                        <input type="text" ng-model="newSurfaceSDF" placeholder="{{salleDesFetes.surface}}">
                     </div>
                     <div class="input-field col s6">
                         <label>Ville :</label>
-                        <input type="text" ng-model="newCitySDF">
+                        <input type="text" ng-model="newCitySDF" placeholder="{{salleDesFetes.city}}">
                     </div>
                     <div class="input-field col s6">
                         <label>Code postal :</label>
-                        <input type="text" ng-model="newPostalCodeSDF">
+                        <input type="text" ng-model="newPostalCodeSDF" placeholder="{{salleDesFetes.postalCode}}">
                     </div>
                     <div class="input-field col s6">
                         <label>Adresse :</label>
-                        <input type="text" ng-model="newAdressSDF">
+                        <input type="text" ng-model="newAdressSDF" placeholder="{{salleDesFetes.adress}}">
                     </div>
                     <button type="button" ng-click="editSDFDone($index, {nom : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
                 </ng-show>
-                <div class="modal-footer">
-                    <a class="modal-action modal-close waves-effect waves-green btn-flat ">Fermer</a>
-                </div>
             </div>
         </div>
         <button type="button" name="button" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
