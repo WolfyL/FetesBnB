@@ -5,4 +5,11 @@ angular.module('app')
             console.log($scope.user);
         });
 
+
+
+
+          $(document).ready(function(){
+            $('.modal').modal();
+          });
+
     });
