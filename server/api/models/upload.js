@@ -1,49 +1,31 @@
 import mongoose from 'mongoose';
+import uuid from 'node-uuid';
+import multiparty from 'multiparty';
+import fs from 'fs';
 
-const sdfSchema = new mongoose.Schema({
+const uploadSchema = new mongoose.Schema({
     name:  {
         type: String,
         required: true
     },
-    city: {
-        type: String,
-        required: true
-    },
-    postalCode: {
-        type: String,
-        required: true
-    },
-    adress: {
-        type: String,
-        required: true
-    },
-    capacity: {
-        type: Number,
-        required: true
-    },
-    surface: {
-        type: Number,
-        required: true
-    },
     text: {
-        type: String,
-        required: true
+      type: String
     }
 });
 
 
-let model = mongoose.model('SDF', sdfSchema);
+let model = mongoose.model('Upload', uploadSchema);
 
-export default class SDF {
+export default class upload {
 
     findAll(req, res) {
         model.find({}, {
             password: 0
-        }, (err, sallesDesFetes) => {
-            if (err || !sallesDesFetes) {
+        }, (err, uploads) => {
+            if (err || !uploads) {
                 res.sendStatus(403);
             } else {
-                res.json(sallesDesFetes);
+                res.json(uploads);
             }
         });
     }
@@ -51,25 +33,25 @@ export default class SDF {
     findById(req, res) {
         model.findById(req.params.id, {
             password: 0
-        }, (err, salleDesFetes) => {
-            if (err || !salleDesFetes) {
+        }, (err, upload) => {
+            if (err || !upload) {
                 res.sendStatus(403);
             } else {
-                res.json(salleDesFetes);
+                res.json(upload);
             }
         });
     }
 
     create(req, res) {
         model.create(req.body,
-            (err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
+            (err, upload) => {
+                if (err || !upload) {
                     console.log(err);
                     res.status(500).send(err.message);
                 } else {
                     res.json({
                         success: true,
-                        salleDesFetes: salleDesFetes,
+                        upload: upload,
                     });
                 }
             });
@@ -80,13 +62,13 @@ export default class SDF {
     update(req, res) {
         model.findByIdAndUpdate({
             _id: req.params.id
-        }, req.body, (err, salleDesFetes) => {
-            if (err || !salleDesFetes) {
+        }, req.body, (err, upload) => {
+            if (err || !upload) {
                 res.status(500).send(err.message);
             } else {
                 res.json({
                     success: true,
-                    salleDesFetes: salleDesFetes,
+                    upload: upload,
                 });
             }
         });

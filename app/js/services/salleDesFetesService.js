@@ -10,8 +10,8 @@ angular.module('app')
             create: function(sdf) {
               return $http.post('/sallesDesFetes/', sdf);
             },
-            update: function(id, user) {
-                return $http.put('/sallesDesFetes/' + id, user);
+            update: function(id, sdf) {
+                return $http.put('/sallesDesFetes/' + id, sdf);
             },
             delete: function(id) {
                 return $http.delete('/sallesDesFetes/' + id);
