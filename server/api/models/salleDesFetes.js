@@ -28,7 +28,7 @@ const sdfSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true
-    }
+    },
 });
 
 
@@ -74,8 +74,6 @@ export default class SDF {
                 }
             });
     }
-
-
 
     update(req, res) {
         model.findByIdAndUpdate({

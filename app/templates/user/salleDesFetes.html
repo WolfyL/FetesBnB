@@ -1,4 +1,4 @@
-<!-- <div container-fluid class="marginTop">
+<div container-fluid class="marginTop">
     <div class="row">
         <form>
             <div class="input-field col s6">
@@ -29,7 +29,7 @@
                 <label>Adresse :</label>
                 <input type="text" ng-model="adressSDF">
             </div>
-            <button type="submit" name="button" ng-click="addSDF()">Ajouter une salle des fêtes</button>
+            <button type="submit" class="btn" ng-click="addSDF()">Ajouter une salle des fêtes</button>
     </div>
     </form>
 
@@ -40,7 +40,7 @@
             <div class="modal-content">
                 <div class="row">
                   <div class="modal-header">
-                      <a class="modal-action modal-close waves-effect waves-green btn-flat ">Fermer</a>
+                      <button class="modal-action modal-close waves-effect waves-green btn ">Fermer</button>
                   </div>
                     <div class="input-field col s6">
                         <h5>Nom de la salle :</h5> {{salleDesFetes.name}}
@@ -64,7 +64,7 @@
                         <h5>Adresse :</h5> {{salleDesFetes.adress}}
                     </div>
                 </div>
-                <button type="button" ng-click="editSDF($index)">Modifier des informations</button>
+                <button type="button" class="btn" ng-click="editSDF($index)">Modifier des informations</button>
                 <ng-show ng-show="editSDF[$index]">
                     <div class="input-field col s6">
                         <label>Nom de la salle :</label>
@@ -94,19 +94,16 @@
                         <label>Adresse :</label>
                         <input type="text" ng-model="newAdressSDF" placeholder="{{salleDesFetes.adress}}">
                     </div>
-                    <button type="button" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
+                    <button type="button" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
                 </ng-show>
             </div>
         </div>
-        <button type="button" name="button" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
+        <button type="button" class="btn" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
     </div>
-</div> -->
+</div>
 
-<!-- Upload image <input type="file" class="marginTop" ngf-select="onFileSelect($files)" accept="image/png, image/jpeg">
-<span data-ng-if="uploadInProgress">Upload progress: {{uploadProgress}}</span>
-<img data-ng-src="uploadedImage" data-ng-if="uploadedImage"> -->
 
-<form class="marginTop" name="form">
+<!-- <form class="marginTop" name="form"> -->
   <!-- Upload on form submit or button click
   Single Image with validations
   <button ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
@@ -116,11 +113,10 @@
   <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
   Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>
   <button type="submit" ng-click="submit()">submit</button> -->
-</form>
+<!-- </form>
 <div class="button" ngf-select="upload($file)">Upload on file select</div>
-<div class="button" ngf-select="uploadFiles($files)" multiple="multiple">Upload on files select</div>
+<div class="button" ngf-select="uploadFiles($files)" multiple="multiple">Upload on files select</div> -->
 
-<img src="/server/uploads/-p7fv4Udom1dr4Ml274p-z3D.png" alt="">
   <!-- Drop File:
 <div ngf-drop="uploadFiles($files)" class="drop-box"
   ngf-drag-over-class="'dragover'" ngf-multiple="true"

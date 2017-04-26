@@ -1,22 +1,23 @@
-angular.module('app')
-    .service('UploadService', function(Upload) {
-        var uploadSettings = {
-            url: '/upload/',
-            data: {
-              file: {},
-            },
-            method: 'POST',
-            withCredentials: false,
-        };
+// angular.module('app')
+//     .service('UploadService', function(Upload) {
 
-        return {
-          upload: function(file) {
-            var copieSettings = JSON.parse(JSON.stringify(uploadSettings));
-            copieSettings.data.file = file;
-            console.log(file);
-            return Upload.upload(copieSettings);
-          }
-        };
+        // var uploadSettings = {
+        //     url: '/upload/',
+        //     data: {
+        //         file: {},
+        //     },
+        //     method: 'POST',
+        //     withCredentials: false,
+        // };
+        //
+        // return {
+        //     upload: function(file) {
+        //         var copieSettings = JSON.parse(JSON.stringify(uploadSettings));
+        //         copieSettings.data.file = file;
+        //         console.log(file);
+        //         return Upload.upload(copieSettings);
+        //     }
+        // };
 
         // return {
         //     getAll: function() {
@@ -35,4 +36,4 @@ angular.module('app')
         //         return $http.delete('/upload/' + id);
         //     }
         // };
-    });
+//    });

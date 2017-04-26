@@ -12,15 +12,13 @@ module.exports = (app) => {
 
     var sdf = new SDF();
 
-    // router.get('/isAdmin', Auth.isAdministrator, function(req, res) {
-    //     res.sendStatus(200);
-    // });
-
     router.get('/', Auth.hasAuthorization, sdf.findAll);
 
     router.get('/:id', Auth.hasAuthorization, sdf.findById);
 
     router.post('/', sdf.create);
+
+    //  app.post('/uploadImages/:sdfID', Auth.hasAuthorization, sdf.uploadImages);
 
     router.put('/:id', Auth.isAdministrator, sdf.update);
 
