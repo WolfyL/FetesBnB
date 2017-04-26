@@ -115,7 +115,7 @@ export default class User {
         if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(req.body.password)) {
             res.status(400).send("Mot de passe de 6 carractères avec au moin un chiffre");
         } else {
-
+          
             if (req.body.password) {
                 var salt = bcrypt.genSaltSync(10);
                 req.body.password = bcrypt.hashSync(req.body.password, salt);
@@ -142,13 +142,21 @@ export default class User {
     }
 
     update(req, res) {
+      if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(req.body.password)) {
+          res.status(400).send("Mot de passe de 6 carractères avec au moin un chiffre");
+      } else {
+
+        if (req.body.password) {
+            var salt = bcrypt.genSaltSync(10);
+            req.body.password = bcrypt.hashSync(req.body.password, salt);
+        }
         model.update({
             _id: req.params.id
         }, req.body, {
             runValidators: true
         }, (err, user) => {
             if (err || !user) {
-                res.status(500).send(err.message  );
+                res.status(500).send(err.message);
             } else {
                 let tk = jsonwebtoken.sign(user, token, {
                     expiresIn: "24h"
@@ -160,6 +168,7 @@ export default class User {
                 });
             }
         });
+      }
     }
 
     delete(req, res) {
