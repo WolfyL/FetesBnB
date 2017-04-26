@@ -67,18 +67,20 @@
 
     <div class="input-field col offset-s1 s5 m5 offset-l1 l4">
         <i class="material-icons prefix">vpn_key</i>
-        <input id="first_name" type="text" class="validate">
+        <input id="first_name" type="password" class="validate" style="color: {{ textColor }};" ng-model="newPassword">
         <label for="first_name">Nouveau mot de passe</label>
     </div></br>
     <div class="input-field col s5 m5 offset-l1 l4">
         <i class="material-icons prefix">vpn_key</i>
-        <input id="last_name" type="text" class="validate">
+        <input id="last_name" type="password" class="validate" style="color: {{ textColor }};" ng-model="addPassword">
         <label for="last_name">Confirmer mot de passe</label>
     </div>
+    <p style="color: {{ textColor }};">{{ alertPassword }}</p>
   </div>
   <div class="modal-footer">
-    <button class="modal-action modal-close waves-effect brown darken-2 btn-flat white-text" ng-click="changePassword()">Enregistrer
+    <button class="modal-action waves-effect brown darken-2 btn-flat white-text" ng-click="changePassword()">Enregistrer
       <i class="material-icons left">done</i>
     </button>
+    <button class="modal-action waves-effect left modal-close orange lighten-2 btn-flat white-text">Fermer</button>
   </div>
 </div>

@@ -21,13 +21,31 @@ angular.module('app')
             location.reload();
           }, function (err) {
             console.log(err);
+            alert("Mail invalide");
             $scope.alert = "Mail invalide";
           });
         }
-
-
       };
 
+
+
+      $scope.changePassword = function () {
+
+        // var user = {
+        //   password: $scope.addPassword
+        // };
+
+        if($scope.newPassword != $scope.addPassword){
+          $scope.textColor = "red";
+          alert("Mot de passe différent.");
+          $scope.alertPassword = "Mot de passe différent.";
+        } else {
+          $scope.textColor = "green";
+          $scope.alertPassword = "Mot de passe modifié.";
+          // UserService.update(id, user).then(function(res){});
+        }
+
+      };
 
           $(document).ready(function(){
             $('.modal').modal();

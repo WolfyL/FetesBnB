@@ -148,7 +148,7 @@ export default class User {
             runValidators: true
         }, (err, user) => {
             if (err || !user) {
-                res.status(500).send(err.message);
+                res.status(500).send(err.message  );
             } else {
                 let tk = jsonwebtoken.sign(user, token, {
                     expiresIn: "24h"
