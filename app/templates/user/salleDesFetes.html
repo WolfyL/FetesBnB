@@ -107,7 +107,7 @@
 <img data-ng-src="uploadedImage" data-ng-if="uploadedImage"> -->
 
 <form class="marginTop" name="form">
-  Upload on form submit or button click
+  <!-- Upload on form submit or button click
   Single Image with validations
   <button ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
     ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
@@ -115,14 +115,14 @@
   Multiple files
   <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
   Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>
-  <button type="submit" ng-click="submit()">submit</button>
+  <button type="submit" ng-click="submit()">submit</button> -->
 </form>
-
-Upload right away after file selection:
 <div class="button" ngf-select="upload($file)">Upload on file select</div>
-<div class="button" ngf-select="uploadFiles($files)" multiple="multiple">Upload on file select</div>
-  Drop File:
+<div class="button" ngf-select="uploadFiles($files)" multiple="multiple">Upload on files select</div>
+
+<img src="/server/uploads/-p7fv4Udom1dr4Ml274p-z3D.png" alt="">
+  <!-- Drop File:
 <div ngf-drop="uploadFiles($files)" class="drop-box"
   ngf-drag-over-class="'dragover'" ngf-multiple="true"
   ngf-pattern="'image/*,application/pdf'">Drop Images or PDFs files here</div>
-<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div> -->

@@ -13,9 +13,11 @@ angular.module('app')
           upload: function(file) {
             var copieSettings = JSON.parse(JSON.stringify(uploadSettings));
             copieSettings.data.file = file;
+            console.log(file);
             return Upload.upload(copieSettings);
           }
         };
+
         // return {
         //     getAll: function() {
         //         return $http.get('/upload');
