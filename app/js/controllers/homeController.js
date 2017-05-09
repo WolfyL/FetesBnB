@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('HomeController', function($scope, CurrentUser, UserService) {
+    .controller('HomeController', function($scope, CurrentUser, UserService, SDFService) {
 
       $scope.section = {
         color : '#edc34e',
@@ -12,5 +12,9 @@ angular.module('app')
             $scope.user = res.data;
             console.log($scope.user.isAdmin);
         });
+SDFService.getAll().then(function(res){
+  console.log(res);
+$scope.sallesDesFetes=res.data
+})
 
     });
