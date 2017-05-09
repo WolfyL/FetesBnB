@@ -14,7 +14,7 @@ angular.module('app')
         });
 SDFService.getAll().then(function(res){
   console.log(res);
-$scope.sallesDesFetes=res.data
-})
+$scope.sallesDesFetes=res.data;
+});
 
     });
