@@ -9192,6 +9192,7 @@ section {
 }
 .styleNavbar {
   margin-bottom: -50px;
+  background-color: white!important;
 }
 .nav {
   margin-right: 10px;
@@ -9199,7 +9200,7 @@ section {
 }
 nav {
   box-shadow: none;
-  background-color: white;
+  background-color: white!important;
 }
 nav ul a {
   color: black;
@@ -9213,6 +9214,20 @@ label {
 }
 h1 {
   font-size: 50px;
+}
+h5 {
+  font-size: 20px;
+}
+.map {
+  width: 98vw;
+  height: 40vh;
+}
+.col-lg-offset-3 col-lg-6 ng-scope {
+  margin-left: inherit;
+}
+div.container.ng-scope {
+  margin-left: 0 ,auto;
+  display: -webkit-inline-box;
 }
 
 /*# sourceMappingURL=app.css.map */

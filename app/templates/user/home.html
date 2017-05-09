@@ -45,8 +45,15 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-offset-3 col-lg-6">
-            <img src="https://i.stack.imgur.com/D167A.png" alt="">
+        <div class="container">
+
+          <div map-lazy-load="https://maps.google.com/maps/api/js"
+          map-lazy-load-params="{{googleMapsUrl}}">
+          <ng-map center="48.4710,1.01417" zoom="3"></ng-map>
+        </div>
+        </div>
         </div>
     </div>
 </div>
+
+<script src="http://maps.google.com/maps/api/js"></script>

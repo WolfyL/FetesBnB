@@ -1,7 +1,7 @@
 angular.module('app')
     .controller('HomeController', function($scope, CurrentUser, UserService) {
 
-      $scope.section = {
+      $scope.section = {
         color : '#edc34e',
         backColor : '#3e2b2b'
       };
