@@ -1,59 +1,47 @@
-<section class="section section-quaternary mt-none mb-sm ">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Trouver une salle à louer proche de chez vous</h1>
+<div class="row">
+    <div class="row">
+      <div class="col offset-l1 l10 section">
+        <h1>Trouver une salle à louer proche de chez vous</h1>
+      </div>
+        <div class="col offset-l3 l12">
+            <div class="input-field col l2">
+                <input type="text" autocomplete="off" placeholder="Où ?" class="validate" />
+                <label for="city"><h5>Ville ou code postal  :</h5></label>
             </div>
-            <div class="col-md-12">
-                <form action="/trouver-une-salle" method="get">
-                    <div class="row">
-                        <div class="col-md-4 ">
-                            <div class="formBlock select typeahead-container">
-                                <label>Ville ou code postal  :</label>
-                                <input type="search" name="" autocomplete="off" placeholder="Où ?" class="formDropdown form-control" />
-                            </div>
-                        </div>
 
-                        <div class="col-md-4 ">
-                            <div class="formBlock select typeahead-container">
-                                <label>Rayon de recherche</label>
-                                <input type="search" name="" autocomplete="off" placeholder="Rayon ?" class="formDropdown form-control" />
-                            </div>
-                        </div>
+            <div class="input-field col l2">
+                <input type="text" autocomplete="off" placeholder="Où ?" class="validate" />
+                <label for="rayon"><h5>Rayon de recherche</h5></label>
+            </div>
 
-                        <div class="col-md-3">
-                            <div class="formBlock select">
-                                <label>Nbr de personnes : </label>
-                                <input type="text" name="" size="5" placeholder="Nombre de personnes ?" class=" form-control" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 pt-lg">
-                            <button type="submit" class="btn btn-primary btn-lg pull-right"><i class="fa fa-search fa-lg"></i> Lancer la recherche</button>
-                        </div>
-                    </div>
-                    <input type="hidden" name="trouver_salle_type[lieu_id]" value="" class=" form-control" />
-                    <input type="hidden" name="trouver_salle_type[type]" value="" class=" form-control" />
-                    <input type="hidden" name="trouver_salle_type[rayon]" class=" form-control" />
-                </form>
+            <div class="input-field col l2">
+                <input type="text" autocomplete="off" placeholder="Où ?" class="validate" />
+                <label for="nomber_people"><h5>Nbr de personnes : </h5></label>
             </div>
         </div>
+
     </div>
-</section>
+    <div class="col l9">
+        <button type="submit" class="btn waves-effect right waves-light btn">Lancer la recherche
+            <i class="material-icons left">done</i>
+          </button>
+    </div>
+
+
+</div>
+
+
 
 <div class="container-fluid">
     <div class="row">
         <div class="container">
 
-          <div map-lazy-load="https://maps.google.com/maps/api/js"
-          map-lazy-load-params="{{googleMapsUrl}}">
-          <ng-map center="48.4710,1.01417" zoom="3"></ng-map>
-        </div>
-        </div>
+            <div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}">
+                <ng-map center="48.4710,1.01417" zoom="3"></ng-map>
+            </div>
         </div>
     </div>
+</div>
 </div>
 
 <script src="http://maps.google.com/maps/api/js"></script>
