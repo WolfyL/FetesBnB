@@ -5,7 +5,6 @@
     <title>
         <%= pkg.name %>
     </title>
-
     <link rel="stylesheet" type="text/css" href="<%= css %>" media="all" />
 </head>
 
@@ -13,7 +12,6 @@
 
     <div ui-view='navbar'></div>
     <div ui-view='content'></div>
-
     <script type="text/javascript" src="<%= js %>"></script>
 </body>
 
