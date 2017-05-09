@@ -1,5 +1,6 @@
-node_module/
+node_modules/
 generated/
+server/uploads/*
 
 ######################
 .DS_Store
