@@ -1,26 +1,23 @@
 <header>
     <div id="head_top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                    <a href="/"> <img class="logo img-responsive" id="monLogo" src="http://www.entrebeauceetperche.fr/public/images/logo.svg" /> </a>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-
-                </div>
+        <div class="row">
+            <div class="col l2 m2 s6">
+                <a href="/"><img class="logo img-responsive" id="monLogo" src="http://www.entrebeauceetperche.fr/public/images/logo.svg" /> </a>
             </div>
         </div>
     </div>
 </header>
-<nav class="navbar styleNavbar" role="navigation" ng-controller="NavbarController">
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <li ui-sref-active="active"><a ui-sref="user.home">Home</a></li>
-            <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Favoris</a></li>
-            <li ui-sref-active="active"><a ui-sref="user.profile" ng-show="auth.isAuthenticated()">Profile</a></li>
-            <li ui-sref-active="active"><a ui-sref="user.salleDesFetes" ng-if="user.isAdmin">Mes salles des fêtes</a></li>
-            <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'>Logout</a></li>
-        </li>
+
+<nav ng-controller="NavbarController">
+  <div class="nav-wrapper">
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <li ui-sref-active="active"><a ui-sref="user.home">Accueille</a></li>
     </ul>
-    </div>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Favoris</a></li>
+      <li ui-sref-active="active"><a ui-sref="user.profile" ng-show="auth.isAuthenticated()">Profile</a></li>
+      <li ui-sref-active="active"><a ui-sref="user.salleDesFetes" ng-if="user.isAdmin">Mes salles des fêtes</a></li>
+      <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'>Déconnection</a></li>
+    </ul>
+  </div>
 </nav>

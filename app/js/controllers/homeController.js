@@ -12,9 +12,13 @@ angular.module('app')
             $scope.user = res.data;
             console.log($scope.user.isAdmin);
         });
-SDFService.getAll().then(function(res){
-  console.log(res);
-$scope.sallesDesFetes=res.data;
-});
+        SDFService.getAll().then(function(res){
+          console.log(res);
+          $scope.sallesDesFetes=res.data;
+        });
 
+        
+        $(document).ready(function() {
+            $('select').material_select();
+        });
     });
