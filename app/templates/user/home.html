@@ -1,47 +1,35 @@
-<section class="section section-quaternary mt-none mb-sm ">
-  <div class="container">
+
+<div class="row">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col offset-l1 l10 section">
         <h1>Trouver une salle à louer proche de chez vous</h1>
       </div>
-      <div class="col-md-12">
-        <form action="/trouver-une-salle" method="get">
-          <div class="row">
-            <div class="col-md-4 ">
-              <div class="formBlock select typeahead-container">
-                <label>Ville ou code postal  :</label>
-                <input type="search" name="" autocomplete="off" placeholder="Où ?" class="formDropdown form-control" />
-              </div>
+        <div class="col offset-l3 l12">
+            <div class="input-field col l2">
+                <input type="text" autocomplete="off" placeholder="Où ?" class="validate" />
+                <label for="city"><h5>Ville ou code postal  :</h5></label>
             </div>
 
-            <div class="col-md-4 ">
-              <div class="formBlock select typeahead-container">
-                <label>Rayon de recherche</label>
-                <input type="search" name="" autocomplete="off" placeholder="Rayon ?" class="formDropdown form-control" />
-              </div>
+            <div class="input-field col l2">
+                <input type="text" autocomplete="off" placeholder="Où ?" class="validate" />
+                <label for="rayon"><h5>Rayon de recherche</h5></label>
             </div>
 
-            <div class="col-md-3">
-              <div class="formBlock select">
-                <label>Nbr de personnes : </label>
-                <input type="text" name="" size="5" placeholder="Nombre de personnes ?" class=" form-control" />
-              </div>
+            <div class="input-field col l2">
+                <input type="text" autocomplete="off" placeholder="Où ?" class="validate" />
+                <label for="nomber_people"><h5>Nbr de personnes : </h5></label>
             </div>
-          </div>
+        </div>
 
-          <div class="row">
-            <div class="col-md-12 pt-lg">
-              <button type="submit" class="btn btn-primary btn-lg pull-right"><i class="fa fa-search fa-lg"></i> Lancer la recherche</button>
-            </div>
-          </div>
-          <input type="hidden" name="trouver_salle_type[lieu_id]" value="" class=" form-control" />
-          <input type="hidden" name="trouver_salle_type[type]" value="" class=" form-control" />
-          <input type="hidden" name="trouver_salle_type[rayon]" class=" form-control" />
-        </form>
-      </div>
     </div>
-  </div>
-</section>
+    <div class="col l9">
+        <button type="submit" class="btn waves-effect right waves-light btn">Lancer la recherche
+            <i class="material-icons left">done</i>
+          </button>
+    </div>
+
+
+</div>
 
 <div class="container-fluid">
   <div class="row">
@@ -55,23 +43,23 @@
             <marker id="{{salleDesFetes._id}}" on-click="map.showInfoWindow('marker{{salleDesFetes._id}}')" position="{{salleDesFetes.adress}}, {{salleDesFetes.city}}, {{salleDesFetes.postalCode}}, France">
             </marker>
 
-          <info-window id='marker{{salleDesFetes._id}}'>
-            <div ng-non-bindable="">
-              <h4>{{salleDesFetes._id}}</h4>
-              <article class="">
-                {{salleDesFetes.city}}</br>
-                {{salleDesFetes.adress}}</br>
-                {{salleDesFetes.postalCode}}</br>
-                {{salleDesFetes.capacity}}personnes</br>
-                {{salleDesFetes.surface}}metre carr�s</br>s {{salleDesFetes.text}}
+            <info-window id='marker{{salleDesFetes._id}}'>
+              <div ng-non-bindable="">
+                <h4>{{salleDesFetes._id}}</h4>
+                <article class="">
+                  {{salleDesFetes.city}}</br>
+                  {{salleDesFetes.adress}}</br>
+                  {{salleDesFetes.postalCode}}</br>
+                  {{salleDesFetes.capacity}}personnes</br>
+                  {{salleDesFetes.surface}}metre carr�s</br>s {{salleDesFetes.text}}
 
-              </article>
-            </div>
-          </info-window>
-        </div>
+               </article>
+              </div>
+            </info-window>
+
+         </div>
         </ng-map>
       </div>
-    </div>
+    </div
   </div>
-</div>
 </div>
