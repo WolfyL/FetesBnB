@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-xs-6 col-xs-offset-3">
+    <div class="col s6 offset-s3">
         <form class="form" name="loginForm" novalidate ng-submit="login()">
             <div ng-repeat="error in errors">{{error.error}}</div>
             <div class="input-group">
@@ -14,3 +14,19 @@
         </form>
     </div>
 </div>
+<div class="row" ng-submit="login()">
+    <div ng-repeat="error in errors">{{error.error}}</div>
+    <div class="input-field col offset-s2 s8">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="password" type="password" class="validate">
+        <label for="password">Password</label>
+    </div>
+    <div class="input-field col offset-s2 s8">
+      <i class="material-icons prefix">vpn_key</i>
+        <input id="password" type="password" class="validate">
+        <label for="password">Password</label>
+    </div>
+</div>
+<button type="submit" class="btn-large waves-effect right waves-light btn">Recherche
+  <i class="material-icons right">send</i>
+</button>
