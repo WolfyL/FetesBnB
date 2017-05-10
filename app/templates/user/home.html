@@ -1,4 +1,6 @@
+
 <section class="marginTop">
+
     <div class="row">
         <div class="text center section">
             <h2>Trouver une salle à louer proche de chez vous</h2>
@@ -46,16 +48,33 @@
     </div>
 </section>
 
-
-
 <div class="container-fluid">
-    <div class="row">
-        <div class="container">
-            <div map-lazy-load="https://maps.google.com/maps/api/js?&key=AIzaSyBETHBl-6Bcvkwx2vwUgHz4HnAvaJiLE7M">
-                <ng-map center="48.4710,1.01417" zoom="11">
-                    <marker ng-repeat="salleDesFetes in sallesDesFetes" position="{{salleDesFetes.adress}}, {{salleDesFetes.city}}, {{salleDesFetes.postalCode}}, France"></marker>
-                </ng-map>
-            </div>
-        </div>
-    </div>
+  <div class="row">
+    <div class="container">
+
+      <div map-lazy-load="https://maps.google.com/maps/api/js?&key=AIzaSyBETHBl-6Bcvkwx2vwUgHz4HnAvaJiLE7M">
+        <ng-map center="48.4710,1.01417" zoom="11">
+          <div ng-repeat="salleDesFetes in sallesDesFetes" >
+
+            <marker id="{{salleDesFetes._id}}" on-click="map.showInfoWindow('marker{{salleDesFetes._id}}')" position="{{salleDesFetes.adress}}, {{salleDesFetes.city}}, {{salleDesFetes.postalCode}}, France">
+            </marker>
+
+            <info-window id='marker{{salleDesFetes._id}}'>
+              <div ng-non-bindable="">
+                <h4>{{salleDesFetes._id}}</h4>
+                <article class="">
+                  {{salleDesFetes.city}}</br>
+                  {{salleDesFetes.adress}}</br>
+                  {{salleDesFetes.postalCode}}</br>
+                  {{salleDesFetes.capacity}}personnes</br>
+                  {{salleDesFetes.surface}}metre carr�s</br>s {{salleDesFetes.text}}
+
+                </article>
+              </div>
+            </info-window>
+          </div>
+        </ng-map>
+      </div>
+    </div
+  </div>
 </div>
