@@ -10,11 +10,19 @@ angular.module('app')
 
         });
 
-        // $('.datepicker').pickadate({
-        //     selectMonths: true, // Creates a dropdown to control month
-        //     selectYears: 15, // Creates a dropdown of 15 years to control year
-        //     format: 'mm dd yyyy'
-        // });
+        $scope.myDate = new Date();
+
+        $scope.minDate = new Date(
+            $scope.myDate.getFullYear(),
+            $scope.myDate.getMonth(),
+            $scope.myDate.getDate());
+
+        $scope.maxDate = new Date(
+            $scope.myDate.getFullYear(),
+            $scope.myDate.getMonth() + 6,
+            $scope.myDate.getDate());
+
+
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;

@@ -106,22 +106,9 @@
             </div>
         </div>
     </div>
-    <!-- <form class="col s12">
-        <div class="row">
-            <label>Date</label>
-            <input type="date" class="datepicker" placeholder="Cliquer pour choisir la date">
-        </div>
-    </form> -->
-    <!-- <div class="input-field">
-        <input name="someDate" ng-model="SomeController.someDate" type="text" class="datepicker" materialize-date-picker readonly />
-        <label ng-class="{active: SomeController.someDate.length}">
-        Some Date
-    </label>
-    </div> -->
-<md-content>
-    <md-datepicker ng-model="birthday">Hi</md-datepicker>
-  </md-content>
-
+    <div class="col s12">
+        <md-datepicker ng-model="myDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate" readonly></md-datepicker>
+    </div>
 </div>
 
 <!-- <form class="marginTop" name="form"> -->
