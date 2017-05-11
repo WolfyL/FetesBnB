@@ -54,24 +54,25 @@
 
       <div map-lazy-load="https://maps.google.com/maps/api/js?&key=AIzaSyBETHBl-6Bcvkwx2vwUgHz4HnAvaJiLE7M">
         <ng-map center="48.4710,1.01417" zoom="11">
-          <div ng-repeat="salleDesFetes in sallesDesFetes" >
+          <div ng-repeat="salleDesFetes in sallesDesFetes">
+          <info-window id="window">
+            <div ng-non-bindable="">
+                <h4>{{sdf.name}}</h4>
+                Ville: {{sdf.city}}</br>
+                Adresse: {{sdf.adress}}</br>
+                Code postal: {{sdf.postalCode}}</br>
+                <article class="">
+              capacit&eacute {{sdf.capacity}} personnes</br>
+                {{sdf.surface}}m&sup2</br>{{sdf.text}}
 
-            <marker id="{{salleDesFetes._id}}" on-click="map.showInfoWindow('marker{{salleDesFetes._id}}')" position="{{salleDesFetes.adress}}, {{salleDesFetes.city}}, {{salleDesFetes.postalCode}}, France">
+              </article>
+            </div>
+          </info-window>
+
+            <marker id="{{salleDesFetes._id}}" on-click="showStore(event, $index)" position="{{salleDesFetes.adress}}, {{salleDesFetes.city}}, {{salleDesFetes.postalCode}}, France">
             </marker>
 
-            <info-window id='marker{{salleDesFetes._id}}'>
-              <div ng-non-bindable="">
-                <h4>{{salleDesFetes._id}}</h4>
-                <article class="">
-                  {{salleDesFetes.city}}</br>
-                  {{salleDesFetes.adress}}</br>
-                  {{salleDesFetes.postalCode}}</br>
-                  {{salleDesFetes.capacity}}personnes</br>
-                  {{salleDesFetes.surface}}metre carr�s</br>s {{salleDesFetes.text}}
 
-                </article>
-              </div>
-            </info-window>
           </div>
         </ng-map>
       </div>
