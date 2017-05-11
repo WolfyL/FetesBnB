@@ -3,12 +3,16 @@ angular.module('app')
     .controller('SDFController', function($scope, SDFService, Upload) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
-        $scope.dayReserved = [];
+        $scope.events = [];
 
         $(document).ready(function() {
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
             $('.modal').modal();
         });
+
+        $scope.eventCreatea = function(date){
+          console.log("in", date);
+        };
 
         // $scope.addDate = function(dateVal) {
             // var useID = 'md-1-month-' + moment($scope.myDate).format('YYYY') + '-' + String((Number(moment($scope.myDate).month()))) + '-' + moment($scope.myDate).format('DD');
