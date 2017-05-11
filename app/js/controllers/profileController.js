@@ -41,8 +41,8 @@ angular.module('app')
                 UserService.update(id, user).then(function(res) {
                 }, function(err) {
                     $scope.textColor = "red";
-                    alert("Mot de passe différent.");
-                    $scope.alertPassword = "Critère de validation du mot de passe et de 6 carractères minimum avec au moin un chiffre";
+                    alert("Critère de validation du mot de passe et de 6 carractères minimum avec au moin un chiffre.");
+                    $scope.alertPassword = "Critère de validation du mot de passe et de 6 carractères minimum avec au moin un chiffre.";
 
                 });
             } else {

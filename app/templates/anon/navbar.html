@@ -10,12 +10,19 @@
 
 <nav ng-controller="NavbarController">
     <div class="nav-wrapper">
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <a href="" data-target="mobile-demo" data-activates="mobile-demo" class="button-collapse"><i class="material-icons black-text">menu</i></a>
+        <ul class="left hide-on-med-and-down">
             <li ui-sref-active="active"><a ui-sref="anon.home">Accueille</a></li>
         </ul>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ul class="right hide-on-med-and-down">
             <li ui-sref-active="active"><a ui-sref="anon.login" ng-hide="auth.isAuthenticated()">Connection</a></li>
             <li ui-sref-active="active"><a ui-sref="anon.register" ng-hide="auth.isAuthenticated()">Enregistrement</a></li>
+            <!-- <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Dashboard</a></li> -->
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+            <li ui-sref-active="active"><a ui-sref="anon.home"><h4>Accueille</h4></a></li>
+            <li ui-sref-active="active"><a ui-sref="anon.login" ng-hide="auth.isAuthenticated()"><h4>Connection</h4></a></li>
+            <li ui-sref-active="active"><a ui-sref="anon.register" ng-hide="auth.isAuthenticated()"><h4>Enregistrement</h4></a></li>
             <!-- <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Dashboard</a></li> -->
         </ul>
     </div>
