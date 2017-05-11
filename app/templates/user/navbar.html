@@ -10,14 +10,22 @@
 
 <nav ng-controller="NavbarController">
   <div class="nav-wrapper">
-    <ul id="nav-mobile" class="left hide-on-med-and-down">
+    <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons black-text">menu</i></a>
+    <ul class="left hide-on-med-and-down">
       <li ui-sref-active="active"><a ui-sref="user.home">Accueille</a></li>
     </ul>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <ul class="right hide-on-med-and-down">
       <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Favoris</a></li>
       <li ui-sref-active="active"><a ui-sref="user.profile" ng-show="auth.isAuthenticated()">Profile</a></li>
       <li ui-sref-active="active"><a ui-sref="user.salleDesFetes" ng-if="user.isAdmin">Mes salles des fêtes</a></li>
       <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'>Déconnection</a></li>
+    </ul>
+    <ul class="side-nav" id="mobile-demo" class="left hide-on-med-and-down">
+      <li ui-sref-active="active"><a ui-sref="user.home"><h4>Accueille</h4></a></li>
+      <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()"><h4>Favoris</h4></a></li>
+      <li ui-sref-active="active"><a ui-sref="user.profile" ng-show="auth.isAuthenticated()"><h4>Profile</h4></a></li>
+      <li ui-sref-active="active"><a ui-sref="user.salleDesFetes" ng-if="user.isAdmin"><h4>Mes salles des fêtes</h4></a></li>
+      <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'><h4>Déconnection</h4></a></li>
     </ul>
   </div>
 </nav>
