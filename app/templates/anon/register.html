@@ -1,65 +1,41 @@
-<!-- <div class="row">
-    <div class="col-xs-6 col-xs-offset-3">
-        <form class="form" name="loginForm" novalidate ng-submit="register()">
-            <div ng-repeat="error in errors">{{error.error}}</div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input id="firstName " type="text" class="form-control" ng-model="user.firstName" required placeholder="Nom">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input id="lastName" type="text" class="form-control" ng-model="user.lastName" required placeholder="Prenom">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input id="email" type="email" class="form-control" ng-model="user.email" required placeholder="Email Address">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input id="password" type="password" class="form-control" ng-model="user.password" required placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-        </form>
-    </div>
-</div> -->
 <form class="form" name="loginForm" novalidate ng-submit="register()">
     <div class="row">
         <div ng-repeat="error in errors">{{error.error}}</div>
-        <div class="input-field col offset-l3 l6">
+        <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">account_circle</i>
             <input id="text" type="text" class="validate" ng-model="user.firstName">
             <label for="text">Nom</label>
         </div>
-        <div class="input-field col offset-l3 l6">
+        <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">account_circle</i>
             <input id="text" type="text" class="validate" ng-model="user.lastName">
             <label for="text">Prenom</label>
         </div>
-        <div class="input-field col offset-l3 l6">
+        <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">account_circle</i>
             <input id="email" type="email" class="validate" ng-model="user.email">
             <label for="email">Email</label>
         </div>
-        <div class="input-field col offset-l3 l6">
+        <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">vpn_key</i>
             <input id="password" type="password" class="validate" ng-model="user.password">
             <label for="password">Mot de passe</label>
         </div>
     </div>
     <div class="row">
-        <div class="col offset-l3">
+        <div class="col offset-l3 l2 offset-m3 m2 offset-s3 m2">
             <button type="submit" class="btn waves-effect left waves-light btn">Enregistrer
               <i class="material-icons right">done</i>
             </button>
         </div>
-        <div class="col l4">
+        <div class="col l4 m4 s4">
             <a ui-sref="anon.login" class="btn waves-effect right waves-light btn">Connection
             </a>
         </div>
     </div>
 </form>
 <div class="row">
-  <div class="col offset-l3">
+  <div class="col offset-l3 offset-m3 offset-s3">
       <span class="blue-text text-darken-2">Si vous avez un compte veuillez vous connecter en cliquant sur le bouton connection</span>
   </div>
 </div>
