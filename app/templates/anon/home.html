@@ -1,19 +1,19 @@
 <section class="marginTop">
-  <div class="row">
-    <div class="text center section">
-      <h2>Trouver une salle à louer proche de chez vous</h2>
-    </div>
     <div class="row">
-      <div class="col offset-l2 l9 m9 s9 marginTop">
-
-        <div class="input-field col l3 m3 s3">
-          <input type="text" autocomplete="off" placeholder="Où ?" class="validate" />
-          <label for="city">Ville ou code postal  :</label>
+        <div class="text center section">
+            <h2>Trouver une salle à louer proche de chez vous</h2>
         </div>
+        <div class="row">
+            <div class="col offset-l2 l9 m9 s9 marginTop">
+
+                <div class="input-field col l3 m3 s3">
+                    <input type="text" autocomplete="off" placeholder="Où ?" class="validate" />
+                    <label for="city">Ville ou code postal  :</label>
+                </div>
 
 
-        <div class="input-field col l3 m3 s3 pitchBlack">
-          <select>
+                <div class="input-field col l3 m3 s3 pitchBlack">
+                    <select>
                     <option value="" disabled selected>Km</option>
                     <option value="1">10</option>
                     <option value="2">30</option>
@@ -21,11 +21,11 @@
                     <option value="4">75</option>
                     <option value="5">100</option>
                   </select>
-          <label>Rayon de recherche</label>
-        </div>
+                    <label>Rayon de recherche</label>
+                </div>
 
-        <div class="input-field col l3 m3 s3 pitchBlack">
-          <select>
+                <div class="input-field col l3 m3 s3 pitchBlack">
+                    <select>
                       <option value="" disabled selected>Combien</option>
                       <option value="1">50</option>
                       <option value="2">100</option>
@@ -33,44 +33,41 @@
                       <option value="4">250</option>
                       <option value="5">500</option>
                     </select>
-          <label>Nbr de personnes : </label>
-        </div>
+                    <label>Nbr de personnes : </label>
+                </div>
 
-        <div class="col l2 m3 s3">
-          <button type="submit" class="btn-large waves-effect right waves-light btn">Recherche
+                <div class="col l2 m3 s3">
+                    <button type="submit" class="btn-large waves-effect right waves-light btn">Recherche
                     <i class="material-icons right">send</i>
                   </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="container-fluid">
-  <div class="row">
-    <div class="container">
-      <div map-lazy-load="https://maps.google.com/maps/api/js?&key=AIzaSyBETHBl-6Bcvkwx2vwUgHz4HnAvaJiLE7M">
-        <ng-map center="48.4710,1.01417" zoom="11">
-          <div ng-repeat="salleDesFetes in sallesDesFetes">
-            <info-window id="window">
-              <div ng-non-bindable="">
-                <info-window id="window">
-                  <div ng-non-bindable="">
-                    <h4>{{sdf.name}}</h4> Ville: {{sdf.city}}</br>
-                    Adresse: {{sdf.adress}}</br>
-                    Code postal: {{sdf.postalCode}}</br>
-                    capaciteacute {{sdf.capacity}} personnes</br>
-                    {{sdf.surface}}msup2</br>{{sdf.text}}
-                    <article class="">
-
-                    </article>
-                  </div>
-                </info-window>
-            </info-window>
-            <marker id="{{salleDesFetes._id}}" on-click="showStore(event, $index)" position="{{salleDesFetes.adress}}, {{salleDesFetes.city}}, {{salleDesFetes.postalCode}}, France">
-            </marker>
+                </div>
             </div>
-        </ng-map>
         </div>
-      </div>
     </div>
-  </div>
+</section>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="container">
+            <div map-lazy-load="https://maps.google.com/maps/api/js?&key=AIzaSyBETHBl-6Bcvkwx2vwUgHz4HnAvaJiLE7M">
+                <ng-map center="48.4710,1.01417" zoom="11">
+                    <div ng-repeat="salleDesFetes in sallesDesFetes">
+                        <info-window id="window">
+                            <div ng-non-bindable="">
+                                <h4>{{sdf.name}}</h4> Ville: {{sdf.city}}</br>
+                                Adresse: {{sdf.adress}}</br>
+                                Code postal: {{sdf.postalCode}}</br>
+                                <article class="">
+                                    capacit&eacute {{sdf.capacity}} personnes</br>
+                                    {{sdf.surface}}m&sup2</br>{{sdf.text}}
+                                </article>
+                            </div>
+                        </info-window>
+                        <marker id="{{salleDesFetes._id}}" on-click="showStore(event, $index)" position="{{salleDesFetes.adress}}, {{salleDesFetes.city}}, {{salleDesFetes.postalCode}}, France">
+                        </marker>
+                    </div>
+                </ng-map>
+            </div>
+        </div>
+    </div>
+</div>
