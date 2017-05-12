@@ -12,7 +12,7 @@ module.exports = (app) => {
 
     var sdf = new SDF();
 
-    router.get('/', Auth.hasAuthorization, sdf.findAll);
+    router.get('/', sdf.findAll);
 
     router.get('/:id', Auth.hasAuthorization, sdf.findById);
 

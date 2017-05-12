@@ -1,10 +1,10 @@
 angular.module('app')
     .controller('MainController', function($scope, CurrentUser, UserService, SDFService, NgMap) {
         /* Here is your main controller */
-        UserService.getOne(CurrentUser.user()._id).then(function(res) {
-              $scope.user = res.data;
-              console.log($scope.user.isAdmin);
-          });
+        // UserService.getOne(CurrentUser.user()._id).then(function(res) {
+        //       $scope.user = res.data;
+        //       console.log($scope.user.isAdmin);
+        //   });
           SDFService.getAll().then(function(res){
             console.log(res);
             $scope.sallesDesFetes=res.data;
