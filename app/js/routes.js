@@ -68,7 +68,7 @@ angular.module('app')
         views: {
           'content@': {
             templateUrl: 'user/home.html',
-            controller: 'HomeController'
+            controller: 'MainController'
           }
         }
       })
