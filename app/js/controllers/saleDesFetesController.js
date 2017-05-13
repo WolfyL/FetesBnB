@@ -10,22 +10,30 @@ angular.module('app')
             $('.modal').modal();
         });
 
-        $scope.eventCreatea = function(date){
-          console.log("in", date);
+        $scope.eventCreatea = function(date) {
+            console.log("in", date);
+            // $('.layout-row').toggleClass("colored");
+            $scope.events.push({
+                title: $scope.eventTitle,
+                start: date,
+                allDay: false
+            });
+            $scope.eventTitle = "";
+            console.log($scope.events);
         };
 
         // $scope.addDate = function(dateVal) {
-            // var useID = 'md-1-month-' + moment($scope.myDate).format('YYYY') + '-' + String((Number(moment($scope.myDate).month()))) + '-' + moment($scope.myDate).format('DD');
-            // var date = moment(dateVal);
-            // var y = date.format('YYYY-');
-            // var m = (Number(date.format('M')) -1).toString();
-            // var d = date.format('-D');
-            // var regex = new RegExp("^md-.+-month-" + y + m + d + "$");
-            // console.log('im in', regex);
-            // $('.md-calendar-date').filter(function () {
-            //   console.log(this.id);
-            //   return regex.test(this.id);
-            // }).toggleClass("colored");
+        // var useID = 'md-1-month-' + moment($scope.myDate).format('YYYY') + '-' + String((Number(moment($scope.myDate).month()))) + '-' + moment($scope.myDate).format('DD');
+        // var date = moment(dateVal);
+        // var y = date.format('YYYY-');
+        // var m = (Number(date.format('M')) -1).toString();
+        // var d = date.format('-D');
+        // var regex = new RegExp("^md-.+-month-" + y + m + d + "$");
+        // console.log('im in', regex);
+        // $('.md-calendar-date').filter(function () {
+        //   console.log(this.id);
+        //   return regex.test(this.id);
+        // }).toggleClass("colored");
         //     $scope.dayReserved.push(dateVal);
         //
         // };
