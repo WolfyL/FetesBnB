@@ -25,7 +25,13 @@ angular.module('app')
             console.log("eventEnd : ", $scope.eventEnd);
             console.log("dayEnd : ", $scope.dayEnd);
 
-            if ($scope.dayEnd !== undefined && $scope.eventEnd !== undefined) {
+            console.log("minEnd avant", minEnd, typeof(minEnd));
+            if (minEnd === 0) {
+              console.log("minEnd apres", minEnd);
+              minEnd = '00';
+            }
+
+            if ($scope.dayEnd !== undefined && $scope.eventEnd !== undefined && $scope.dayEnd !== '' && $scope.eventEnd !== '') {
                 $scope.events.push({
                     title: $scope.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
                     start: new Date(startDate),
@@ -33,21 +39,21 @@ angular.module('app')
                     allDay: false
                 });
                 console.log("1");
-            } else if ($scope.dayEnd === undefined && $scope.eventEnd === undefined) {
+            } else if (($scope.dayEnd === undefined || $scope.dayEnd === '') && ($scope.eventEnd === undefined || $scope.eventEnd === '')) {
                 $scope.events.push({
                     title: $scope.eventTitle,
                     start: new Date(startDate),
                     allDay: false
                 });
                 console.log("2");
-            } else if ($scope.dayEnd === undefined) {
+            } else if ($scope.dayEnd === undefined || $scope.dayEnd === '') {
                 $scope.events.push({
                     title: $scope.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
                     start: new Date(startDate),
                     allDay: false
                 });
                 console.log("3");
-            } else if ($scope.eventEnd === undefined) {
+            } else if ($scope.eventEnd === undefined || $scope.eventEnd === '') {
                 $scope.events.push({
                     title: $scope.eventTitle,
                     start: new Date(startDate),
