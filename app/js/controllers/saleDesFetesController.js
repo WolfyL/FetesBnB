@@ -11,15 +11,21 @@ angular.module('app')
         });
 
         $scope.eventCreatea = function(date) {
-            console.log("in", date);
-            // $('.layout-row').toggleClass("colored");
+            // let eventStart = moment($scope.eventStart).format("hh:mm");
+            // console.log($scope.eventStart);
+            let finalDate = moment(date).add(1, 'hours');
+
+
+            // console.log("Start :", eventStart, "type", typeof(eventStart));
+            // console.log("finaleDate: ", finalDate.toISOString(), "type: ", typeof(finalDate.toISOString()));
+            // console.log(date, typeof(date));
             $scope.events.push({
                 title: $scope.eventTitle,
-                start: date,
+                start: new Date(finalDate),
                 allDay: false
             });
             $scope.eventTitle = "";
-            console.log($scope.events);
+            // console.log($scope.events);
         };
 
         // $scope.addDate = function(dateVal) {
