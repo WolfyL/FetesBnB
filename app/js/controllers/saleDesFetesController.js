@@ -11,58 +11,57 @@ angular.module('app')
         });
 
         $scope.eventCreatea = function(date) {
-          console.log($scope.eventStart);
+            console.log($scope.eventStart);
             // let hour = moment($scope.eventStart).format("hh:mm A").split(':')[0];
             // let min = moment($scope.eventStart).format("hh:mm").split(':')[1];
-            let hour = moment($scope.eventStart).get('hour');
-            let min = moment($scope.eventStart).get('minute');
-            console.log(hour);
-            let finalDate = moment(date).add(hour, 'h').add(min, 'm');
-            $scope.events.push({
-                title: $scope.eventTitle,
-                start: new Date(finalDate),
-                allDay: false
-            });
+            let hourStart = moment($scope.eventStart).get('hour');
+            let minStart = moment($scope.eventStart).get('minute');
+            let startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
+
+            let hourEnd = moment($scope.eventEnd).get('hour');
+            let minEnd = moment($scope.eventEnd).get('minute');
+            let endDate = moment($scope.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
+
+            console.log("eventEnd : ", $scope.eventEnd);
+            console.log("dayEnd : ", $scope.dayEnd);
+
+            if ($scope.dayEnd !== undefined && $scope.eventEnd !== undefined) {
+                $scope.events.push({
+                    title: $scope.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
+                    start: new Date(startDate),
+                    end: new Date($scope.dayEnd),
+                    allDay: false
+                });
+                console.log("1");
+            } else if ($scope.dayEnd === undefined && $scope.eventEnd === undefined) {
+                $scope.events.push({
+                    title: $scope.eventTitle,
+                    start: new Date(startDate),
+                    allDay: false
+                });
+                console.log("2");
+            } else if ($scope.dayEnd === undefined) {
+                $scope.events.push({
+                    title: $scope.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
+                    start: new Date(startDate),
+                    allDay: false
+                });
+                console.log("3");
+            } else if ($scope.eventEnd === undefined) {
+                $scope.events.push({
+                    title: $scope.eventTitle,
+                    start: new Date(startDate),
+                    end: new Date($scope.dayEnd),
+                    allDay: false
+                });
+                console.log("4");
+            }
+
             $scope.eventTitle = "";
-            // console.log($scope.events);
+            $scope.eventStart = "";
+            $scope.dayEnd = "";
+            $scope.eventEnd = "";
         };
-
-        // $scope.addDate = function(dateVal) {
-        // var useID = 'md-1-month-' + moment($scope.myDate).format('YYYY') + '-' + String((Number(moment($scope.myDate).month()))) + '-' + moment($scope.myDate).format('DD');
-        // var date = moment(dateVal);
-        // var y = date.format('YYYY-');
-        // var m = (Number(date.format('M')) -1).toString();
-        // var d = date.format('-D');
-        // var regex = new RegExp("^md-.+-month-" + y + m + d + "$");
-        // console.log('im in', regex);
-        // $('.md-calendar-date').filter(function () {
-        //   console.log(this.id);
-        //   return regex.test(this.id);
-        // }).toggleClass("colored");
-        //     $scope.dayReserved.push(dateVal);
-        //
-        // };
-
-
-        // $scope.myDate = new Date();
-        //
-        // $scope.minDate = new Date(
-        //     $scope.myDate.getFullYear(),
-        //     $scope.myDate.getMonth(),
-        //     $scope.myDate.getDate());
-        //
-        // $scope.maxDate = new Date(
-        //     $scope.myDate.getFullYear(),
-        //     $scope.myDate.getMonth() + 6,
-        //     $scope.myDate.getDate());
-        //
-        //     $scope.notReservedYet = function(date) {
-        //       console.log("valeur du jour", date);
-        //         // var day = date.getDay();
-        //         // console.log("dansNotReservedYet", $scope.dayReserved);
-        //         // return $scope.dayReserved;
-        //         return true;
-        //     };
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
