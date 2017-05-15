@@ -113,9 +113,17 @@
                     <label>Nom de l'evenement/de la réservation :</label>
                     <input type="text" ng-model="eventTitle">
                 </div>
-                <div class="input-field col s12">
-                    <!-- <label>Heure (ex : 8:30):</label> -->
+                <div class="input-field col s6">
+                    <label class="active">Heure de commencement:</label>
                     <input type="time" ng-model="eventStart">
+                </div>
+                <div class="input-field col s6">
+                    <label class="active">Jour de fin: (par défaut, le jour même)</label>
+                    <input type="date" ng-model="dayEnd">
+                </div>
+                <div class="input-field col s6">
+                    <label class="active">Heure de fin: (optionnel)</label>
+                    <input type="time" ng-model="eventEnd">
                 </div>
             </div>
             <md-event-calendar-header class="md-center">

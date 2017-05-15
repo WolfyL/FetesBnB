@@ -11,14 +11,13 @@ angular.module('app')
         });
 
         $scope.eventCreatea = function(date) {
-            // let eventStart = moment($scope.eventStart).format("hh:mm");
-            // console.log($scope.eventStart);
-            let finalDate = moment(date).add(1, 'hours');
-
-
-            // console.log("Start :", eventStart, "type", typeof(eventStart));
-            // console.log("finaleDate: ", finalDate.toISOString(), "type: ", typeof(finalDate.toISOString()));
-            // console.log(date, typeof(date));
+          console.log($scope.eventStart);
+            // let hour = moment($scope.eventStart).format("hh:mm A").split(':')[0];
+            // let min = moment($scope.eventStart).format("hh:mm").split(':')[1];
+            let hour = moment($scope.eventStart).get('hour');
+            let min = moment($scope.eventStart).get('minute');
+            console.log(hour);
+            let finalDate = moment(date).add(hour, 'h').add(min, 'm');
             $scope.events.push({
                 title: $scope.eventTitle,
                 start: new Date(finalDate),
