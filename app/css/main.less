@@ -7,6 +7,16 @@
 @blue: #3f30c9;
 @black: #3e2b2b;
 
+.md-event-calendar-cell-event {
+    background-color: red!important;
+}
+
+.md-event-calendar-cell-event.md-end, .md-event-calendar-cell-event.md-continue, .md-event-calendar-cell-event.md-spacer{
+  background-color: red!important;
+  min-height: 26px!important;
+  font-size: 12px;
+}
+
 #monLogo {
     margin-left: 150px;
     width: 200px;
@@ -61,21 +71,22 @@ h1 {
     font-size: 50px;
 }
 
-h5{
-  font-size: 20px;
+h5 {
+    font-size: 20px;
 }
+
 .map {
-  width: 98vw;
-  height: 40vh;
-
+    width: 98vw;
+    height: 40vh;
 }
+
 .col-lg-offset-3 col-lg-6 ng-scope {
-  margin-left: inherit;
+    margin-left: inherit;
 }
-div.container.ng-scope {
-  margin-left: 0 ,auto;
-  display: -webkit-inline-box;
 
+div.container.ng-scope {
+    margin-left: 0 ,auto;
+    display: -webkit-inline-box;
 }
 body {
    display: flex;

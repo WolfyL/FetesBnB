@@ -1,5 +1,5 @@
 <div container-fluid class="marginTop">
-    <div class="row">
+    <!-- <div class="row">
         <form>
             <div class="input-field col s6">
                 <label>Nom de la salle :</label>
@@ -105,13 +105,34 @@
                 <button type="button" class="btn" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
             </div>
         </div>
+    </div> -->
+    <div class="col s12">
+        <md-event-calendar class="md-primary" ng-model="selected" md-events="events" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($date)" class="md-primary">
+            <div class="row">
+                <div class="input-field col s6">
+                    <label>Nom de l'evenement/de la réservation :</label>
+                    <input type="text" ng-model="eventTitle">
+                </div>
+                <div class="input-field col s6">
+                    <label class="active">Heure de commencement:</label>
+                    <input type="time" ng-model="eventStart">
+                </div>
+                <div class="input-field col s6">
+                    <label class="active">Jour de fin: (par défaut, le jour même)</label>
+                    <input type="date" ng-model="dayEnd">
+                </div>
+                <div class="input-field col s6">
+                    <label class="active">Heure de fin: (optionnel)</label>
+                    <input type="time" ng-model="eventEnd">
+                </div>
+            </div>
+            <md-event-calendar-header class="md-center">
+                <md-event-calendar-prev></md-event-calendar-prev>
+                <md-event-calendar-title></md-event-calendar-title>
+                <md-event-calendar-next></md-event-calendar-next>
+            </md-event-calendar-header>
+        </md-event-calendar>
     </div>
-    <form class="col s12">
-        <div class="row">
-            <label>Date</label>
-            <input type="date" class="datepicker" placeholder="Cliquer pour choisir la date">
-        </div>
-    </form>
 </div>
 
 <!-- <form class="marginTop" name="form"> -->

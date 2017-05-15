@@ -10,10 +10,12 @@
     "production": "lineman clean build && node production.js"
   },
   "dependencies": {
+    "angular-material-event-calendar": "^0.1.4",
     "angularjs-color-picker": "^3.2.1",
     "express": "",
     "lineman": "~0.37.0",
     "lineman-angular": "^0.3.0",
-    "lineman-less": "^0.1.0"
+    "lineman-less": "^0.1.0",
+    "moment": "^2.18.1"
   }
 }
