@@ -20,9 +20,8 @@ angular.module('app')
                 UserService.update(id, user).then(function(res) {
                     location.reload();
                 }, function(err) {
-                    console.log(err);
-                    alert("Mail invalide");
-                    $scope.alert = "Mail invalide";
+                    $scope.color = "red";
+                    $scope.alert = "Mail invalide exemple d'email : zzz@mail.com";
                 });
             }
         };
@@ -41,13 +40,11 @@ angular.module('app')
                 UserService.update(id, user).then(function(res) {
                 }, function(err) {
                     $scope.textColor = "red";
-                    alert("Critère de validation du mot de passe et de 6 carractères minimum avec au moin un chiffre.");
                     $scope.alertPassword = "Critère de validation du mot de passe et de 6 carractères minimum avec au moin un chiffre.";
 
                 });
             } else {
               $scope.textColor = "red";
-              alert("Mot de passe différent.");
               $scope.alertPassword = "Mot de passe différent.";
             }
         };

@@ -12,9 +12,9 @@ module.exports = (app) => {
 
     var user = new User();
 
-    // router.get('/isAdmin', Auth.isAdministrator, function(req, res) {
-    //     res.sendStatus(200);
-    // });
+    router.get('/isAdmin', Auth.isAdministrator, function(req, res) {
+        res.sendStatus(200);
+    });
 
     app.post('/login', user.connect);
 
