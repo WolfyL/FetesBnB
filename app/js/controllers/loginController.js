@@ -5,7 +5,8 @@ angular.module('app')
         $scope.login = function() {
             if($scope.user == null) {
               $scope.colorError = "red";
-              $scope.nopNop = "Veuillez renseigner tous les champs avant de valider.";
+              $scope.starError = "*"
+              $scope.loginError = "Veuillez renseigner tous les champs avant de valider.";
             } else if ($scope.loginForm.$valid) {
                 $scope.errors = [];
                 Auth.login($scope.user).then(function(result) {
@@ -13,7 +14,7 @@ angular.module('app')
                 }).catch(function(err) {
                     $scope.errors.push(err);
                     $scope.colorError = "red";
-                    $scope.nop = "Mot de passe non valide ou email inconnu.";
+                    $scope.loginError = "Mot de passe non valide ou email inconnu.";
                 });
             }
         };
