@@ -35,18 +35,18 @@
                 <div class="input-field col offset-s1 s5 m5 offset-l1 l4">
                     <i class="material-icons prefix">account_circle</i>
                     <input placeholder="{{ user.firstName }}" id="first_name" type="text" class="validate" ng-model="user.firstName">
-                    <label class="active" for="first_name">Nom</label>
+                    <label class="active" for="first_name" style="color: {{ color }}">Nom {{ starError }}</label>
                 </div>
                 <div class="input-field col s5 m5 offset-l1 l4">
                     <i class="material-icons prefix">account_circle</i>
                     <input placeholder="{{ user.lastName }}" id="last_name" type="text" class="validate" ng-model="user.lastName">
-                    <label class="active" for="last_name">Prénom</label>
+                    <label class="active" for="last_name" style="color: {{ color }}">Prénom {{ starError }}</label>
                 </div>
 
                 <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
                     <i class="material-icons prefix">email</i>
                     <input placeholder="{{ user.email }}" id="email" type="email" class="validate" ng-model="user.email">
-                    <label class="active" for="email">Email</label>
+                    <label class="active" for="email" style="color: {{ color }}">Email {{ starError }}</label>
                     <p style="color: {{ color }}">{{ alert }}</p>
                 </div>
                 <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
@@ -68,12 +68,12 @@
     <div class="input-field col offset-s1 s5 m5 offset-l1 l4">
         <i class="material-icons prefix">vpn_key</i>
         <input id="first_name" type="password" class="validate" style="color: {{ textColor }};" ng-model="newPassword">
-        <label for="first_name">Nouveau mot de passe</label>
+        <label for="first_name" style="color: {{ textColor }}">Nouveau mot de passe {{ starError }}</label>
     </div></br>
     <div class="input-field col s5 m5 offset-l1 l4">
         <i class="material-icons prefix">vpn_key</i>
         <input id="last_name" type="password" class="validate" style="color: {{ textColor }};" ng-model="addPassword">
-        <label for="last_name">Confirmer mot de passe</label>
+        <label for="last_name" style="color: {{ textColor }}">Confirmer mot de passe {{ starError }}</label>
     </div>
     <p style="color: {{ textColor }};">{{ alertPassword }}</p>
     <p style="color: {{ textColor }};">{{ validPassword }}</p>

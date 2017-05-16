@@ -23,6 +23,10 @@ angular.module('app')
                     $scope.color = "red";
                     $scope.alert = "Mail invalide exemple d'email : zzz@mail.com";
                 });
+            } else {
+              $scope.color = "red";
+              $scope.starError = "*";
+              $scope.alert = "Tous les champs sont obligatoire.";
             }
         };
 
@@ -35,14 +39,20 @@ angular.module('app')
             };
 
             if ($scope.newPassword === $scope.addPassword) {
-              $scope.textColor = "green";
-              $scope.alertPassword = "Mot de passe modifié.";
+              if ($scope.newPassword == null) {
+                $scope.textColor = "red";
+                $scope.starError = "*";
+                $scope.alertPassword = "Veuillez modifier le mot de passe avant de valider.";
+              } else {
+                $scope.textColor = "green";
+                $scope.alertPassword = "Mot de passe modifié.";
                 UserService.update(id, user).then(function(res) {
                 }, function(err) {
-                    $scope.textColor = "red";
-                    $scope.alertPassword = "Critère de validation du mot de passe et de 6 carractères minimum avec au moin un chiffre.";
+                  $scope.textColor = "red";
+                  $scope.alertPassword = "Critère de validation du mot de passe et de 6 carractères minimum avec au moin un chiffre.";
 
                 });
+              }
             } else {
               $scope.textColor = "red";
               $scope.alertPassword = "Mot de passe différent.";
