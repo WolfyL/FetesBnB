@@ -4,29 +4,27 @@
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">account_circle</i>
             <input id="text" type="text" class="validate" ng-model="user.firstName">
-            <label for="text" style="color: {{ color }}">Nom {{ star }}</label>
+            <label for="text" style="color: {{ colorError }}">Nom {{ starError }}</label>
         </div>
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">account_circle</i>
             <input id="text" type="text" class="validate" ng-model="user.lastName">
-            <label for="text" style="color: {{ color }}">Prenom {{ star }}</label>
+            <label for="text" style="color: {{ colorError }}">Prenom {{ starError }}</label>
         </div>
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">account_circle</i>
             <input id="email" type="text" class="validate" ng-model="user.email">
-            <label for="email" style="color: {{ color }}">Email {{ star }}</label>
+            <label for="email" style="color: {{ colorError }}">Email {{ starError }}</label>
         </div>
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">vpn_key</i>
             <input id="password" type="password" class="validate" ng-model="user.password">
-            <label for="password" style="color: {{ color }}">Mot de passe {{ star }}</label>
+            <label for="password" style="color: {{ colorError }}">Mot de passe {{ starError }}</label>
         </div>
     </div>
     <div class="row">
         <div class="col offset-l3">
-          <p style="color: {{ color }}">{{ nop }}</p>
-          <p style="color: {{ color }}">{{ nopNop }}</p>
-            <p style="color: {{ color }}">{{ errorRegister }}</p>
+            <p style="color: {{ colorError }}">{{ registerError }}</p>
         </div>
     </div>
     <div class="row">
