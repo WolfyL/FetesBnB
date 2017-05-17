@@ -65,23 +65,23 @@
                                 <h5>Adresse :</h5> {{salleDesFetes.adress}}
                             </div>
                             <div class="col s12">
-                                <md-event-calendar class="md-primary" ng-model="selected" md-events="events" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($date)" class="md-primary">
+                                <md-event-calendar class="md-primary" ng-model="salleDesFetes.selected" md-events="salleDesFetes.events" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($index,$date,event)" class="md-primary">
                                     <div class="row">
                                         <div class="input-field col s6">
                                             <label>Nom de l'evenement/de la réservation :</label>
-                                            <input type="text" ng-model="eventTitle">
+                                            <input type="text" ng-model="event.eventTitle">
                                         </div>
                                         <div class="input-field col s6">
                                             <label class="active">Heure de commencement:</label>
-                                            <input type="time" ng-model="eventStart">
+                                            <input type="time" ng-model="event.eventStart">
                                         </div>
                                         <div class="input-field col s6">
                                             <label class="active">Jour de fin: (par défaut, le jour même)</label>
-                                            <input type="date" ng-model="dayEnd">
+                                            <input type="date" ng-model="event.dayEnd">
                                         </div>
                                         <div class="input-field col s6">
                                             <label class="active">Heure de fin: (optionnel)</label>
-                                            <input type="time" ng-model="eventEnd">
+                                            <input type="time" ng-model="event.eventEnd">
                                         </div>
                                     </div>
                                     <md-event-calendar-header class="md-center">
