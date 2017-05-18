@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import Event from './evenement.js';
 const sdfSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -29,6 +29,10 @@ const sdfSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    evenement: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event'
+    }]
 });
 
 
@@ -39,7 +43,9 @@ export default class SDF {
     findAll(req, res) {
         model.find({}, {
             password: 0
-        }, (err, sallesDesFetes) => {
+        })
+        .populate('evenement')
+        .exec((err, sallesDesFetes) => {
             if (err || !sallesDesFetes) {
                 res.sendStatus(403);
             } else {
@@ -51,7 +57,9 @@ export default class SDF {
     findById(req, res) {
         model.findById(req.params.id, {
             password: 0
-        }, (err, salleDesFetes) => {
+        })
+        .populate('evenement')
+        .exec((err, salleDesFetes) => {
             if (err || !salleDesFetes) {
                 res.sendStatus(403);
             } else {
@@ -76,18 +84,26 @@ export default class SDF {
     }
 
     update(req, res) {
+        console.log('body',req.body);
         model.findByIdAndUpdate({
-            _id: req.params.id
-        }, req.body, (err, salleDesFetes) => {
-            if (err || !salleDesFetes) {
-                res.status(500).send(err.message);
-            } else {
-                res.json({
-                    success: true,
-                    salleDesFetes: salleDesFetes,
-                });
-            }
-        });
+                _id: req.params.id
+            }, {
+                $addToSet: {
+                    evenement: req.body._id
+                }
+            }, {
+                new: true
+            },
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.json({
+                        success: true,
+                        salleDesFetes: salleDesFetes,
+                    });
+                }
+            });
     }
 
     delete(req, res) {

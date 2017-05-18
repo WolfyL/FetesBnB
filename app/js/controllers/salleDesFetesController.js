@@ -1,19 +1,17 @@
 angular.module('app')
 
-    .controller('SDFController', function($scope, SDFService, Upload) {
+    .controller('SDFController', function($scope, SDFService, EvenementService, Upload) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
         $scope.events = [];
 
-
         $(document).ready(function() {
-            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
             $('.modal').modal();
         });
 
-        $scope.eventCreatea = function(indexSDF,date,event) {
+        $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
             console.log(event.eventStart);
-            console.log('index',indexSDF);
+            console.log('indexINDEXINDEX', indexSDF);
             // let hour = moment($scope.event.eventStart).format("hh:mm A").split(':')[0];
             // let min = moment($scope.event.eventStart).format("hh:mm").split(':')[1];
             let hourStart = moment(event.eventStart).get('hour');
@@ -29,34 +27,54 @@ angular.module('app')
 
             console.log("minEnd avant", minEnd, typeof(minEnd));
             if (minEnd === 0) {
-              console.log("minEnd apres", minEnd);
-              minEnd = '00';
+                console.log("minEnd apres", minEnd);
+                minEnd = '00';
             }
 
             if (event.dayEnd !== undefined && event.eventEnd !== undefined && event.dayEnd !== '' && event.eventEnd !== '') {
-                $scope.sallesDesFetes[indexSDF].events.push({
+                // $scope.sallesDesFetes[indexSDF].events.push({
+                //     title: event.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
+                //     start: new Date(startDate),
+                //     end: new Date(event.dayEnd),
+                //     allDay: false
+                // });
+                console.log("CREATE", event.eventTitle, new Date(startDate), new Date(event.dayEnd));
+                EvenementService.create({
                     title: event.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
                     start: new Date(startDate),
                     end: new Date(event.dayEnd),
                     allDay: false
+                }).then(function(res) {
+                    var evenement = res.data;
+                    console.log('evenement', evenement);
+                    console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
+                    SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
+                        console.log("Update success");
+                        SDFService.getAll().then(function(res) {
+                            $scope.sallesDesFetes = res.data;
+                            console.log($scope.sallesDesFetes);
+                        });
+                    }, function(err) {
+                        console.log("Update failed", err);
+                    });
                 });
                 console.log("1");
             } else if ((event.dayEnd === undefined || event.dayEnd === '') && (event.eventEnd === undefined || event.eventEnd === '')) {
-                  $scope.sallesDesFetes[indexSDF].events.push({
+                $scope.sallesDesFetes[indexSDF].events.push({
                     title: event.eventTitle,
                     start: new Date(startDate),
                     allDay: false
                 });
                 console.log("2");
             } else if (event.dayEnd === undefined || event.dayEnd === '') {
-                  $scope.sallesDesFetes[indexSDF].events.push({
+                $scope.sallesDesFetes[indexSDF].events.push({
                     title: event.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
                     start: new Date(startDate),
                     allDay: false
                 });
                 console.log("3");
             } else if (event.eventEnd === undefined || event.eventEnd === '') {
-                  $scope.sallesDesFetes[indexSDF].events.push({
+                $scope.sallesDesFetes[indexSDF].events.push({
                     title: event.eventTitle,
                     start: new Date(startDate),
                     end: new Date(event.dayEnd),
@@ -74,11 +92,14 @@ angular.module('app')
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
             console.log($scope.sallesDesFetes);
-            for(var index in $scope.sallesDesFetes) {
-              if ($scope.sallesDesFetes[index].events === undefined) {
-                $scope.sallesDesFetes[index].events = [];
-              }
+            for (var index in $scope.sallesDesFetes) {
+                if ($scope.sallesDesFetes[index].events === undefined) {
+                    $scope.sallesDesFetes[index].events = [];
+                }
+                console.log("get all res data sdf", $scope.sallesDesFetes);
             }
+
+
         });
 
         $scope.addSDF = function() {
@@ -93,7 +114,7 @@ angular.module('app')
             });
             SDFService.getAll().then(function(res) {
                 $scope.sallesDesFetes = res.data;
-                console.log($scope.sallesDesFetes);
+                console.log("WOUHOUUUUUUUUUUUUUUUUUUUU", $scope.sallesDesFetes);
             });
             $scope.nameSDF = '';
             $scope.citySDF = '';
