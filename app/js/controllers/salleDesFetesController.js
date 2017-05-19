@@ -3,14 +3,19 @@ angular.module('app')
     .controller('SDFController', function($scope, SDFService, EvenementService, Upload) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
-        $scope.events = [];
+        $scope.eventsTest = [{
+            title: "TEST",
+            start: new Date(),
+            end: new Date(),
+            allDay: true
+        }];
 
         $(document).ready(function() {
             $('.modal').modal();
         });
 
         $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
-            console.log(event.eventStart);
+            // console.log(event.eventStart);
             console.log('indexINDEXINDEX', indexSDF);
             // let hour = moment($scope.event.eventStart).format("hh:mm A").split(':')[0];
             // let min = moment($scope.event.eventStart).format("hh:mm").split(':')[1];
@@ -22,10 +27,10 @@ angular.module('app')
             let minEnd = moment(event.eventEnd).get('minute');
             let endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
 
-            console.log("event.eventEnd : ", event.eventEnd);
-            console.log("event.dayEnd : ", event.dayEnd);
-
-            console.log("minEnd avant", minEnd, typeof(minEnd));
+            // console.log("event.eventEnd : ", event.eventEnd);
+            // console.log("event.dayEnd : ", event.dayEnd);
+            //
+            // console.log("minEnd avant", minEnd, typeof(minEnd));
             if (minEnd === 0) {
                 console.log("minEnd apres", minEnd);
                 minEnd = '00';
@@ -54,8 +59,7 @@ angular.module('app')
                         SDFService.getAll().then(function(res) {
                             $scope.sallesDesFetes = res.data;
                             console.log($scope.sallesDesFetes, "SDF KJMLKDJFMLDKJMLFKJS");
-                            $scope.events[indexSDF] = $scope.sallesDesFetes[indexSDF].evenement;
-                            console.log($scope.events[indexSDF], "MON ARRAY D EVENTS");
+                            console.log($scope.sallesDesFetes[indexSDF].evenement, "MON ARRAY D EVENTS");
                         });
                     }, function(err) {
                         console.log("Update failed", err);
@@ -94,7 +98,15 @@ angular.module('app')
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
-            console.log($scope.sallesDesFetes);
+            console.log('res salle des fetes', $scope.sallesDesFetes);
+            $scope.sallesDesFetes = $scope.sallesDesFetes.map(function(salleDesFetes) {
+              salleDesFetes.evenement = salleDesFetes.evenement.map(function(event) {
+                event.end = new Date(event.end);
+                event.start = new Date(event.start);
+                return event;
+              });
+              return salleDesFetes;
+            });
             for (var index in $scope.sallesDesFetes) {
                 if ($scope.sallesDesFetes[index].events === undefined) {
                     $scope.sallesDesFetes[index].events = [];
