@@ -37,7 +37,12 @@ const userSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    liked:[{
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'SDF'
+        }]
 });
 
 userSchema.methods.comparePassword = function(pwd, cb) {
@@ -90,7 +95,8 @@ export default class User {
     findAll(req, res) {
         model.find({}, {
             password: 0
-        }, (err, users) => {
+        }).populate('liked')
+        .exec((err, users) => {
             if (err || !users) {
                 res.sendStatus(403);
             } else {
@@ -102,7 +108,9 @@ export default class User {
     findById(req, res) {
         model.findById(req.params.id, {
             password: 0
-        }, (err, user) => {
+        })
+        .populate('liked')
+        .exec((err, user) => {
             if (err || !user) {
                 res.sendStatus(403);
             } else {
@@ -170,7 +178,17 @@ export default class User {
         });
       }
     }
-
+likesdfUpdate(req, res) {
+        model.findByIdAndUpdate({
+            _id: req.params.id
+        },{$push:{liked: req.body.sallesDesFetes_id}}, (err, user) => {
+            if (err || !user) {
+                res.status(500)
+            } else {
+                res.json(user);
+            }
+        });
+    }
     delete(req, res) {
         model.findByIdAndRemove(req.params.id, (err) => {
             if (err) {

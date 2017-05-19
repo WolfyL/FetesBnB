@@ -20,6 +20,12 @@ angular.module('app')
               $scope.sdf = $scope.sallesDesFetes[index];
               $scope.map.showInfoWindow('window', this);
           };
+           $scope.addfav = function (sallesDesFetes_id) {
+          UserService.addFav(userId,sallesDesFetes_id).then(function(res){
+            console.log(res);
+          }, function (err) {
+          });
+        };
         $(document).ready(function() {
             $('select').material_select();
         });

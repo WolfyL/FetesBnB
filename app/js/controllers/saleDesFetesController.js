@@ -1,8 +1,9 @@
 angular.module('app')
 
-    .controller('SDFController', function($scope, SDFService, Upload) {
+    .controller('SDFController', function($scope, SDFService, Upload, CurrentUser, UserService) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
+        $scope.user = CurrentUser.user();
 
         $(document).ready(function() {
             // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
@@ -69,6 +70,13 @@ angular.module('app')
 
             }, function(err) {
                 console.log("Delete failed");
+            });
+        };
+        $scope.addFav = function(_id ,sallesDesFetes){
+            console.log('in addFav');
+            sdf = $scope.sallesDesFetes;
+            UserService.addFav($scope.user._id, $scope.sallesDesFetes._id).then(function(res){
+                console.log("liked sdf");
             });
         };
     });

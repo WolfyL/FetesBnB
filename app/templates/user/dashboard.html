@@ -1,1 +1,15 @@
 Dashboard de {{user.email}}
+ <div ng-repeat="liked in likeds | track by $index">
+      <div class="card-image">
+        <img src="">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <p>{{likeds.data}}</p>
+        </div>
+        <div class="card-action">
+          <a href="#">This is a link</a>
+        </div>
+      </div>
+    </div>
+  </div>

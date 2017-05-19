@@ -1,6 +1,9 @@
 angular.module('app')
-    .controller('DashboardController', function($scope, CurrentUser, UserService) {
+    .controller('DashboardController', function($scope, CurrentUser, UserService, SDFService) {
         UserService.getOne(CurrentUser.user()._id).then(function(res) {
-            $scope.user = res.data;
+           
+        });
+        SDFService.getAll().then(function(res){
+$scope.likeds = res;
         });
     });

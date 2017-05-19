@@ -40,8 +40,10 @@ export default class SDF {
         model.find({}, {
             password: 0
         }, (err, sallesDesFetes) => {
+            console.log('err',err,'sdfs found', sallesDesFetes);
             if (err || !sallesDesFetes) {
-                res.sendStatus(403);
+                                console.log(err)
+                res.status(500).json(err);
             } else {
                 res.json(sallesDesFetes);
             }
@@ -49,13 +51,13 @@ export default class SDF {
     }
 
     findById(req, res) {
-        model.findById(req.params.id, {
-            password: 0
-        }, (err, salleDesFetes) => {
-            if (err || !salleDesFetes) {
-                res.sendStatus(403);
+        model.findById(req.params.id,
+         (err, sallesDesFetes) => {
+            if (err || !sallesDesFetes) {
+                console.log(err)
+                res.status(500).json(err);
             } else {
-                res.json(salleDesFetes);
+                res.json(sallesDesFetes);
             }
         });
     }
