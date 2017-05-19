@@ -3,12 +3,6 @@ angular.module('app')
     .controller('SDFController', function($scope, SDFService, EvenementService, Upload) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
-        $scope.eventsTest = [{
-            title: "TEST",
-            start: new Date(),
-            end: new Date(),
-            allDay: true
-        }];
 
         $(document).ready(function() {
             $('.modal').modal();
@@ -58,8 +52,8 @@ angular.module('app')
                         console.log("Update success");
                         SDFService.getAll().then(function(res) {
                             $scope.sallesDesFetes = res.data;
-                            console.log($scope.sallesDesFetes, "SDF KJMLKDJFMLDKJMLFKJS");
-                            console.log($scope.sallesDesFetes[indexSDF].evenement, "MON ARRAY D EVENTS");
+                            // console.log($scope.sallesDesFetes, "SDF KJMLKDJFMLDKJMLFKJS");
+                            // console.log($scope.sallesDesFetes[indexSDF].evenement, "MON ARRAY D EVENTS");
                         });
                     }, function(err) {
                         console.log("Update failed", err);
@@ -98,23 +92,7 @@ angular.module('app')
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
-            console.log('res salle des fetes', $scope.sallesDesFetes);
-            $scope.sallesDesFetes = $scope.sallesDesFetes.map(function(salleDesFetes) {
-              salleDesFetes.evenement = salleDesFetes.evenement.map(function(event) {
-                event.end = new Date(event.end);
-                event.start = new Date(event.start);
-                return event;
-              });
-              return salleDesFetes;
-            });
-            for (var index in $scope.sallesDesFetes) {
-                if ($scope.sallesDesFetes[index].events === undefined) {
-                    $scope.sallesDesFetes[index].events = [];
-                }
-                console.log("get all res data sdf", $scope.sallesDesFetes);
-                $scope.events[index] = $scope.sallesDesFetes[index].evenement;
-                console.log("SCOPE EVENT", $scope.events[index]);
-            }
+            console.log('res salle des fetes après service', $scope.sallesDesFetes);
         });
 
         $scope.addSDF = function() {
