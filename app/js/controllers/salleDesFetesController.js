@@ -69,14 +69,26 @@ angular.module('app')
                       console.log("Update failed", err);
                   });
               });
-                console.log("3");
             } else if (event.eventEnd === undefined || event.eventEnd === '') {
-                $scope.sallesDesFetes[indexSDF].events.push({
-                    title: event.eventTitle,
-                    start: new Date(startDate),
-                    end: new Date(event.dayEnd),
-                    allDay: false
-                });
+              EvenementService.create({
+                  title: event.eventTitle,
+                  start: new Date(startDate),
+                  end: new Date(event.dayEnd),
+                  allDay: false
+              }).then(function(res) {
+                  var evenement = res.data;
+                  console.log('evenement', evenement);
+                  console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
+                  SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
+                      console.log("Update success");
+                      SDFService.getAll().then(function(res) {
+                          $scope.sallesDesFetes = res.data;
+                      });
+                  }, function(err) {
+                      console.log("Update failed", err);
+                  });
+              });
+
                 console.log("4");
             }
 
