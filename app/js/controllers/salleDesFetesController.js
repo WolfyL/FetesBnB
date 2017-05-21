@@ -9,10 +9,6 @@ angular.module('app')
         });
 
         $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
-            // console.log(event.eventStart);
-            console.log('indexINDEXINDEX', indexSDF);
-            // let hour = moment($scope.event.eventStart).format("hh:mm A").split(':')[0];
-            // let min = moment($scope.event.eventStart).format("hh:mm").split(':')[1];
             let hourStart = moment(event.eventStart).get('hour');
             let minStart = moment(event.eventStart).get('minute');
             let startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
@@ -21,23 +17,12 @@ angular.module('app')
             let minEnd = moment(event.eventEnd).get('minute');
             let endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
 
-            // console.log("event.eventEnd : ", event.eventEnd);
-            // console.log("event.dayEnd : ", event.dayEnd);
-            //
-            // console.log("minEnd avant", minEnd, typeof(minEnd));
             if (minEnd === 0) {
                 console.log("minEnd apres", minEnd);
                 minEnd = '00';
             }
 
             if (event.dayEnd !== undefined && event.eventEnd !== undefined && event.dayEnd !== '' && event.eventEnd !== '') {
-                // $scope.sallesDesFetes[indexSDF].events.push({
-                //     title: event.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
-                //     start: new Date(startDate),
-                //     end: new Date(event.dayEnd),
-                //     allDay: false
-                // });
-                console.log("CREATE", event.eventTitle, new Date(startDate), new Date(event.dayEnd));
                 let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
                 EvenementService.create({
                     title: title,
@@ -52,14 +37,11 @@ angular.module('app')
                         console.log("Update success");
                         SDFService.getAll().then(function(res) {
                             $scope.sallesDesFetes = res.data;
-                            // console.log($scope.sallesDesFetes, "SDF KJMLKDJFMLDKJMLFKJS");
-                            // console.log($scope.sallesDesFetes[indexSDF].evenement, "MON ARRAY D EVENTS");
                         });
                     }, function(err) {
                         console.log("Update failed", err);
                     });
                 });
-                console.log("1");
             } else if ((event.dayEnd === undefined || event.dayEnd === '') && (event.eventEnd === undefined || event.eventEnd === '')) {
                 $scope.sallesDesFetes[indexSDF].events.push({
                     title: event.eventTitle,
@@ -68,11 +50,25 @@ angular.module('app')
                 });
                 console.log("2");
             } else if (event.dayEnd === undefined || event.dayEnd === '') {
-                $scope.sallesDesFetes[indexSDF].events.push({
-                    title: event.eventTitle + " fini à:" + hourEnd + ':' + minEnd,
-                    start: new Date(startDate),
-                    allDay: false
-                });
+              let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
+              EvenementService.create({
+                  title: title,
+                  start: new Date(startDate),
+                  end: new Date(startDate),
+                  allDay: false
+              }).then(function(res) {
+                  var evenement = res.data;
+                  console.log('evenement', evenement);
+                  console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
+                  SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
+                      console.log("Update success");
+                      SDFService.getAll().then(function(res) {
+                          $scope.sallesDesFetes = res.data;
+                      });
+                  }, function(err) {
+                      console.log("Update failed", err);
+                  });
+              });
                 console.log("3");
             } else if (event.eventEnd === undefined || event.eventEnd === '') {
                 $scope.sallesDesFetes[indexSDF].events.push({
