@@ -43,12 +43,24 @@ angular.module('app')
                     });
                 });
             } else if ((event.dayEnd === undefined || event.dayEnd === '') && (event.eventEnd === undefined || event.eventEnd === '')) {
-                $scope.sallesDesFetes[indexSDF].events.push({
-                    title: event.eventTitle,
-                    start: new Date(startDate),
-                    allDay: false
-                });
-                console.log("2");
+              EvenementService.create({
+                  title: event.eventTitle,
+                  start: new Date(startDate),
+                  end: new Date(startDate),
+                  allDay: false
+              }).then(function(res) {
+                  var evenement = res.data;
+                  console.log('evenement', evenement);
+                  console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
+                  SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
+                      console.log("Update success");
+                      SDFService.getAll().then(function(res) {
+                          $scope.sallesDesFetes = res.data;
+                      });
+                  }, function(err) {
+                      console.log("Update failed", err);
+                  });
+              });
             } else if (event.dayEnd === undefined || event.dayEnd === '') {
               let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
               EvenementService.create({
@@ -88,8 +100,6 @@ angular.module('app')
                       console.log("Update failed", err);
                   });
               });
-
-                console.log("4");
             }
 
             event.eventTitle = "";
