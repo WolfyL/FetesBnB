@@ -10,7 +10,7 @@
                 <input type="text" ng-model="capacitySDF">
             </div>
             <div class="input-field col s12">
-                <textarea id="textareaDescription" placeholder = "cuisine" ng-model="textSDF" class="materialize-textarea"></textarea>
+                <textarea id="textareaDescription" placeholder="cuisine" ng-model="textSDF" class="materialize-textarea"></textarea>
                 <label for="textareaDescription">Description de la salle :</label>
             </div>
             <div class="input-field col s6">
@@ -90,6 +90,16 @@
                                         <md-event-calendar-title></md-event-calendar-title>
                                         <md-event-calendar-next></md-event-calendar-next>
                                     </md-event-calendar-header>
+                                    <!-- <div class="someContent">
+                                        This is some content. Click the following button to show (and scroll to fit) the last div of the content.
+                                        <br>
+                                    </div> -->
+                                    <div id="finalContent" ng-show="show">
+                                        Evenement selectionné : {{title}}
+                                    </div>
+
+
+
                                 </md-event-calendar>
                             </div>
                         </div>
