@@ -16,8 +16,8 @@ angular.module('app')
             delete: function(id) {
                 return $http.delete('/sallesDesFetes/' + id);
             },
-             getById: function(id) {
-                return $http.get('/sallesDesFetes/' + id);
+             getById: function(sdfId) {
+                return $http.get('/sallesDesFetes/' + sdfId);
             }
         };
     });

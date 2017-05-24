@@ -1,15 +1,24 @@
-Dashboard de {{user.email}}
- <div ng-repeat="liked in likeds | track by $index">
-      <div class="card-image">
-        <img src="">
+ <h2 class="text center section">Salles préférées de {{user.firstName}}</h2>
+ <div class="row">
+    <div  ng-repeat="liked in likeds track by $index" class="fav">
+    <div class="card horizontal card small col m4">
+      <div class="card-image blue-grey lighten-4">
+        <img src="http://lorempixel.com/100/190/nature/6">
       </div>
       <div class="card-stacked">
-        <div class="card-content">
-          <p>{{likeds.data}}</p>
-        </div>
-        <div class="card-action">
-          <a href="#">This is a link</a>
+    <h4 class="center-align header">{{liked.name}}</h4>  
+        <div class=" card-content ">
+          <hr>  
+          <ul> 
+            <li>Ville: {{liked.city}} </li>
+            <li>Adresse: {{liked.adress}} </li>
+            <li>Code postal: {{liked.postalCode}} </li>
+            <li>Capacité: {{liked.capacity}}pers. </li>
+            <li>Surface: {{liked.surface}} <sup>m2</sup></li>
+          </li>
+          <p>{{liked.text}}</p>
         </div>
       </div>
     </div>
+  </div>
   </div>
