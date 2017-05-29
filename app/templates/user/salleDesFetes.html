@@ -96,8 +96,9 @@
                                     </div> -->
                                     <div id="finalContent" ng-show="show">
                                       <h5>Evenement selectionné : {{title}}</h5>
-                                        <button type="button">Modifier l'evenement</button>
-                                        <button type="button">Supprimer l'evenement</button>
+                                        <button type="button" class="btn" ng-click="editEvent()">Modifier l'evenement</button>
+                                        <button type="button" class="btn" ng-click="deleteEvent()">Supprimer l'evenement</button>
+                                        <button type="button" class="btn" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
                                     </div>
 
 

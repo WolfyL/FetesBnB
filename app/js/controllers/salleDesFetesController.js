@@ -125,8 +125,56 @@ angular.module('app')
             }, 200);
             console.log(selectedEvent.title);
             // };
+
+            $scope.editEvent = function() {
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Open div with fields to change infos
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+                EvenementService.update(selectedEvent._id, newEvent).then(function(res) {
+                    console.log("Update success");
+                    SDFService.getAll().then(function(res) {
+                        $scope.sallesDesFetes = res.data;
+                    });
+                }, function(err) {
+                    console.log("Update failed", err);
+                });
+            };
+
+            $scope.deleteEvent = function() {
+                console.log(selectedEvent);
+                EvenementService.delete(selectedEvent._id).then(function(res) {
+                    console.log("delete succeed");
+                    $scope.show = false;
+                    SDFService.getAll().then(function(res) {
+                        $scope.sallesDesFetes = res.data;
+                        console.log($scope.sallesDesFetes);
+                    });
+                }, function(err) {
+                    console.log("Delete failed");
+                });
+            };
+
+            $scope.cancelSelect = function() {
+                $scope.show = false;
+                console.log($scope.show);
+            };
         };
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////// FAIRE LE CREATE PAREIL HISTOIRE DE SAUVER L UX UI
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////Gestion des SDF /////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
         $scope.addSDF = function() {
             SDFService.create({
