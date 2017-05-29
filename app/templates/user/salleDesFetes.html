@@ -90,15 +90,30 @@
                                         <md-event-calendar-title></md-event-calendar-title>
                                         <md-event-calendar-next></md-event-calendar-next>
                                     </md-event-calendar-header>
-                                    <!-- <div class="someContent">
-                                        This is some content. Click the following button to show (and scroll to fit) the last div of the content.
-                                        <br>
-                                    </div> -->
                                     <div id="finalContent" ng-show="show">
-                                      <h5>Evenement selectionné : {{title}}</h5>
+                                        <h5>Evenement selectionné : {{title}}</h5>
                                         <button type="button" class="btn" ng-click="editEvent()">Modifier l'evenement</button>
                                         <button type="button" class="btn" ng-click="deleteEvent()">Supprimer l'evenement</button>
                                         <button type="button" class="btn" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
+                                        <div class="row" ng-show="modifOpen">
+                                            <div class="input-field col s6">
+                                                <label>Nom de l'evenement/de la réservation :</label>
+                                                <input type="text" ng-model="modif.title" placeholder="{{title}}">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <label class="active">Heure de commencement:</label>
+                                                <input type="time" ng-model="modif.start">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <label class="active">Jour de fin: (par défaut, le jour même)</label>
+                                                <input type="date" ng-model="modif.dayEnd">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <label class="active">Heure de fin: (optionnel)</label>
+                                                <input type="time" ng-model="modif.end">
+                                            </div>
+                                            <button type="button" class="btn" ng-click="editEventValidate(modif)">Valider les modifications</button>
+                                        </div>
                                     </div>
 
 

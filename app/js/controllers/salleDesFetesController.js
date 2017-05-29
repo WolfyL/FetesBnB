@@ -4,6 +4,8 @@ angular.module('app')
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
         $scope.show = false;
+        $scope.modifOpen = false;
+        $scope.create = false;
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
@@ -16,6 +18,7 @@ angular.module('app')
         // $('#modal1').openModal(); try replace le bail de la modal par un ng-click qui prendra l' ID de la modal clickée
 
         $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
+            // $scope.create = true;
             let hourStart = moment(event.eventStart).get('hour');
             let minStart = moment(event.eventStart).get('minute');
             let startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
@@ -113,35 +116,41 @@ angular.module('app')
             event.eventStart = "";
             event.dayEnd = "";
             event.eventEnd = "";
+            // $scope.create = false;
         };
 
         $scope.eventClicked = function(selectedEvent) {
+            console.log(selectedEvent);
             $scope.title = selectedEvent.title;
-            // $scope.showDiv = function() {
             $scope.show = true;
             setTimeout(function() {
                 $location.hash('finalContent');
                 $anchorScroll();
             }, 200);
             console.log(selectedEvent.title);
-            // };
 
             $scope.editEvent = function() {
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-// Open div with fields to change infos
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+                $scope.modifOpen = true;
+            };
 
-
-                EvenementService.update(selectedEvent._id, newEvent).then(function(res) {
-                    console.log("Update success");
-                    SDFService.getAll().then(function(res) {
-                        $scope.sallesDesFetes = res.data;
-                    });
-                }, function(err) {
-                    console.log("Update failed", err);
+            $scope.editEventValidate = function(modif) {
+              newEvent = {
+                  title: modif.title,
+                  end: new Date(modif.dayEnd),
+                  allDay: false
+              };
+              if(modif.title === undefined){
+                  modif.title = selectedEvent.title;
+              }
+              console.log("title", modif.title, "end", modif.dayEnd);
+              EvenementService.update(selectedEvent._id, newEvent).then(function(res) {
+                console.log("Update success");
+                SDFService.getAll().then(function(res) {
+                  $scope.sallesDesFetes = res.data;
                 });
+              }, function(err) {
+                console.log("Update failed", err);
+              });
             };
 
             $scope.deleteEvent = function() {
@@ -164,17 +173,17 @@ angular.module('app')
             };
         };
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-/////////////////////////// FAIRE LE CREATE PAREIL HISTOIRE DE SAUVER L UX UI
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////// FAIRE LE CREATE PAREIL HISTOIRE DE SAUVER L UX UI
+        ////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
 
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////Gestion des SDF /////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////Gestion des SDF /////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
 
         $scope.addSDF = function() {
             SDFService.create({
