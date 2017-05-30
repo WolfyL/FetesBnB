@@ -10,8 +10,8 @@ angular.module('app')
             update: function(id, user) {
                 return $http.put('/users/' + id, user);
             },
-            addFav: function(id, sallesDesFetes_id) {
-                return $http.put('/users/sdf/' + id, {sallesDesFetes_id:sallesDesFetes_id});
+            addFav: function(id, sdf) {
+                return $http.put('/users/sdf/liked/' + id, sdf);
             },
             delete: function(id) {
                 return $http.delete('/users/' + id);

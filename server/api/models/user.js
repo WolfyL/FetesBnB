@@ -38,11 +38,11 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    liked:[{
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'SDF'
-        }]
+    liked: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'SDF'
+    }]
 });
 
 userSchema.methods.comparePassword = function(pwd, cb) {
@@ -94,29 +94,29 @@ export default class User {
 
     findAll(req, res) {
         model.find({}, {
-            password: 0
-        }).populate('liked')
-        .exec((err, users) => {
-            if (err || !users) {
-                res.sendStatus(403);
-            } else {
-                res.json(users);
-            }
-        });
+                password: 0
+            }).populate('liked')
+            .exec((err, users) => {
+                if (err || !users) {
+                    res.sendStatus(403);
+                } else {
+                    res.json(users);
+                }
+            });
     }
 
     findById(req, res) {
         model.findById(req.params.id, {
-            password: 0
-        })
-        .populate('liked')
-        .exec((err, user) => {
-            if (err || !user) {
-                res.sendStatus(403);
-            } else {
-                res.json(user);
-            }
-        });
+                password: 0
+            })
+            .populate('liked')
+            .exec((err, user) => {
+                if (err || !user) {
+                    res.sendStatus(403);
+                } else {
+                    res.json(user);
+                }
+            });
     }
 
     create(req, res) {
@@ -150,44 +150,44 @@ export default class User {
     }
 
     update(req, res) {
-      if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(req.body.password)  && !!req.body.password) {
-          res.status(400).send("Mot de passe de 6 carractères avec au moin un chiffre");
-      } else {
+        if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(req.body.password) && !!req.body.password) {
+            res.status(400).send("Mot de passe de 6 carractères avec au moin un chiffre");
+        } else {
 
-        if (req.body.password) {
-            var salt = bcrypt.genSaltSync(10);
-            req.body.password = bcrypt.hashSync(req.body.password, salt);
+            if (req.body.password) {
+                var salt = bcrypt.genSaltSync(10);
+                req.body.password = bcrypt.hashSync(req.body.password, salt);
+            }
+            model.update({
+                _id: req.params.id
+            }, req.body, {
+                runValidators: true
+            }, (err, user) => {
+                if (err || !user) {
+                    res.status(500).send(err.message);
+                } else {
+                    let tk = jsonwebtoken.sign(user, token, {
+                        expiresIn: "24h"
+                    });
+                    res.json({
+                        success: true,
+                        user: user,
+                        token: tk
+                    });
+                }
+            });
         }
-        model.update({
-            _id: req.params.id
-        }, req.body, {
-            runValidators: true
-        }, (err, user) => {
-            if (err || !user) {
-                res.status(500).send(err.message);
-            } else {
-                let tk = jsonwebtoken.sign(user, token, {
-                    expiresIn: "24h"
-                });
-                res.json({
-                    success: true,
-                    user: user,
-                    token: tk
-                });
-            }
-        });
-      }
     }
-likesdfUpdate(req, res) {
-        model.findByIdAndUpdate({
-            _id: req.params.id
-        },{$push:{liked: req.body.sallesDesFetes_id}}, (err, user) => {
-            if (err || !user) {
-                res.status(500)
-            } else {
-                res.json(user);
-            }
-        });
+    likesdfUpdate(req, res) {
+        model.findByIdAndUpdate(
+            req.params.id, { $push: { "liked": req.body._id } }, { safe: true, upsert: true, new: true },
+            (err, user) => {
+                if (err || !user) {
+                    res.status(500)
+                } else {
+                    res.json(user);
+                }
+            });
     }
     delete(req, res) {
         model.findByIdAndRemove(req.params.id, (err) => {

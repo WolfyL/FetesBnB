@@ -20,8 +20,8 @@ module.exports = (app) => {
 
     router.get('/', Auth.isAdministrator, user.findAll);
 
-    router.put('/sdf/:id', Auth.hasAuthorization, user.likesdfUpdate);
-    
+    router.put('/sdf/liked/:id', Auth.hasAuthorization, user.likesdfUpdate);
+
     router.get('/:id', Auth.hasAuthorization, user.findById);
 
     router.post('/', user.create);
