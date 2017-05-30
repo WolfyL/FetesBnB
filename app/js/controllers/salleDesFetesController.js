@@ -22,7 +22,6 @@ angular.module('app')
         // $('#modal1').openModal(); try replace le bail de la modal par un ng-click qui prendra l' ID de la modal clickée
 
         $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
-            // let moment = date;
             $scope.dayStart = moment(date).format("D-M-Y");
             console.log("date", date);
             $scope.showCreate = true;
@@ -31,7 +30,7 @@ angular.module('app')
                 $anchorScroll();
             }, 200);
 
-            $scope.createCancel = function(){
+            $scope.createCancel = function() {
                 $scope.showCreate = false;
             };
 
@@ -163,6 +162,8 @@ angular.module('app')
                 console.log("title", modif.title, "end", modif.dayEnd);
                 EvenementService.update(selectedEvent._id, newEvent).then(function(res) {
                     console.log("Update success");
+                    $scope.modifOpen = false;
+                    $scope.showEdit = false;
                     SDFService.getAll().then(function(res) {
                         $scope.sallesDesFetes = res.data;
                     });
@@ -186,6 +187,9 @@ angular.module('app')
             };
 
             $scope.cancelSelect = function() {
+                if ($scope.modifOpen === true) {
+                    $scope.modifOpen = false;
+                }
                 $scope.showEdit = false;
                 console.log($scope.showEdit);
             };

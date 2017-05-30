@@ -74,7 +74,7 @@
                                     </md-event-calendar-header>
                                     <div id="createContent" ng-show="showCreate">
                                         <div class="row">
-                                          <h5>Création d'un évenement débutant le : {{dayStart}}</h5>
+                                            <h5>Création d'un évenement débutant le : {{dayStart}}</h5>
                                             <div class="input-field col s6">
                                                 <label>Nom de l'evenement/de la réservation :</label>
                                                 <input type="text" ng-model="event.eventTitle">
@@ -91,15 +91,23 @@
                                                 <label class="active">Heure de fin: (optionnel)</label>
                                                 <input type="time" ng-model="event.eventEnd">
                                             </div>
-                                              <button type="button" class="btn" ng-click="createEventValidate(event)">Valider les modifications</button>
-                                              <button type="button" class="btn" ng-click="createCancel()">Annuler la création</button>
+                                            <button type="button" class="btn validate" ng-click="createEventValidate(event)">Valider les modifications</button>
+                                            <button type="button" class="btn" ng-click="createCancel()">Annuler la création</button>
                                         </div>
                                     </div>
                                     <div id="modifContent" ng-show="showEdit">
                                         <h5>Evenement selectionné : {{title}}</h5>
-                                        <button type="button" class="btn" ng-click="editEvent()">Modifier l'evenement</button>
-                                        <button type="button" class="btn" ng-click="deleteEvent()">Supprimer l'evenement</button>
-                                        <button type="button" class="btn" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
+                                        <div class="row">
+                                            <div class="col s3">
+                                                <button type="button" class="btn" ng-click="editEvent()">Modifier l'evenement</button>
+                                            </div>
+                                            <div class="col s3">
+                                                <button type="button" class="btn" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
+                                            </div>
+                                            <div class="col offset-s3 s3">
+                                                <button type="button" class="btn delete" ng-click="deleteEvent()">Supprimer l'evenement</button>
+                                            </div>
+                                        </div>
                                         <div class="row" ng-show="modifOpen">
                                             <div class="input-field col s4">
                                                 <label>Nom de l'evenement/de la réservation :</label>
@@ -113,7 +121,7 @@
                                                 <label class="active">Jour de fin:</label>
                                                 <input type="date" ng-model="modif.dayEnd">
                                             </div>
-                                            <button type="button" class="btn" ng-click="editEventValidate(modif)">Valider les modifications</button>
+                                            <button type="button" class="btn validate" ng-click="editEventValidate(modif)">Valider les modifications</button>
                                         </div>
                                     </div>
                                 </md-event-calendar>
@@ -150,13 +158,13 @@
                                 <label>Adresse :</label>
                                 <input type="text" ng-model="newAdressSDF" placeholder="{{salleDesFetes.adress}}">
                             </div>
-                            <button type="button" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
+                            <button type="button validate" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
                         </ng-show>
                     </div>
                 </div>
             </div>
             <div class="col s6">
-                <button type="button" class="btn" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
+                <button type="button" class="btn delete" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
             </div>
         </div>
     </div>
