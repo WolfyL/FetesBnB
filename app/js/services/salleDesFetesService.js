@@ -20,13 +20,16 @@ angular.module('app')
                 return $http.get('/sallesDesFetes/' + id);
             },
             create: function(sdf) {
-              return $http.post('/sallesDesFetes/', sdf);
+                return $http.post('/sallesDesFetes/', sdf);
             },
             update: function(id, sdf) {
                 return $http.put('/sallesDesFetes/' + id, sdf);
             },
             delete: function(id) {
                 return $http.delete('/sallesDesFetes/' + id);
+            },
+            getById: function(sdfId) {
+                return $http.get('/sallesDesFetes/' + sdfId);
             }
         };
     });

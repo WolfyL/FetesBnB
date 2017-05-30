@@ -37,19 +37,11 @@ angular.module('app')
             });
         };
 
-        // var cities = [];
-        // SDFService.getAll().then(function(res) {
-        //     $scope.city = res.data;
-        //     console.log($scope.city);
-        //
-        //     for (var i = 0; i < $scope.city.length; i++) {
-        //         if (cities.indexOf($scope.city[i].city.toLowerCase()) === -1) {
-        //             cities.push($scope.city[i].city.toLowerCase());
-        //         }
-        //     }
-        //     console.log(cities, 'cities');
-        // });
-
+        $scope.addfav = function(sallesDesFetes_id) {
+            UserService.addFav(userId, sallesDesFetes_id).then(function(res) {
+                console.log(res);
+            }, function(err) {});
+        };
         $(document).ready(function() {
             $('select').material_select();
             // $('input.autocomplete').autocomplete({

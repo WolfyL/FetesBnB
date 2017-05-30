@@ -1,8 +1,8 @@
 angular.module('app')
-
-    .controller('SDFController', function($scope, SDFService, EvenementService, Upload, $anchorScroll, $location) {
+    .controller('SDFController', function($scope, SDFService, EvenementService, Upload, $anchorScroll, $location,  UserService, CurrentUser) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
+        $scope.user = CurrentUser.user();
         $scope.showEdit = false;
         $scope.showCreate = false;
         $scope.modifOpen = false;
@@ -200,54 +200,38 @@ angular.module('app')
         ///////////////////////////////Gestion des SDF /////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
 
-        $scope.addSDF = function() {
-            SDFService.create({
-                name: $scope.nameSDF,
-                city: $scope.citySDF,
-                postalCode: $scope.postalCodeSDF,
-                adress: $scope.adressSDF,
-                capacity: $scope.capacitySDF,
-                surface: $scope.surfaceSDF,
-                text: $scope.textSDF
-            });
+    $scope.editSDF = function(index) {
+        $scope.editSDF[index] = true;
+    };
+
+    $scope.editSDFDone = function(index, id, maNewSDF) {
+        SDFService.update(id, maNewSDF).then(function(res) {
+            console.log("Update success");
             SDFService.getAll().then(function(res) {
                 $scope.sallesDesFetes = res.data;
             });
-            $scope.nameSDF = '';
-            $scope.citySDF = '';
-            $scope.postalCodeSDF = '';
-            $scope.adressSDF = '';
-            $scope.capacitySDF = '';
-            $scope.surfaceSDF = '';
-            $scope.textSDF = '';
-        };
+        }, function(err) {
+            console.log("Update failed");
+        });
+        $scope.editSDF[index] = false;
+    };
 
-        $scope.editSDF = function(index) {
-            $scope.editSDF[index] = true;
-        };
-
-        $scope.editSDFDone = function(index, id, maNewSDF) {
-            SDFService.update(id, maNewSDF).then(function(res) {
-                console.log("Update success");
-                SDFService.getAll().then(function(res) {
-                    $scope.sallesDesFetes = res.data;
-                });
-            }, function(err) {
-                console.log("Update failed");
+    $scope.deleteSDF = function(sdf) {
+        SDFService.delete(sdf._id).then(function(res) {
+            console.log("delete succeed");
+            SDFService.getAll().then(function(res) {
+                $scope.sallesDesFetes = res.data;
+                console.log($scope.sallesDesFetes);
             });
-            $scope.editSDF[index] = false;
-        };
 
-        $scope.deleteSDF = function(sdf) {
-            SDFService.delete(sdf._id).then(function(res) {
-                console.log("delete succeed");
-                SDFService.getAll().then(function(res) {
-                    $scope.sallesDesFetes = res.data;
-                    console.log($scope.sallesDesFetes);
-                });
-
-            }, function(err) {
-                console.log("Delete failed");
-            });
-        };
-    });
+        }, function(err) {
+            console.log("Delete failed");
+        });
+    };
+    $scope.addFav = function(sallesDesFetes) {
+        console.log('in addFav');
+        UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {
+            console.log("liked sdf");
+        });
+    };
+});
