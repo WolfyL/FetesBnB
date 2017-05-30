@@ -42,30 +42,31 @@ export default class SDF {
 
     findAll(req, res) {
         model.find({}, {
-            password: 0
-        })
-        .populate('evenement')
-        .exec((err, sallesDesFetes) => {
-            if (err || !sallesDesFetes) {
-                res.sendStatus(403);
-            } else {
-                res.json(sallesDesFetes);
-            }
-        });
+                password: 0
+            })
+            .populate('evenement')
+            .exec((err, sallesDesFetes) => {
+                if (err || !sallesDesFetes) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    res.json(sallesDesFetes);
+                }
+            });
     }
 
     findById(req, res) {
         model.findById(req.params.id, {
-            password: 0
-        })
-        .populate('evenement')
-        .exec((err, salleDesFetes) => {
-            if (err || !salleDesFetes) {
-                res.sendStatus(403);
-            } else {
-                res.json(salleDesFetes);
-            }
-        });
+                password: 0
+            })
+            .populate('evenement')
+            .exec((err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).json(err);
+                } else {
+                    res.json(sallesDesFetes);
+                }
+            });
     }
 
     create(req, res) {
@@ -84,7 +85,7 @@ export default class SDF {
     }
 
     update(req, res) {
-        console.log('body',req.body);
+        console.log('body', req.body);
         model.findByIdAndUpdate({
                 _id: req.params.id
             }, {

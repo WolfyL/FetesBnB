@@ -9187,8 +9187,11 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 .marginTop {
   margin-top: 60px;
 }
-section {
+.section {
   color: #edc34e;
+}
+.pitchBlack {
+  color: lightgrey!important;
 }
 .styleNavbar {
   margin-bottom: -50px;
@@ -9228,6 +9231,14 @@ h5 {
 div.container.ng-scope {
   margin-left: 0 ,auto;
   display: -webkit-inline-box;
+}
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
 }
 
 /*# sourceMappingURL=app.css.map */

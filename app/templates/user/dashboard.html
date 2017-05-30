@@ -1,1 +1,29 @@
-Dashboard de {{user.email}}
+<h2 class="text center section">Salles préférées de {{user.firstName}}</h2>
+<div class="row">
+    <div ng-repeat="liked in likeds track by $index" class="fav">
+        <div class="card card small col s12 m4">
+            <div class="card-image waves-effect waves-block ">
+                <img class="activator" src="http://lorempixel.com/100/190/nature/6">
+            </div>
+            <div class="card-content ">
+                <span class="card-title activator  grey-text text-darken-4">{{liked.name}}<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">{{liked.name}}<i class="material-icons right">close</i></span>
+                <hr>
+                <ul>
+                    <li>Ville: {{liked.city}} </li>
+                    <li>Adresse: {{liked.adress}} </li>
+                    <li>Code postal: {{liked.postalCode}} </li>
+                    <li>Capacité: {{liked.capacity}}pers. </li>
+                    <li>Surface: {{liked.surface}} <sup>m2</sup></li>
+                    </li>
+                    <p>{{liked.text}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="check-element animate-show-hide" ng-show="likeds.length === 0">
+        <p class="center-align flow-text">Vous n'avez pas encore de favoris,<a ui-sref='user.home'> voir les salles </a> pour en ajouter.</p>
+    </div>
+</div>
