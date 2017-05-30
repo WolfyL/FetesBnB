@@ -12,9 +12,13 @@ angular.module('app')
             console.log('res salle des fetes après service', $scope.sallesDesFetes);
         });
 
-        $(document).ready(function() {
-            $('.modal').modal();
-        });
+        function modalWorks() {
+            $(document).ready(function() {
+                $('.modal').modal();
+            });
+        }
+        setTimeout(modalWorks, 200);
+
         // $('#modal1').openModal(); try replace le bail de la modal par un ng-click qui prendra l' ID de la modal clickée
 
         $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
@@ -134,23 +138,23 @@ angular.module('app')
             };
 
             $scope.editEventValidate = function(modif) {
-              newEvent = {
-                  title: modif.title,
-                  end: new Date(modif.dayEnd),
-                  allDay: false
-              };
-              if(modif.title === undefined){
-                  modif.title = selectedEvent.title;
-              }
-              console.log("title", modif.title, "end", modif.dayEnd);
-              EvenementService.update(selectedEvent._id, newEvent).then(function(res) {
-                console.log("Update success");
-                SDFService.getAll().then(function(res) {
-                  $scope.sallesDesFetes = res.data;
+                newEvent = {
+                    title: modif.title,
+                    end: new Date(modif.dayEnd),
+                    allDay: false
+                };
+                if (modif.title === undefined) {
+                    modif.title = selectedEvent.title;
+                }
+                console.log("title", modif.title, "end", modif.dayEnd);
+                EvenementService.update(selectedEvent._id, newEvent).then(function(res) {
+                    console.log("Update success");
+                    SDFService.getAll().then(function(res) {
+                        $scope.sallesDesFetes = res.data;
+                    });
+                }, function(err) {
+                    console.log("Update failed", err);
                 });
-              }, function(err) {
-                console.log("Update failed", err);
-              });
             };
 
             $scope.deleteEvent = function() {
