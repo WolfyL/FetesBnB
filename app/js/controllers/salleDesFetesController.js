@@ -3,9 +3,9 @@ angular.module('app')
     .controller('SDFController', function($scope, SDFService, EvenementService, Upload, $anchorScroll, $location) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
-        $scope.show = false;
+        $scope.showEdit = false;
+        $scope.showCreate = false;
         $scope.modifOpen = false;
-        $scope.create = false;
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
@@ -22,113 +22,127 @@ angular.module('app')
         // $('#modal1').openModal(); try replace le bail de la modal par un ng-click qui prendra l' ID de la modal clickée
 
         $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
-            // $scope.create = true;
-            let hourStart = moment(event.eventStart).get('hour');
-            let minStart = moment(event.eventStart).get('minute');
-            let startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
+            // let moment = date;
+            $scope.dayStart = moment(date).format("D-M-Y");
+            console.log("date", date);
+            $scope.showCreate = true;
+            setTimeout(function() {
+                $location.hash('createContent');
+                $anchorScroll();
+            }, 200);
 
-            let hourEnd = moment(event.eventEnd).get('hour');
-            let minEnd = moment(event.eventEnd).get('minute');
-            let endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
+            $scope.createCancel = function(){
+                $scope.showCreate = false;
+            };
 
-            if (minEnd === 0) {
-                console.log("minEnd apres", minEnd);
-                minEnd = '00';
-            }
+            $scope.createEventValidate = function(event) {
+                let hourStart = moment(event.eventStart).get('hour');
+                let minStart = moment(event.eventStart).get('minute');
+                let startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
 
-            if (event.dayEnd !== undefined && event.eventEnd !== undefined && event.dayEnd !== '' && event.eventEnd !== '') {
-                let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
-                EvenementService.create({
-                    title: title,
-                    start: new Date(startDate),
-                    end: new Date(event.dayEnd),
-                    allDay: false
-                }).then(function(res) {
-                    var evenement = res.data;
-                    console.log('evenement', evenement);
-                    console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
-                    SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
-                        console.log("Update success");
-                        SDFService.getAll().then(function(res) {
-                            $scope.sallesDesFetes = res.data;
-                        });
-                    }, function(err) {
-                        console.log("Update failed", err);
-                    });
-                });
-            } else if ((event.dayEnd === undefined || event.dayEnd === '') && (event.eventEnd === undefined || event.eventEnd === '')) {
-                EvenementService.create({
-                    title: event.eventTitle,
-                    start: new Date(startDate),
-                    end: new Date(startDate),
-                    allDay: false
-                }).then(function(res) {
-                    var evenement = res.data;
-                    console.log('evenement', evenement);
-                    console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
-                    SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
-                        console.log("Update success");
-                        SDFService.getAll().then(function(res) {
-                            $scope.sallesDesFetes = res.data;
-                        });
-                    }, function(err) {
-                        console.log("Update failed", err);
-                    });
-                });
-            } else if (event.dayEnd === undefined || event.dayEnd === '') {
-                let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
-                EvenementService.create({
-                    title: title,
-                    start: new Date(startDate),
-                    end: new Date(startDate),
-                    allDay: false
-                }).then(function(res) {
-                    var evenement = res.data;
-                    console.log('evenement', evenement);
-                    console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
-                    SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
-                        console.log("Update success");
-                        SDFService.getAll().then(function(res) {
-                            $scope.sallesDesFetes = res.data;
-                        });
-                    }, function(err) {
-                        console.log("Update failed", err);
-                    });
-                });
-            } else if (event.eventEnd === undefined || event.eventEnd === '') {
-                EvenementService.create({
-                    title: event.eventTitle,
-                    start: new Date(startDate),
-                    end: new Date(event.dayEnd),
-                    allDay: false
-                }).then(function(res) {
-                    var evenement = res.data;
-                    console.log('evenement', evenement);
-                    console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
-                    SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
-                        console.log("Update success");
-                        SDFService.getAll().then(function(res) {
-                            $scope.sallesDesFetes = res.data;
-                        });
-                    }, function(err) {
-                        console.log("Update failed", err);
-                    });
-                });
-            }
+                let hourEnd = moment(event.eventEnd).get('hour');
+                let minEnd = moment(event.eventEnd).get('minute');
+                let endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
 
-            event.eventTitle = "";
-            event.eventStart = "";
-            event.dayEnd = "";
-            event.eventEnd = "";
-            // $scope.create = false;
+                if (minEnd === 0) {
+                    console.log("minEnd apres", minEnd);
+                    minEnd = '00';
+                }
+
+                if (event.dayEnd !== undefined && event.eventEnd !== undefined && event.dayEnd !== '' && event.eventEnd !== '') {
+                    let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
+                    EvenementService.create({
+                        title: title,
+                        start: new Date(startDate),
+                        end: new Date(event.dayEnd),
+                        allDay: false
+                    }).then(function(res) {
+                        var evenement = res.data;
+                        console.log('evenement', evenement);
+                        console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
+                        SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
+                            console.log("Update success");
+                            SDFService.getAll().then(function(res) {
+                                $scope.sallesDesFetes = res.data;
+                            });
+                        }, function(err) {
+                            console.log("Update failed", err);
+                        });
+                    });
+                } else if ((event.dayEnd === undefined || event.dayEnd === '') && (event.eventEnd === undefined || event.eventEnd === '')) {
+                    EvenementService.create({
+                        title: event.eventTitle,
+                        start: new Date(startDate),
+                        end: new Date(startDate),
+                        allDay: false
+                    }).then(function(res) {
+                        var evenement = res.data;
+                        console.log('evenement', evenement);
+                        console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
+                        SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
+                            console.log("Update success");
+                            SDFService.getAll().then(function(res) {
+                                $scope.sallesDesFetes = res.data;
+                            });
+                        }, function(err) {
+                            console.log("Update failed", err);
+                        });
+                    });
+                } else if (event.dayEnd === undefined || event.dayEnd === '') {
+                    let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
+                    EvenementService.create({
+                        title: title,
+                        start: new Date(startDate),
+                        end: new Date(startDate),
+                        allDay: false
+                    }).then(function(res) {
+                        var evenement = res.data;
+                        console.log('evenement', evenement);
+                        console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
+                        SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
+                            console.log("Update success");
+                            SDFService.getAll().then(function(res) {
+                                $scope.sallesDesFetes = res.data;
+                            });
+                        }, function(err) {
+                            console.log("Update failed", err);
+                        });
+                    });
+                } else if (event.eventEnd === undefined || event.eventEnd === '') {
+                    EvenementService.create({
+                        title: event.eventTitle,
+                        start: new Date(startDate),
+                        end: new Date(event.dayEnd),
+                        allDay: false
+                    }).then(function(res) {
+                        var evenement = res.data;
+                        console.log('evenement', evenement);
+                        console.log("INDEX FETE", $scope.sallesDesFetes[indexSDF]._id);
+                        SDFService.update($scope.sallesDesFetes[indexSDF]._id, evenement).then(function(res) {
+                            console.log("Update success");
+                            SDFService.getAll().then(function(res) {
+                                $scope.sallesDesFetes = res.data;
+                            });
+                        }, function(err) {
+                            console.log("Update failed", err);
+                        });
+                    });
+                }
+
+                event.eventTitle = "";
+                event.eventStart = "";
+                event.dayEnd = "";
+                event.eventEnd = "";
+                $scope.showCreate = false;
+            };
         };
 
         $scope.eventClicked = function(selectedEvent) {
             console.log(selectedEvent);
             $scope.title = selectedEvent.title;
-            $scope.show = true;
+            $scope.showEdit = true;
             setTimeout(function() {
-                $location.hash('finalContent');
+                $location.hash('modifContent');
                 $anchorScroll();
             }, 200);
             console.log(selectedEvent.title);
@@ -161,7 +175,7 @@ angular.module('app')
                 console.log(selectedEvent);
                 EvenementService.delete(selectedEvent._id).then(function(res) {
                     console.log("delete succeed");
-                    $scope.show = false;
+                    $scope.showEdit = false;
                     SDFService.getAll().then(function(res) {
                         $scope.sallesDesFetes = res.data;
                         console.log($scope.sallesDesFetes);
@@ -172,17 +186,10 @@ angular.module('app')
             };
 
             $scope.cancelSelect = function() {
-                $scope.show = false;
-                console.log($scope.show);
+                $scope.showEdit = false;
+                console.log($scope.showEdit);
             };
         };
-
-        ////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////// FAIRE LE CREATE PAREIL HISTOIRE DE SAUVER L UX UI
-        ////////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
-
 
         ////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////

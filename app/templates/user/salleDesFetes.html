@@ -10,7 +10,7 @@
                 <input type="text" ng-model="capacitySDF">
             </div>
             <div class="input-field col s12">
-                <textarea id="textareaDescription" placeholder="cuisine" ng-model="textSDF" class="materialize-textarea"></textarea>
+                <textarea id="textareaDescription" placeholder="Ex : cuisine aménagée, parking..." ng-model="textSDF" class="materialize-textarea"></textarea>
                 <label for="textareaDescription">Description de la salle :</label>
             </div>
             <div class="input-field col s6">
@@ -67,50 +67,51 @@
                             <div class="col s12">
                                 <md-event-calendar class="md-primary" ng-model="salleDesFetes.selected" md-events="salleDesFetes.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($index,$date,event)"
                                     class="md-primary">
-                                    <div class="row">
-                                        <div class="input-field col s6">
-                                            <label>Nom de l'evenement/de la réservation :</label>
-                                            <input type="text" ng-model="event.eventTitle">
-                                        </div>
-                                        <div class="input-field col s6">
-                                            <label class="active">Heure de commencement:</label>
-                                            <input type="time" ng-model="event.eventStart">
-                                        </div>
-                                        <div class="input-field col s6">
-                                            <label class="active">Jour de fin: (par défaut, le jour même)</label>
-                                            <input type="date" ng-model="event.dayEnd">
-                                        </div>
-                                        <div class="input-field col s6">
-                                            <label class="active">Heure de fin: (optionnel)</label>
-                                            <input type="time" ng-model="event.eventEnd">
-                                        </div>
-                                    </div>
                                     <md-event-calendar-header class="md-center">
                                         <md-event-calendar-prev></md-event-calendar-prev>
                                         <md-event-calendar-title></md-event-calendar-title>
                                         <md-event-calendar-next></md-event-calendar-next>
                                     </md-event-calendar-header>
-                                    <div id="finalContent" ng-show="show">
+                                    <div id="createContent" ng-show="showCreate">
+                                        <div class="row">
+                                          <h5>Création d'un évenement débutant le : {{dayStart}}</h5>
+                                            <div class="input-field col s6">
+                                                <label>Nom de l'evenement/de la réservation :</label>
+                                                <input type="text" ng-model="event.eventTitle">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <label class="active">Heure de commencement:</label>
+                                                <input type="time" ng-model="event.eventStart">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <label class="active">Jour de fin: (par défaut, le jour même)</label>
+                                                <input type="date" ng-model="event.dayEnd">
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <label class="active">Heure de fin: (optionnel)</label>
+                                                <input type="time" ng-model="event.eventEnd">
+                                            </div>
+                                              <button type="button" class="btn" ng-click="createEventValidate(event)">Valider les modifications</button>
+                                              <button type="button" class="btn" ng-click="createCancel()">Annuler la création</button>
+                                        </div>
+                                    </div>
+                                    <div id="modifContent" ng-show="showEdit">
                                         <h5>Evenement selectionné : {{title}}</h5>
                                         <button type="button" class="btn" ng-click="editEvent()">Modifier l'evenement</button>
                                         <button type="button" class="btn" ng-click="deleteEvent()">Supprimer l'evenement</button>
                                         <button type="button" class="btn" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
                                         <div class="row" ng-show="modifOpen">
-                                            <div class="input-field col s6">
+                                            <div class="input-field col s4">
                                                 <label>Nom de l'evenement/de la réservation :</label>
                                                 <input type="text" ng-model="modif.title" placeholder="{{title}}">
                                             </div>
-                                            <div class="input-field col s6">
+                                            <div class="input-field col s4">
                                                 <label class="active">Heure de commencement:</label>
                                                 <input type="time" ng-model="modif.start">
                                             </div>
-                                            <div class="input-field col s6">
-                                                <label class="active">Jour de fin: (par défaut, le jour même)</label>
+                                            <div class="input-field col s4">
+                                                <label class="active">Jour de fin:</label>
                                                 <input type="date" ng-model="modif.dayEnd">
-                                            </div>
-                                            <div class="input-field col s6">
-                                                <label class="active">Heure de fin: (optionnel)</label>
-                                                <input type="time" ng-model="modif.end">
                                             </div>
                                             <button type="button" class="btn" ng-click="editEventValidate(modif)">Valider les modifications</button>
                                         </div>
