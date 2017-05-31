@@ -19,8 +19,6 @@ angular.module('app')
         }
         setTimeout(modalWorks, 200);
 
-        // $('#modal1').openModal(); try replace le bail de la modal par un ng-click qui prendra l' ID de la modal clickée
-
         $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
             $scope.dayStart = moment(date).format("D-M-Y");
             console.log("date", date);
