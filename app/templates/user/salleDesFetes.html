@@ -2,7 +2,8 @@
     <h4 class="center underline">Ajout d'une salle des fêtes</h4>
     <div class="row">
         <form>
-            <br/><h5 class="underline">Informations relatives à la salle:</h5><br/>
+            <br/>
+            <h5 class="underline">Informations relatives à la salle:</h5><br/>
             <div class="input-field col s4">
                 <label>Nom de la salle :</label>
                 <input type="text" ng-model="nameSDF">
@@ -20,7 +21,8 @@
                 <label for="textareaDescription">Description de la salle :</label>
             </div>
             <br/>
-            <br/><h5 class="underline">Adresse de la salle</h5>
+            <br/>
+            <h5 class="underline">Adresse de la salle</h5>
             <div class="input-field col s5">
                 <label>Ville :</label>
                 <input type="text" ng-model="citySDF">
@@ -38,7 +40,7 @@
     </form>
 
     <div class="row">
-      <h4 class="center underline">Gestion des salles des fêtes :</h4>
+        <h4 class="center underline">Gestion des salles des fêtes :</h4>
     </div>
 
     <div class="col s6" ng-repeat="salleDesFetes in sallesDesFetes track by $index">
@@ -72,6 +74,41 @@
                             <div class="input-field col s6">
                                 <h5>Adresse :</h5> {{salleDesFetes.adress}}
                             </div>
+                            <a href="" ng-click="addFav(salleDesFetes)"><i class="fa fa-star fa-2x" style="color:#f4f142;" aria-hidden="true"></i></a>
+                            <button type="button" class="btn" ng-click="editSDF($index)">Modifier les informations</button>
+                            <ng-show ng-show="editSDF[$index]">
+                                </br>
+                                <div class="input-field col s6">
+                                    <label>Nom de la salle :</label>
+                                    <input type="text" ng-model="newNameSDF" placeholder="{{salleDesFetes.name}}">
+                                </div>
+                                <div class="input-field col s6">
+                                    <label>Capacité maximale de la salle :</label>
+                                    <input type="text" ng-model="newCapacitySDF" placeholder="{{salleDesFetes.capacity}}">
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="textareaDescription">Description de la salle :</label>
+                                    <textarea id="textareaDescription" ng-model="newTextSDF" placeholder="{{salleDesFetes.text}}" class="materialize-textarea"></textarea>
+                                </div>
+                                <div class="input-field col s6">
+                                    <label>Surface de la salle :</label>
+                                    <input type="text" ng-model="newSurfaceSDF" placeholder="{{salleDesFetes.surface}}">
+                                </div>
+                                <div class="input-field col s6">
+                                    <label>Ville :</label>
+                                    <input type="text" ng-model="newCitySDF" placeholder="{{salleDesFetes.city}}">
+                                </div>
+                                <div class="input-field col s6">
+                                    <label>Code postal :</label>
+                                    <input type="text" ng-model="newPostalCodeSDF" placeholder="{{salleDesFetes.postalCode}}">
+                                </div>
+                                <div class="input-field col s6">
+                                    <label>Adresse :</label>
+                                    <input type="text" ng-model="newAdressSDF" placeholder="{{salleDesFetes.adress}}">
+                                </div>
+                                <button type="button validate" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
+                                <button type="button" class="btn" ng-click="editCancel($index)">Annuler la modification</button>
+                            </ng-show>
                             <div class="col s12">
                                 <md-event-calendar class="md-primary" ng-model="salleDesFetes.selected" md-events="salleDesFetes.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($index,$date,event)"
                                     class="md-primary">
@@ -106,13 +143,13 @@
                                     <div id="modifContent" ng-show="showEdit">
                                         <h5>Evenement selectionné : {{title}}</h5>
                                         <div class="row">
-                                            <div class="col s3">
+                                            <div class="col s4">
                                                 <button type="button" class="btn" ng-click="editEvent()">Modifier l'evenement</button>
                                             </div>
-                                            <div class="col s3">
-                                                <button type="button" class="btn" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
+                                            <div class="col s4">
+                                                <button type="button" class="btn empty" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
                                             </div>
-                                            <div class="col offset-s3 s3">
+                                            <div class="col s4">
                                                 <button type="button" class="btn delete" ng-click="deleteEvent()">Supprimer l'evenement</button>
                                             </div>
                                         </div>
@@ -135,40 +172,6 @@
                                 </md-event-calendar>
                             </div>
                         </div>
-                        <a href="" ng-click="addFav(salleDesFetes)"><i class="fa fa-star fa-2x" style="color:#f4f142;" aria-hidden="true"></i></a>
-                        <button type="button" class="btn" ng-click="editSDF($index)">Modifier des informations</button>
-                        <ng-show ng-show="editSDF[$index]">
-                            </br>
-                            <div class="input-field col s6">
-                                <label>Nom de la salle :</label>
-                                <input type="text" ng-model="newNameSDF" placeholder="{{salleDesFetes.name}}">
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Capacité maximale de la salle :</label>
-                                <input type="text" ng-model="newCapacitySDF" placeholder="{{salleDesFetes.capacity}}">
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="textareaDescription">Description de la salle :</label>
-                                <textarea id="textareaDescription" ng-model="newTextSDF" placeholder="{{salleDesFetes.text}}" class="materialize-textarea"></textarea>
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Surface de la salle :</label>
-                                <input type="text" ng-model="newSurfaceSDF" placeholder="{{salleDesFetes.surface}}">
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Ville :</label>
-                                <input type="text" ng-model="newCitySDF" placeholder="{{salleDesFetes.city}}">
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Code postal :</label>
-                                <input type="text" ng-model="newPostalCodeSDF" placeholder="{{salleDesFetes.postalCode}}">
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Adresse :</label>
-                                <input type="text" ng-model="newAdressSDF" placeholder="{{salleDesFetes.adress}}">
-                            </div>
-                            <button type="button validate" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
-                        </ng-show>
                     </div>
                 </div>
             </div>

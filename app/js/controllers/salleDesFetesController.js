@@ -202,6 +202,9 @@ angular.module('app')
         $scope.editSDF[index] = true;
     };
 
+    $scope.editCancel = function(index){
+      $scope.editSDF[index] = false;
+    }
     $scope.editSDFDone = function(index, id, maNewSDF) {
         SDFService.update(id, maNewSDF).then(function(res) {
             console.log("Update success");
