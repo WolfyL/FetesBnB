@@ -2,9 +2,16 @@ angular.module('app')
     .controller('RegisterController', function($scope, $state, Auth) {
 
         $scope.user = {};
+
+        $scope.change = function(){
+          $scope.registerError = "";
+          $scope.starError = "";
+          $scope.colorError = "";
+        };
+
         $scope.register = function() {
 
-            if ($scope.user.firstName != null && $scope.user.lastName != null && $scope.user.email != null && $scope.user.password != null) {
+            if ($scope.user.firstName && $scope.user.lastName && $scope.user.email && $scope.user.password) {
 
                 if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($scope.user.email)) {
                     Auth.register($scope.user).then(function(res) {
