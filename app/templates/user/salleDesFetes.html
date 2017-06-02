@@ -111,6 +111,8 @@
                                         <button type="button validate" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
                                         <button type="button" class="btn" ng-click="editCancel($index)">Annuler la modification</button>
                                     </ng-show>
+                                    <h5 class="center underline">Calendrier d'évènement de la salle {{sallesDesFetes.name}}</h5>
+                                    <p><em>Pour créer un evenement, placer vous sur le jour voulu, et cliquer sur "CREATE"</em></p><br/>
                                     <div class="col s12">
                                         <md-event-calendar class="md-primary" ng-model="salleDesFetes.selected" md-events="salleDesFetes.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($index,$date,event)"
                                             class="md-primary">
