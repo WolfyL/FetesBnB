@@ -6,13 +6,33 @@
 @vert: #9fbf3f;
 @blue: #3f30c9;
 @black: #3e2b2b;
+@materialize: #26a69a;
 
-.delete{
-  background-color: red;
+.delete {
+    background-color: red;
 }
 
-.validate{
-  background-color: green;
+.validate {
+    background-color: green;
+}
+
+.empty {
+    background-color: white!important;
+    border-color: @materialize;
+    color: @materialize;
+}
+
+#verticalScroll {
+    height: 650px;
+    overflow-y: auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.underline {
+    text-decoration: underline;
 }
 
 .md-event-calendar-cell-event {
@@ -24,9 +44,9 @@
 }
 
 .md-event-calendar-cell-event.md-continue,
+.md-event-calendar-cell-event.md-continue-right,
 .md-event-calendar-cell-event.md-end,
-.md-event-calendar-cell-event.md-spacer,
-.md-event-calendar-cell-event.md-continue-right {
+.md-event-calendar-cell-event.md-spacer {
     background-color: red!important;
     min-height: 26px!important;
     font-size: 12px;
@@ -81,7 +101,6 @@ label {
     color: black;
     font-size: 14px;
 }
-
 // .active {
 //     font-size: 20px;
 // }
@@ -100,29 +119,27 @@ h5 {
 }
 
 .label {
-  font-size: 15px!important;
+    font-size: 15px!important;
 }
-
 // .col-lg-offset-3 col-lg-6 ng-scope {
 //     margin-left: inherit;
 // }
-
 // div.container.ng-scope {
 //     margin-left: 0 ,auto;
 //     display: -webkit-inline-box;
 // }
 
 body {
-   display: flex;
-   min-height: 100vh;
-   flex-direction: column;
-   background-color: white;
- }
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: white;
+}
 
- main {
-   flex: 1 0 auto;
- }
+main {
+    flex: 1 0 auto;
+}
 
- .marginTopMore {
-   margin-top: 120px;
- }
+.marginTopMore {
+    margin-top: 120px;
+}

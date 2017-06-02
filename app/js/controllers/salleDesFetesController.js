@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('SDFController', function($scope, SDFService, EvenementService, Upload, $anchorScroll, $location,  UserService, CurrentUser) {
+    .controller('SDFController', function($scope, SDFService, EvenementService, Upload, $anchorScroll, $location, UserService, CurrentUser) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
         $scope.user = CurrentUser.user();
@@ -18,8 +18,6 @@ angular.module('app')
             });
         }
         setTimeout(modalWorks, 200);
-
-        // $('#modal1').openModal(); try replace le bail de la modal par un ng-click qui prendra l' ID de la modal clickée
 
         $scope.eventCreatea = function(indexSDF, date, event, sdfId) {
             $scope.dayStart = moment(date).format("D-M-Y");
@@ -200,38 +198,84 @@ angular.module('app')
         ///////////////////////////////Gestion des SDF /////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
 
-    $scope.editSDF = function(index) {
-        $scope.editSDF[index] = true;
-    };
-
-    $scope.editSDFDone = function(index, id, maNewSDF) {
-        SDFService.update(id, maNewSDF).then(function(res) {
-            console.log("Update success");
-            SDFService.getAll().then(function(res) {
-                $scope.sallesDesFetes = res.data;
+        $scope.addSDF = function() {
+            SDFService.create({
+                name: $scope.nameSDF,
+                city: $scope.citySDF,
+                postalCode: $scope.postalCodeSDF,
+                adress: $scope.adressSDF,
+                capacity: $scope.capacitySDF,
+                surface: $scope.surfaceSDF,
+                text: $scope.textSDF
+            }).then(function(res) {
+                SDFService.getAll().then(function(res) {
+                    $scope.sallesDesFetes = res.data;
+                    console.log($scope.sallesDesFetes);
+                });
             });
-        }, function(err) {
-            console.log("Update failed");
-        });
-        $scope.editSDF[index] = false;
-    };
+            $scope.nameSDF = '';
+            $scope.citySDF = '';
+            $scope.postalCodeSDF = '';
+            $scope.adressSDF = '';
+            $scope.capacitySDF = '';
+            $scope.surfaceSDF = '';
+            $scope.textSDF = '';
+        };
 
-    $scope.deleteSDF = function(sdf) {
-        SDFService.delete(sdf._id).then(function(res) {
-            console.log("delete succeed");
-            SDFService.getAll().then(function(res) {
-                $scope.sallesDesFetes = res.data;
-                console.log($scope.sallesDesFetes);
+        $scope.editSDF = function(index) {
+            $scope.editSDF[index] = true;
+        };
+
+        $scope.editCancel = function(index) {
+            $scope.editSDF[index] = false;
+        };
+
+        $scope.editSDFDone = function(index, id, maNewSDF) {
+            SDFService.update(id, maNewSDF).then(function(res) {
+                console.log("Update success");
+                SDFService.getAll().then(function(res) {
+                    $scope.sallesDesFetes = res.data;
+                });
+            }, function(err) {
+                console.log("Update failed");
             });
+            $scope.editSDF[index] = false;
+        };
 
-        }, function(err) {
-            console.log("Delete failed");
-        });
-    };
-    $scope.addFav = function(sallesDesFetes) {
-        console.log('in addFav');
-        UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {
-            console.log("liked sdf");
-        });
-    };
-});
+        $scope.deleteSDF = function(sdf) {
+            swal({
+                    title: "Cette salle va être supprimée définitivement !",
+                    text: "Confirmez-vous la suppression?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Supprimer la salle!",
+                    cancelButtonText: "Oops, je vais la conserver!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal("Salle supprimée!", "Votre salle a été supprimé définitivement!", "success");
+                        SDFService.delete(sdf._id).then(function(res) {
+                            console.log("delete succeed");
+                            SDFService.getAll().then(function(res) {
+                                $scope.sallesDesFetes = res.data;
+                                console.log($scope.sallesDesFetes);
+                            });
+                        }, function(err) {
+                            console.log("Delete failed");
+                        });
+                    } else {
+                        swal("Ouf!", "Votre salle a été conservé!", "error");
+                    }
+                });
+        };
+
+        $scope.addFav = function(sallesDesFetes) {
+            console.log('in addFav');
+            UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {
+                console.log("liked sdf");
+            });
+        };
+    });
