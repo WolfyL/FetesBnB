@@ -4,7 +4,7 @@
         <div ng-repeat="error in errors">{{error.error}}</div>
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">email</i>
-            <input id="email" type="email" class="validate" style="color: {{ colorError }}" ng-model="user.email">
+            <input id="email" type="email" class="validate" style="color: {{ colorError }}" ng-change="changeLogin()" ng-model="user.email">
             <label for="email" style="color: {{ colorError }}">Email {{ starError }}</label>
         </div>
     </div>
@@ -12,7 +12,7 @@
     <div class="row">
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">vpn_key</i>
-            <input id="password" type="password" class="validate" style="color: {{ colorError }}" ng-model="user.password">
+            <input id="password" type="password" class="validate" style="color: {{ colorError }}" ng-change="changeLogin()" ng-model="user.password">
             <label for="password" style="color: {{ colorError }}">Mot de passe {{ starError }}</label>
         </div>
     </div>

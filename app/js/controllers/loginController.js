@@ -2,10 +2,18 @@ angular.module('app')
     .controller('LoginController', function($scope, $state, Auth) {
         $scope.errors = [];
 
+        $scope.changeLogin = function(){
+          $scope.colorError = "";
+          $scope.starError = "";
+          $scope.loginError = "";
+        };
+
+        $scope.user = {};
+
         $scope.login = function() {
-            if($scope.user == null) {
+            if($scope.user) {
               $scope.colorError = "red";
-              $scope.starError = "*"
+              $scope.starError = "*";
               $scope.loginError = "Veuillez renseigner tous les champs avant de valider.";
             } else if ($scope.loginForm.$valid) {
                 $scope.errors = [];
