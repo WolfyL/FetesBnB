@@ -38,7 +38,7 @@ angular.module('app')
 
         $scope.people = res.data;
 
-        // $scope.citys = res.data;
+        $scope.citys = res.data;
 
         $scope.peopleSearchs = [];
 
