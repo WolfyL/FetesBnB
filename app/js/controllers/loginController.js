@@ -11,7 +11,7 @@ angular.module('app')
         $scope.user = {};
 
         $scope.login = function() {
-            if($scope.user) {
+            if($scope.user == null) {
               $scope.colorError = "red";
               $scope.starError = "*";
               $scope.loginError = "Veuillez renseigner tous les champs avant de valider.";
