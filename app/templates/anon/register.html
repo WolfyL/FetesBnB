@@ -1,24 +1,24 @@
-<form class="form marginTop" name="loginForm" novalidate ng-submit="register()">
-    <div class="row marginTop">
+<form class="form" name="loginForm" novalidate ng-submit="register()">
+    <div class="row">
         <div ng-repeat="error in errors">{{error.error}}</div>
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">account_circle</i>
-            <input id="text" type="text" class="validate" ng-model="user.firstName">
+            <input id="text" type="text" class="validate" ng-change="change()" ng-model="user.firstName">
             <label for="text" style="color: {{ colorError }}">Nom {{ starError }}</label>
         </div>
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">account_circle</i>
-            <input id="text" type="text" class="validate" ng-model="user.lastName">
+            <input id="text" type="text" class="validate" ng-change="change()" ng-model="user.lastName">
             <label for="text" style="color: {{ colorError }}">Prenom {{ starError }}</label>
         </div>
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">email</i>
-            <input id="email" type="text" class="validate" ng-model="user.email">
+            <input id="email" type="text" class="validate" ng-change="change()" ng-model="user.email">
             <label for="email" style="color: {{ colorError }}">Email {{ starError }}</label>
         </div>
         <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
             <i class="material-icons prefix">vpn_key</i>
-            <input id="password" type="password" class="validate" ng-model="user.password">
+            <input id="password" type="password" class="validate" ng-change="change()" ng-model="user.password">
             <label for="password" style="color: {{ colorError }}">Mot de passe {{ starError }}</label>
         </div>
     </div>
@@ -27,19 +27,16 @@
             <p style="color: {{ colorError }}">{{ registerError }}</p>
         </div>
     </div>
-    <div class="row marginTop">
-        <div class="col offset-l3 l2 offset-m3 m2 offset-s3 m2">
-            <button type="submit" class="btn waves-effect left waves-light btn">Enregistrer
+    <div class="row">
+        <div class="col l9 m9 s9">
+            <button type="submit" class="btn waves-effect right waves-light btn">Enregistrer
               <i class="material-icons right">done</i>
             </button>
-        </div>
-        <div class="col l4 m4 s4">
-            <a ui-sref="anon.login" class="btn waves-effect right waves-light btn">Connexion</a>
         </div>
     </div>
 </form>
 <div class="row">
-    <div class="col offset-l3 offset-m3 offset-s3">
-        <span class="blue-text text-darken-2">Si vous avez un compte veuillez vous connecter en cliquant sur le bouton connexion</span>
+    <div class="center">
+        <h5 class="section">Si vous avez un compte veuillez vous connecter en cliquant sur <a ui-sref="anon.login">Connexion</a></h5>
     </div>
 </div>

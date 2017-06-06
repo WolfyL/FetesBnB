@@ -1,175 +1,191 @@
 <div container-fluid class="marginTop">
     <div class="row">
-        <form>
-            <div class="input-field col s6">
-                <label>Nom de la salle :</label>
-                <input type="text" ng-model="nameSDF">
+        <div class="col s6">
+            <h4 class="center underline">Ajout d'une salle des fêtes</h4>
+            <div class="row">
+                <form>
+                    <br/>
+                    <h5 class="underline">Informations relatives à la salle:</h5><br/>
+                    <div class="input-field col s12">
+                        <label>Nom de la salle :</label>
+                        <input type="text" ng-model="nameSDF">
+                    </div>
+                    <div class="input-field col s6">
+                        <label>Capacité maximale de la salle :</label>
+                        <input type="number" ng-model="capacitySDF">
+                    </div>
+                    <div class="input-field col s6  ">
+                        <label>Surface de la salle (en m²):</label>
+                        <input type="number" ng-model="surfaceSDF">
+                    </div>
+                    <div class="input-field col s12">
+                        <textarea id="textareaDescription" placeholder="Ex : cuisine aménagée, parking..." ng-model="textSDF" class="materialize-textarea validate"></textarea>
+                        <label for="textareaDescription" class="active">Description de la salle :</label>
+                    </div>
+                    <br/>
+                    <br/>
+                    <h5 class="underline">Adresse de la salle</h5>
+                    <div class="input-field col s9">
+                        <label>Ville :</label>
+                        <input type="text" ng-model="citySDF">
+                    </div>
+                    <div class="input-field col s3">
+                        <label>Code postal :</label>
+                        <input type="number" ng-model="postalCodeSDF">
+                    </div>
+                    <div class="input-field col s12">
+                        <label>Adresse :</label>
+                        <input type="text" ng-model="adressSDF">
+                    </div>
+                    <button type="submit" class="btn" ng-click="addSDF()">Ajouter une salle des fêtes</button>
             </div>
-            <div class="input-field col s6">
-                <label>Capacité maximale de la salle :</label>
-                <input type="text" ng-model="capacitySDF">
+            </form>
+        </div>
+        <div class="col s6"  id="verticalScroll">
+            <div class="row">
+                <h4 class="center underline">Gestion des salles des fêtes :</h4>
             </div>
-            <div class="input-field col s12">
-                <textarea id="textareaDescription" placeholder="Ex : cuisine aménagée, parking..." ng-model="textSDF" class="materialize-textarea"></textarea>
-                <label for="textareaDescription">Description de la salle :</label>
-            </div>
-            <div class="input-field col s6">
-                <label>Surface de la salle :</label>
-                <input type="text" ng-model="surfaceSDF">
-            </div>
-            <div class="input-field col s6">
-                <label>Ville :</label>
-                <input type="text" ng-model="citySDF">
-            </div>
-            <div class="input-field col s6">
-                <label>Code postal :</label>
-                <input type="text" ng-model="postalCodeSDF">
-            </div>
-            <div class="input-field col s6">
-                <label>Adresse :</label>
-                <input type="text" ng-model="adressSDF">
-            </div>
-            <button type="submit" class="btn" ng-click="addSDF()">Ajouter une salle des fêtes</button>
-    </div>
-    </form>
-
-    <div class="col s6" ng-repeat="salleDesFetes in sallesDesFetes track by $index">
-        <div class="row">
-            <div class="col s6">
-                <button data-target="modal{{$index}}" class="btn">Salle: {{salleDesFetes.name}}</button>
-                <div id="modal{{$index}}" class="modal modal-fixed-footer">
-                    <div class="modal-content">
-                        <div class="row">
-                            <div class="modal-header">
-                                <button class="modal-action modal-close waves-effect waves-green btn ">Fermer</button>
-                            </div>
-                            <div class="input-field col s6">
-                                <h5>Nom de la salle :</h5> {{salleDesFetes.name}}
-                            </div>
-                            <div class="input-field col s6">
-                                <h5>Capacité maximale de la salle :</h5> {{salleDesFetes.capacity}}
-                            </div>
-                            <div class="input-field col s12">
-                                <h5>Description de la salle :</h5> {{salleDesFetes.text}}
-                            </div>
-                            <div class="input-field col s6">
-                                <h5>Surface de la salle :</h5> {{salleDesFetes.surface}}
-                            </div>
-                            <div class="input-field col s6">
-                                <h5>Ville :</h5> {{salleDesFetes.city}}
-                            </div>
-                            <div class="input-field col s6">
-                                <h5>Code postal :</h5> {{salleDesFetes.postalCode}}
-                            </div>
-                            <div class="input-field col s6">
-                                <h5>Adresse :</h5> {{salleDesFetes.adress}}
-                            </div>
-                            <div class="col s12">
-                                <md-event-calendar class="md-primary" ng-model="salleDesFetes.selected" md-events="salleDesFetes.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($index,$date,event)"
-                                    class="md-primary">
-                                    <md-event-calendar-header class="md-center">
-                                        <md-event-calendar-prev></md-event-calendar-prev>
-                                        <md-event-calendar-title></md-event-calendar-title>
-                                        <md-event-calendar-next></md-event-calendar-next>
-                                    </md-event-calendar-header>
-                                    <div id="createContent" ng-show="showCreate">
-                                        <div class="row">
-                                            <h5>Création d'un évenement débutant le : {{dayStart}}</h5>
-                                            <div class="input-field col s6">
-                                                <label>Nom de l'evenement/de la réservation :</label>
-                                                <input type="text" ng-model="event.eventTitle">
-                                            </div>
-                                            <div class="input-field col s6">
-                                                <label class="active">Heure de commencement:</label>
-                                                <input type="time" ng-model="event.eventStart">
-                                            </div>
-                                            <div class="input-field col s6">
-                                                <label class="active">Jour de fin: (par défaut, le jour même)</label>
-                                                <input type="date" ng-model="event.dayEnd">
-                                            </div>
-                                            <div class="input-field col s6">
-                                                <label class="active">Heure de fin: (optionnel)</label>
-                                                <input type="time" ng-model="event.eventEnd">
-                                            </div>
-                                            <button type="button" class="btn validate" ng-click="createEventValidate(event)">Valider les modifications</button>
-                                            <button type="button" class="btn" ng-click="createCancel()">Annuler la création</button>
-                                        </div>
+            <div class="col s12" ng-repeat="salleDesFetes in sallesDesFetes track by $index">
+                <div class="row">
+                    <div class="col s4 offset-s2">
+                        <button data-target="modal{{$index}}" class="btn">Salle: {{salleDesFetes.name}}</button>
+                        <div id="modal{{$index}}" class="modal modal-fixed-footer">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <div class="modal-header">
+                                        <button class="modal-action modal-close waves-effect waves-green btn ">Fermer</button>
                                     </div>
-                                    <div id="modifContent" ng-show="showEdit">
-                                        <h5>Evenement selectionné : {{title}}</h5>
-                                        <div class="row">
-                                            <div class="col s3">
-                                                <button type="button" class="btn" ng-click="editEvent()">Modifier l'evenement</button>
-                                            </div>
-                                            <div class="col s3">
-                                                <button type="button" class="btn" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
-                                            </div>
-                                            <div class="col offset-s3 s3">
-                                                <button type="button" class="btn delete" ng-click="deleteEvent()">Supprimer l'evenement</button>
-                                            </div>
-                                        </div>
-                                        <div class="row" ng-show="modifOpen">
-                                            <div class="input-field col s4">
-                                                <label>Nom de l'evenement/de la réservation :</label>
-                                                <input type="text" ng-model="modif.title" placeholder="{{title}}">
-                                            </div>
-                                            <div class="input-field col s4">
-                                                <label class="active">Heure de commencement:</label>
-                                                <input type="time" ng-model="modif.start">
-                                            </div>
-                                            <div class="input-field col s4">
-                                                <label class="active">Jour de fin:</label>
-                                                <input type="date" ng-model="modif.dayEnd">
-                                            </div>
-                                            <button type="button" class="btn validate" ng-click="editEventValidate(modif)">Valider les modifications</button>
-                                        </div>
+                                    <div class="input-field col s6">
+                                        <h5>Nom de la salle :</h5> {{salleDesFetes.name}}
                                     </div>
-                                </md-event-calendar>
+                                    <div class="input-field col s6">
+                                        <h5>Capacité maximale de la salle :</h5> {{salleDesFetes.capacity}}
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <h5>Description de la salle :</h5> {{salleDesFetes.text}}
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <h5>Surface de la salle :</h5> {{salleDesFetes.surface}}
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <h5>Ville :</h5> {{salleDesFetes.city}}
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <h5>Code postal :</h5> {{salleDesFetes.postalCode}}
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <h5>Adresse :</h5> {{salleDesFetes.adress}}
+                                    </div>
+                                    <a href="" ng-click="addFav(salleDesFetes)"><i class="fa fa-star fa-2x" style="color:#f4f142;" aria-hidden="true"></i></a>
+                                    <button type="button" class="btn" ng-click="editSDF($index)">Modifier les informations</button>
+                                    <ng-show ng-show="editSDF[$index]">
+                                        </br>
+                                        <div class="input-field col s6">
+                                            <label>Nom de la salle :</label>
+                                            <input type="text" ng-model="newNameSDF" placeholder="{{salleDesFetes.name}}">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Capacité maximale de la salle :</label>
+                                            <input type="text" ng-model="newCapacitySDF" placeholder="{{salleDesFetes.capacity}}">
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <label for="textareaDescription">Description de la salle :</label>
+                                            <textarea id="textareaDescription" ng-model="newTextSDF" placeholder="{{salleDesFetes.text}}" class="materialize-textarea"></textarea>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Surface de la salle :</label>
+                                            <input type="text" ng-model="newSurfaceSDF" placeholder="{{salleDesFetes.surface}}">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Ville :</label>
+                                            <input type="text" ng-model="newCitySDF" placeholder="{{salleDesFetes.city}}">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Code postal :</label>
+                                            <input type="text" ng-model="newPostalCodeSDF" placeholder="{{salleDesFetes.postalCode}}">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Adresse :</label>
+                                            <input type="text" ng-model="newAdressSDF" placeholder="{{salleDesFetes.adress}}">
+                                        </div>
+                                        <button type="button validate" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
+                                        <button type="button" class="btn" ng-click="editCancel($index)">Annuler la modification</button>
+                                    </ng-show>
+                                    <h5 class="center underline">Calendrier d'évènement de la salle {{sallesDesFetes.name}}</h5>
+                                    <p><em>Pour créer un evenement, placer vous sur le jour voulu, et cliquer sur "CREATE"</em></p><br/>
+                                    <div class="col s12">
+                                        <md-event-calendar class="md-primary" ng-model="salleDesFetes.selected" md-events="salleDesFetes.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($index,$date,event)"
+                                            class="md-primary">
+                                            <md-event-calendar-header class="md-center">
+                                                <md-event-calendar-prev></md-event-calendar-prev>
+                                                <md-event-calendar-title></md-event-calendar-title>
+                                                <md-event-calendar-next></md-event-calendar-next>
+                                            </md-event-calendar-header>
+                                            <div id="createContent" ng-show="showCreate">
+                                                <div class="row">
+                                                    <h5>Création d'un évenement débutant le : {{dayStart}}</h5>
+                                                    <div class="input-field col s6">
+                                                        <label>Nom de l'evenement/de la réservation :</label>
+                                                        <input type="text" ng-model="event.eventTitle">
+                                                    </div>
+                                                    <div class="input-field col s6">
+                                                        <label class="active">Heure de commencement:</label>
+                                                        <input type="time" ng-model="event.eventStart">
+                                                    </div>
+                                                    <div class="input-field col s6">
+                                                        <label class="active">Jour de fin: (par défaut, le jour même)</label>
+                                                        <input type="date" ng-model="event.dayEnd">
+                                                    </div>
+                                                    <div class="input-field col s6">
+                                                        <label class="active">Heure de fin: (optionnel)</label>
+                                                        <input type="time" ng-model="event.eventEnd">
+                                                    </div>
+                                                    <button type="button" class="btn validate" ng-click="createEventValidate(event)">Valider la création</button>
+                                                    <button type="button" class="btn" ng-click="createCancel()">Annuler la création</button>
+                                                </div>
+                                            </div>
+                                            <div id="modifContent" ng-show="showEdit">
+                                                <h5>Evenement selectionné : {{title}}</h5>
+                                                <div class="row">
+                                                    <div class="col s4">
+                                                        <button type="button" class="btn" ng-click="editEvent()">Modifier l'evenement</button>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <button type="button" class="btn empty" ng-click="cancelSelect()">Annuler (ne rien faire)</button>
+                                                    </div>
+                                                    <div class="col s4">
+                                                        <button type="button" class="btn delete" ng-click="deleteEvent()">Supprimer l'evenement</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row" ng-show="modifOpen">
+                                                    <div class="input-field col s4">
+                                                        <label>Nom de l'evenement/de la réservation :</label>
+                                                        <input type="text" ng-model="modif.title" placeholder="{{title}}">
+                                                    </div>
+                                                    <div class="input-field col s4">
+                                                        <label class="active">Heure de commencement:</label>
+                                                        <input type="time" ng-model="modif.start">
+                                                    </div>
+                                                    <div class="input-field col s4">
+                                                        <label class="active">Jour de fin:</label>
+                                                        <input type="date" ng-model="modif.dayEnd">
+                                                    </div>
+                                                    <button type="button" class="btn validate" ng-click="editEventValidate(modif)">Valider les modifications</button>
+                                                </div>
+                                            </div>
+                                        </md-event-calendar>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <a href="" ng-click="addFav(salleDesFetes)"><i class="fa fa-star fa-2x" style="color:#f4f142;" aria-hidden="true"></i></a>
-                        <button type="button" class="btn" ng-click="editSDF($index)">Modifier des informations</button>
-                        <ng-show ng-show="editSDF[$index]">
-                            </br>
-                            <div class="input-field col s6">
-                                <label>Nom de la salle :</label>
-                                <input type="text" ng-model="newNameSDF" placeholder="{{salleDesFetes.name}}">
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Capacité maximale de la salle :</label>
-                                <input type="text" ng-model="newCapacitySDF" placeholder="{{salleDesFetes.capacity}}">
-                            </div>
-                            <div class="input-field col s12">
-                                <label for="textareaDescription">Description de la salle :</label>
-                                <textarea id="textareaDescription" ng-model="newTextSDF" placeholder="{{salleDesFetes.text}}" class="materialize-textarea"></textarea>
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Surface de la salle :</label>
-                                <input type="text" ng-model="newSurfaceSDF" placeholder="{{salleDesFetes.surface}}">
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Ville :</label>
-                                <input type="text" ng-model="newCitySDF" placeholder="{{salleDesFetes.city}}">
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Code postal :</label>
-                                <input type="text" ng-model="newPostalCodeSDF" placeholder="{{salleDesFetes.postalCode}}">
-                            </div>
-                            <div class="input-field col s6">
-                                <label>Adresse :</label>
-                                <input type="text" ng-model="newAdressSDF" placeholder="{{salleDesFetes.adress}}">
-                            </div>
-                            <button type="button validate" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
-                        </ng-show>
+                    </div>
+                    <div class="col s6">
+                        <button type="button" class="btn delete" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
                     </div>
                 </div>
             </div>
-            <div class="col s6">
-                <button type="button" class="btn delete" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
-            </div>
         </div>
     </div>
-
 </div>
 
 <!-- <form class="marginTop" name="form"> -->
