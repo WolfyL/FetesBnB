@@ -30,6 +30,8 @@ module.exports = (app) => {
 
     router.delete('/:id', Auth.isAdministrator, user.delete);
 
+    router.put('/liked/:id', Auth.hasAuthorization, user.delFav);
+
     app.use('/users', router);
 
 };

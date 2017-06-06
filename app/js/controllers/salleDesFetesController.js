@@ -6,6 +6,9 @@ angular.module('app')
         $scope.showEdit = false;
         $scope.showCreate = false;
         $scope.modifOpen = false;
+        $scope.msgdenied = '';
+        $scope.likeds = [];
+        console.log('user', $scope.user);
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
@@ -271,11 +274,16 @@ angular.module('app')
                     }
                 });
         };
-
         $scope.addFav = function(sallesDesFetes) {
-            console.log('in addFav');
+            console.log('in addFav', $scope.likeds);
+            if ($scope.user.liked.indexOf(sallesDesFetes._id) !== -1) {
+                console.log(sallesDesFetes._id + 'déjà prise')
+                return $scope.msgdenied = alert('La salle est deja prise');
+            }
             UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {
                 console.log("liked sdf");
+                $scope.user.liked = res.data.liked;
             });
         };
+
     });
