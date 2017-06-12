@@ -1,11 +1,87 @@
-<div id="profileTop">
-    Profile de {{user.email}}
-    <div class="row" ng-show="Auth.isAdministrator()">
-        <h1 style="color:{{color}}; background-color:{{backColor}}">test2</h1> Couleur du texte : {{color}} Couleur du fond : {{backColor}}
+<!-- <div class="marginTop">
+    <h3 style="text-decoration : underline">Profile de {{user.firstName}}</h3>
+    <div class="container-fluid" style="border : 1px black solid; border-radius: 5px;">
+        <label style="color: black;">Nom : {{ user.firstName }}</label><br/>
+        <label style="color: black;">Prénom : {{ user.lastName }}</label><br/>
+        <label style="color: black;">Email : {{user.email}}</label> <br/>
+        <label style="color: black;">Date inscription : {{user.date | date: "medium"}}</label> <br/>
+        <button class="waves-effect waves-light btn" type="button" ng-click="changePassword()">Remplacer mot de passe</button>
+
     </div>
-    <div class="row">
-        <label class="control-label">Color</label>
-        <color-picker class='col-sm-1' ng-model="color" options="{'format':'hex', 'placeholder': '', 'round': false}"></color-picker>
-        <color-picker class='col-sm-1' ng-model="backColor" options="{'format':'hex', 'placeholder': '', 'round': false}"></color-picker>
+</div> -->
+
+<div class="row">
+    <form class="marginTop">
+        <div class="row">
+            <div class="col s12 m6 l4">
+                <div class="card light-green">
+                    <div class="card-content white-text">
+                        <span class="card-title"><h4><b>Profil de {{ user.lastName }}</b></h4></span>
+                        <div class="white-text">
+                            <h5>Nom : {{ user.firstName }}</h5>
+                            <h5>Prénom : {{ user.lastName }}</h5>
+                            <h5>Email : {{user.email}}</h5>
+                            <h5>Date inscription : {{user.date | date: "medium"}}</h5>
+                        </div>
+                        <button data-target="modal1" class="waves-effect brown darken-2 btn" type="button">Nouveau mot de passe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 l8">
+                <div class="col offset-s1 s12 m11 offset-l1 l8">
+                    <h4><b>Remplacer données personnelles</b></h4>
+                </div>
+
+                <div class="input-field col offset-s1 s5 m5 offset-l1 l4">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input placeholder="{{ user.firstName }}" id="first_name" type="text" class="validate" ng-model="user.firstName">
+                    <label class="active" for="first_name" style="color: {{ color }}">Nom {{ starError }}</label>
+                </div>
+                <div class="input-field col s5 m5 offset-l1 l4">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input placeholder="{{ user.lastName }}" id="last_name" type="text" class="validate" ng-model="user.lastName">
+                    <label class="active" for="last_name" style="color: {{ color }}">Prénom {{ starError }}</label>
+                </div>
+
+                <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
+                    <i class="material-icons prefix">email</i>
+                    <input placeholder="{{ user.email }}" id="email" type="email" class="validate" ng-model="user.email">
+                    <label class="active" for="email" style="color: {{ color }}">Email {{ starError }}</label>
+                    <p style="color: {{ color }}">{{ alert }}</p>
+                </div>
+                <div class="input-field col offset-s1 s10 m10 offset-l1 l9">
+                    <button class="btn waves-effect brown darken-2 btn" name="action" ng-click="changeProfil()">Modifier
+                    <i class="material-icons left">done</i>
+                  </button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div id="modal1" class="modal modal-fixed-footer">
+  <div class="modal-content">
+    <h4>Modifier mot de passe</h4></br>
+    <p>Pour modifier votre mot de passe rentrer le dans les champs</p></br>
+
+    <div class="input-field col offset-s1 s5 m5 offset-l1 l4">
+        <i class="material-icons prefix">vpn_key</i>
+        <input id="first_name" type="password" class="validate" style="color: {{ textColor }};" ng-model="newPassword">
+        <label for="first_name" style="color: {{ textColor }}">Nouveau mot de passe {{ starError }}</label>
+    </div></br>
+    <div class="input-field col s5 m5 offset-l1 l4">
+        <i class="material-icons prefix">vpn_key</i>
+        <input id="last_name" type="password" class="validate" style="color: {{ textColor }};" ng-model="addPassword">
+        <label for="last_name" style="color: {{ textColor }}">Confirmer mot de passe {{ starError }}</label>
     </div>
+    <p style="color: {{ textColor }};">{{ alertPassword }}</p>
+    <p style="color: {{ textColor }};">{{ validPassword }}</p>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action waves-effect brown darken-2 btn-flat white-text" ng-click="changePassword()">Enregistrer
+      <i class="material-icons left">done</i>
+    </button>
+    <button class="modal-action waves-effect left modal-close orange lighten-2 btn-flat white-text">Fermer</button>
+  </div>
 </div>

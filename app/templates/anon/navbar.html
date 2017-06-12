@@ -1,38 +1,29 @@
 <header>
     <div id="head_top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
-                    <a href="/"> <img class="logo img-responsive" id="monLogo" src="http://www.entrebeauceetperche.fr/public/images/logo.svg" /> </a>
-                </div>
-                <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-
-                </div>
+        <div class="row">
+            <div class="col l2 m2 s6">
+                <a href="/"><img class="logo img-responsive" id="monLogo" src="http://www.entrebeauceetperche.fr/public/images/logo.svg" /> </a>
             </div>
         </div>
     </div>
 </header>
-<nav class="navbar styleNavbar" role="navigation" ng-controller="NavbarController">
-    <!-- <div class="container-fluid"> -->
-        <!-- <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-        <span class="sr-only">Toggle navigation</span> -->
-        <!-- <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span> -->
-      <!-- </button> -->
-            <!-- <a class="navbar-brand" href="#"></a>
-        </div> -->
-        <!-- <div class="collapse navbar-collapse" id="navbar"> -->
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <li ui-sref-active="active"><a ui-sref="anon.home">Home</a></li>
-                    <li ui-sref-active="active"><a ui-sref="anon.login" ng-hide="auth.isAuthenticated()">Login</a></li>
-                    <li ui-sref-active="active"><a ui-sref="anon.register" ng-hide="auth.isAuthenticated()">Register</a></li>
-                    <!-- <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Dashboard</a></li> -->
-                    <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'>Logout</a></li>
-                </li>
-            </ul>
-        </div>
+
+<nav ng-controller="NavbarController">
+    <div class="nav-wrapper white">
+        <a href="" data-target="mobile-demo" data-activates="mobile-demo" class="button-collapse"><i class="material-icons black-text">menu</i></a>
+        <ul class="left hide-on-med-and-down">
+            <li ui-sref-active="active"><a ui-sref="anon.home">Accueil</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+            <li ui-sref-active="active"><a ui-sref="anon.login" ng-hide="auth.isAuthenticated()">Connexion</a></li>
+            <li ui-sref-active="active"><a ui-sref="anon.register" ng-hide="auth.isAuthenticated()">Enregistrement</a></li>
+            <!-- <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Dashboard</a></li> -->
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+            <li ui-sref-active="active"><a ui-sref="anon.home"><h4>Accueil</h4></a></li>
+            <li ui-sref-active="active"><a ui-sref="anon.login" ng-hide="auth.isAuthenticated()"><h4>Connexion</h4></a></li>
+            <li ui-sref-active="active"><a ui-sref="anon.register" ng-hide="auth.isAuthenticated()"><h4>Enregistrement</h4></a></li>
+            <!-- <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()">Dashboard</a></li> -->
+        </ul>
     </div>
 </nav>

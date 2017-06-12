@@ -1,16 +1,42 @@
+<form class="form" name="loginForm" novalidate ng-submit="register()">
+    <div class="row">
+        <div ng-repeat="error in errors">{{error.error}}</div>
+        <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="text" type="text" class="validate" ng-change="change()" ng-model="user.firstName">
+            <label for="text" style="color: {{ colorError }}">Nom {{ starError }}</label>
+        </div>
+        <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
+            <i class="material-icons prefix">account_circle</i>
+            <input id="text" type="text" class="validate" ng-change="change()" ng-model="user.lastName">
+            <label for="text" style="color: {{ colorError }}">Prenom {{ starError }}</label>
+        </div>
+        <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
+            <i class="material-icons prefix">email</i>
+            <input id="email" type="text" class="validate" ng-change="change()" ng-model="user.email">
+            <label for="email" style="color: {{ colorError }}">Email {{ starError }}</label>
+        </div>
+        <div class="input-field col offset-l3 l6 offset-m3 m6 offset-s3 s6">
+            <i class="material-icons prefix">vpn_key</i>
+            <input id="password" type="password" class="validate" ng-change="change()" ng-model="user.password">
+            <label for="password" style="color: {{ colorError }}">Mot de passe {{ starError }}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col offset-l3">
+            <p style="color: {{ colorError }}">{{ registerError }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l9 m9 s9">
+            <button type="submit" class="btn waves-effect right waves-light btn">Enregistrer
+              <i class="material-icons right">done</i>
+            </button>
+        </div>
+    </div>
+</form>
 <div class="row">
-    <div class="col-xs-6 col-xs-offset-3">
-        <form class="form" name="loginForm" novalidate ng-submit="register()">
-            <div ng-repeat="error in errors">{{error.error}}</div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input id="email" type="email" class="form-control" ng-model="user.email" required placeholder="Email Address">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input id="password" type="password" class="form-control" ng-model="user.password" required placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-        </form>
+    <div class="center">
+        <h5 class="section">Si vous avez un compte veuillez vous connecter en cliquant sur <a ui-sref="anon.login">Connexion</a></h5>
     </div>
 </div>

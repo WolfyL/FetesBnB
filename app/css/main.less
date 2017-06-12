@@ -1,45 +1,149 @@
 // Main less file for your application.
 // Use `@import` to use other less files
 // relative to 'app/css' or 'vendor/css'.
-@jaune : #edc34e;
-@gris : #c7b299;
-@vert : #9fbf3f;
-@blue : #3f30c9;
-@black : #3e2b2b;
+@jaune: #edc34e;
+@gris: #c7b299;
+@vert: #9fbf3f;
+@blue: #3f30c9;
+@black: #3e2b2b;
+@materialize: #26a69a;
 
-#monLogo{
-  margin-left: 150px;
-  width: 200px;
+.delete {
+    background-color: red;
 }
 
-#head_top{
-  background-image: url(http://www.entrebeauceetperche.fr/public/images/header.jpg);
-  background-size: cover;
+.validate {
+    background-color: green;
 }
 
-#profileTop{
-    margin-top: 51px;
+.empty {
+    background-color: white!important;
+    border-color: @materialize;
+    color: @materialize;
 }
 
-// section{
-//   background-color: @black;
-//   color: white;
+#verticalScroll {
+    height: 650px;
+    overflow-y: auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.md-event-calendar-cell-event {
+    background-color: red!important;
+}
+
+.md-event-calendar-cell-event-spacer {
+    min-height: 26px!important;
+}
+
+.md-event-calendar-cell-event.md-continue,
+.md-event-calendar-cell-event.md-continue-right,
+.md-event-calendar-cell-event.md-end,
+.md-event-calendar-cell-event.md-spacer {
+    background-color: red!important;
+    min-height: 26px!important;
+    font-size: 12px;
+}
+
+.modal {
+    width: 90% !important;
+    height: 90% !important;
+}
+
+#monLogo {
+    margin-left: 150px;
+    width: 200px;
+}
+
+#head_top {
+    background-image: url("http://www.entrebeauceetperche.fr/public/images/header.jpg");
+    background-size: cover;
+}
+
+.marginTop {
+    margin-top: 60px;
+}
+
+.section {
+    color: @jaune;
+}
+
+.pitchBlack {
+    color: lightgrey!important;
+}
+
+.styleNavbar {
+    margin-bottom: -50px;
+    background-color: white!important;
+}
+
+.nav {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+nav {
+    box-shadow: none;
+}
+
+nav ul a {
+    color: black;
+}
+
+label {
+    color: black;
+    font-size: 14px;
+}
+// .active {
+//     font-size: 20px;
 // }
 
-.styleNavbar{
-    background-color: @black;
-    margin-bottom: -50px;
+h1 {
+    font-size: 50px;
 }
 
-.nav{
-  margin-right: 10px;
-  margin-left: 10px;
+h5 {
+    font-size: 20px;
 }
 
-nav{
-  box-shadow: none;
+.map {
+    width: 98vw;
+    height: 40vh;
 }
 
-navbar-inverse{
-  background-color: @black!important;
+.label {
+    font-size: 15px!important;
 }
+// .col-lg-offset-3 col-lg-6 ng-scope {
+//     margin-left: inherit;
+// }
+// div.container.ng-scope {
+//     margin-left: 0 ,auto;
+//     display: -webkit-inline-box;
+// }
+
+body {
+
+   display: flex;
+   min-height: 100vh;
+   flex-direction: column;
+   background-color: white;
+ }
+
+ main {
+   flex: 1 0 auto;
+ }
+
+ .marginTopMore {
+   margin-top: 120px;
+ }
+ .pad {
+     padding-bottom: -30px;
+ }

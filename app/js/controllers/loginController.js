@@ -2,13 +2,28 @@ angular.module('app')
     .controller('LoginController', function($scope, $state, Auth) {
         $scope.errors = [];
 
+        $scope.changeLogin = function(){
+          $scope.colorError = "";
+          $scope.starError = "";
+          $scope.loginError = "";
+        };
+
+        $scope.user = {};
+
         $scope.login = function() {
-            if ($scope.loginForm.$valid) {
+            if($scope.user == null) {
+              $scope.colorError = "red";
+              $scope.starError = "*";
+              $scope.loginError = "Veuillez renseigner tous les champs avant de valider.";
+            } else if ($scope.loginForm.$valid) {
                 $scope.errors = [];
                 Auth.login($scope.user).then(function(result) {
-                    $state.go('user.profile');
+                    $state.go('user.home');
                 }).catch(function(err) {
                     $scope.errors.push(err);
+                    $scope.colorError = "red";
+                    $scope.starError = "*";
+                    $scope.loginError = "Mot de passe non valide ou email inconnu.";
                 });
             }
         };

@@ -1,1 +1,12 @@
-node_module/
+node_modules/
+generated/
+server/uploads/*
+
+######################
+.DS_Store
+.DSStore?
+.*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
