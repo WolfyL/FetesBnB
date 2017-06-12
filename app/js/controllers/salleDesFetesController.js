@@ -36,13 +36,13 @@ angular.module('app')
             };
 
             $scope.createEventValidate = function(event) {
-                let hourStart = moment(event.eventStart).get('hour');
-                let minStart = moment(event.eventStart).get('minute');
-                let startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
+                hourStart = moment(event.eventStart).get('hour');
+                minStart = moment(event.eventStart).get('minute');
+                startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
 
-                let hourEnd = moment(event.eventEnd).get('hour');
-                let minEnd = moment(event.eventEnd).get('minute');
-                let endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
+                hourEnd = moment(event.eventEnd).get('hour');
+                minEnd = moment(event.eventEnd).get('minute');
+                endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
 
                 if (minEnd === 0) {
                     console.log("minEnd apres", minEnd);
@@ -50,7 +50,7 @@ angular.module('app')
                 }
 
                 if (event.dayEnd !== undefined && event.eventEnd !== undefined && event.dayEnd !== '' && event.eventEnd !== '') {
-                    let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
+                    title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
                     EvenementService.create({
                         title: title,
                         start: new Date(startDate),
@@ -89,7 +89,7 @@ angular.module('app')
                         });
                     });
                 } else if (event.dayEnd === undefined || event.dayEnd === '') {
-                    let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
+                    title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
                     EvenementService.create({
                         title: title,
                         start: new Date(startDate),
@@ -277,7 +277,7 @@ angular.module('app')
         $scope.addFav = function(sallesDesFetes) {
             console.log('in addFav', $scope.likeds);
             if ($scope.user.liked.indexOf(sallesDesFetes._id) !== -1) {
-                console.log(sallesDesFetes._id + 'déjà prise')
+                console.log(sallesDesFetes._id + 'déjà prise');
                 return $scope.msgdenied = alert('La salle est deja prise');
             }
             UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {
