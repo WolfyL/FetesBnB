@@ -66,12 +66,14 @@
             <tr>
               <th>Ville</th>
               <th>Text descriptif</th>
+              <th>Capacité</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="city in citys | filter: searchText">
+            <tr ng-repeat="city in cities | filter: searchText">
               <td>{{ city.city }}</td>
               <td>{{ city.text }}</td>
+              <td>{{ city.capacity }}</td>
             </tr>
           </tbody>
         </table>

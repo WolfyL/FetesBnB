@@ -34,7 +34,8 @@ angular.module('app')
       ville = ville.toLowerCase().trim();
 
       $scope.searchShow = true;
-      if (ville === "" && radius !== undefined) {
+      console.log(radius, 'coucou');
+      if (ville === "" && radius !== null) {
         swal('Impossible !', 'Nous ne pouvons pas effectuer de recherche utilisant le rayon si vous n\'entrez pas de ville', 'error');
       } else {
         paramFilter = {
@@ -47,6 +48,7 @@ angular.module('app')
 
         SDFService.getResult(paramFilter).then(function(res) {
           console.log(res.data);
+          $scope.cities = res.data;
         });
       }
       //
