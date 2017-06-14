@@ -39,6 +39,13 @@ const sdfSchema = new mongoose.Schema({
 let model = mongoose.model('SDF', sdfSchema);
 
 function filterSalles(salles, array, ville, capacity, callback) {
+
+  if (ville === '' && capacity === undefined) {
+    salles.map(salle=>{
+      array.push(salle);
+    });
+    callback(array);
+  }
   if (ville !== '' && capacity !== undefined) {
     salles.map(salle => {
       if (salle.city === ville) {
@@ -57,7 +64,7 @@ function filterSalles(salles, array, ville, capacity, callback) {
       });
       callback(array);
     }
-  else if (ville !== undefined) {
+  else if (ville !== '') {
       salles.map(salle => {
         if (salle.city === ville) {
           array.push(salle);
@@ -65,9 +72,10 @@ function filterSalles(salles, array, ville, capacity, callback) {
       });
       callback(array);
     }
-    else{
-      callback(salles);
-    }
+    // else {
+    //   callback(salles);
+    //   console.log(salles, 'coucou');
+    // }
 }
 
 export default class SDF {
