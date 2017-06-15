@@ -1,42 +1,44 @@
 import mongoose from 'mongoose';
+
 import Event from './evenement.js';
+
 const sdfSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   postalCode: {
     type: String,
-    required: true
+    required: true,
   },
   adress: {
     type: String,
-    required: true
+    required: true,
   },
   capacity: {
     type: Number,
-    required: true
+    required: true,
   },
   surface: {
     type: Number,
-    required: true
+    required: true,
   },
   text: {
     type: String,
-    required: true
+    required: true,
   },
   evenement: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Event'
-  }]
+    ref: 'Event',
+  }],
 });
 
 
-let model = mongoose.model('SDF', sdfSchema);
+const model = mongoose.model('SDF', sdfSchema);
 
 function filterSalles(salles, array, ville, capacity, callback) {
 
@@ -72,10 +74,6 @@ function filterSalles(salles, array, ville, capacity, callback) {
       });
       callback(array);
     }
-    // else {
-    //   callback(salles);
-    //   console.log(salles, 'coucou');
-    // }
 }
 
 export default class SDF {
@@ -97,7 +95,6 @@ export default class SDF {
 
 
   findResult(req, res) {
-    console.log(req.query.ville);
     model.find({}, {
         password: 0
       })
