@@ -5,9 +5,8 @@ angular.module('app')
     //       $scope.user = res.data;
     //       console.log($scope.user.isAdmin);
     //   });
-    // $scope.searchRay = searchRay;
     $scope.searchShow = false;
-    // console.log('radius', $scope.searchRay);
+
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
     });
@@ -31,18 +30,22 @@ angular.module('app')
     $scope.searchValid = function(ville, radius, capacity) {
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
-      console.log(radius, 'coucou');
       if (ville === "" && radius !== null) {
         swal('Impossible !', 'Nous ne pouvons pas effectuer de recherche utilisant le rayon si vous n\'entrez pas de ville', 'error');
       } else {
-        SDFService.getCoordo(ville).then(function(res){
+        SDFService.getCoordo(ville).then(function(res) {
           $scope.coordo = res.data.results[0].geometry.location;
           $scope.lat = $scope.coordo.lat;
           $scope.long = $scope.coordo.lng;
+          console.log("lat", $scope.lat, " coordo;", $scope.coordo);
         });
+
         paramFilter = {
-          ville: ville,
-          // radius : radius,
+          ville: {
+            lat: $scope.lat,
+            lng: $scope.long
+          },
+          radius: radius,
           capacity: capacity
         };
 

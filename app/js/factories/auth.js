@@ -53,7 +53,7 @@ angular.module('app')
                 if (LocalService.get('auth_token')) {
                     token = LocalService.get('auth_token');
                 }
-                if (token) {
+                if (token && config.url.split('/')[0] != 'https:' && config.url.split('/')[0] != 'http:')  {
                     config.headers.authorization = token;
                 }
                 return config;

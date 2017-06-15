@@ -31,6 +31,10 @@ const sdfSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  coordo: {
+    lat: String,
+    lng: String
+  },
   evenement: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
@@ -43,7 +47,7 @@ const model = mongoose.model('SDF', sdfSchema);
 function filterSalles(salles, array, ville, capacity, callback) {
 
   if (ville === '' && capacity === undefined) {
-    salles.map(salle=>{
+    salles.map(salle => {
       array.push(salle);
     });
     callback(array);
@@ -51,29 +55,27 @@ function filterSalles(salles, array, ville, capacity, callback) {
   if (ville !== '' && capacity !== undefined) {
     salles.map(salle => {
       if (salle.city === ville) {
-        if(salle.capacity <= capacity){
+        if (salle.capacity <= capacity) {
           array.push(salle);
         }
       }
     });
     callback(array);
+  } else if (capacity !== undefined) {
+    salles.map(salle => {
+      if (salle.capacity <= capacity) {
+        array.push(salle);
+      }
+    });
+    callback(array);
+  } else if (ville !== '') {
+    salles.map(salle => {
+      if (salle.city === ville) {
+        array.push(salle);
+      }
+    });
+    callback(array);
   }
-  else if (capacity !== undefined) {
-      salles.map(salle => {
-        if (salle.capacity <= capacity) {
-          array.push(salle);
-        }
-      });
-      callback(array);
-    }
-  else if (ville !== '') {
-      salles.map(salle => {
-        if (salle.city === ville) {
-          array.push(salle);
-        }
-      });
-      callback(array);
-    }
 }
 
 export default class SDF {
