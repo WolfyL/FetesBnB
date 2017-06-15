@@ -22,6 +22,7 @@ angular.module('app')
                 }).catch(function(err) {
                     $scope.errors.push(err);
                     $scope.colorError = "red";
+                    $scope.starError = "*";
                     $scope.loginError = "Mot de passe non valide ou email inconnu.";
                 });
             }

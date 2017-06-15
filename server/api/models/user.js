@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
     liked: [{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'SDF'
+        ref: 'SDF',
     }]
 });
 
@@ -178,13 +178,15 @@ export default class User {
         }
     }
     likesdfUpdate(req, res) {
+        console.log("body", req.body);
+        console.log("params", req.params);
         model.findByIdAndUpdate(
-            req.params.id, { $push: { "liked": req.body._id } }, { safe: true, upsert: true, new: true },
+            req.params.id, { $addToSet: { "liked": req.body._id } }, { safe: true, upsert: true, new: true },
             (err, user) => {
                 if (err || !user) {
                     res.status(500)
                 } else {
-                    res.json(user);
+                    res.json({ liked: user.liked });
                 }
             });
     }
@@ -196,5 +198,21 @@ export default class User {
                 res.sendStatus(200);
             }
         });
+    }
+
+    delFav(req, res) {
+        console.log('body', req.body);
+        model.findOneAndUpdate(req.params.id, {
+                $pull: {
+                    "liked": req.body._id
+                }
+            },
+            (err, test) => {
+                if (err) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.sendStatus(200);
+                }
+            });
     }
 }
