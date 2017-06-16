@@ -203,40 +203,40 @@ angular.module('app')
       // $scope.lng ='';
     $scope.citySDF = $scope.citySDF.toLowerCase().trim();
 
-      SDFService.getCoordo($scope.citySDF).then(function(res){
-        console.log("YOHO ET UNE BOUTEILLE DE RHUM", $scope.citySDF);
-        $scope.coordo = res.data.results[0].geometry.location;
-        $scope.lat = $scope.coordo.lat;
-        $scope.lng = $scope.coordo.lng;
-        console.log("coordo",$scope.lat, $scope.long);
-      });
-
-      // SDFService.create({
-      //   name: $scope.nameSDF,
-      //   city: $scope.citySDF,
-      //   postalCode: $scope.postalCodeSDF,
-      //   adress: $scope.adressSDF,
-      //   capacity: $scope.capacitySDF,
-      //   surface: $scope.surfaceSDF,
-      //   text: $scope.textSDF,
-      //   coordo: {
-      //     lat: $scope.lat,
-      //     lng: $scope.lng
-      //   }
-      // }).then(function(res) {
-      //   SDFService.getAll().then(function(res) {
-      //     $scope.sallesDesFetes = res.data;
-      //     console.log($scope.sallesDesFetes);
-      //   });
+      // SDFService.getCoordo($scope.citySDF).then(function(res){
+      //   console.log("YOHO ET UNE BOUTEILLE DE RHUM", $scope.citySDF);
+      //   $scope.coordo = res.data.results[0].geometry.location;
+      //   $scope.lat = $scope.coordo.lat;
+      //   $scope.lng = $scope.coordo.lng;
+      //   console.log("coordoIN",$scope.lat, $scope.lng);
       // });
 
-      // $scope.nameSDF = '';
-      // $scope.citySDF = '';
-      // $scope.postalCodeSDF = '';
-      // $scope.adressSDF = '';
-      // $scope.capacitySDF = '';
-      // $scope.surfaceSDF = '';
-      // $scope.textSDF = '';
+      SDFService.create({
+        name: $scope.nameSDF,
+        city: $scope.citySDF,
+        postalCode: $scope.postalCodeSDF,
+        adress: $scope.adressSDF,
+        capacity: $scope.capacitySDF,
+        surface: $scope.surfaceSDF,
+        text: $scope.textSDF,
+        // coordo: {
+        //   lat: $scope.lat,
+        //   lng: $scope.lng
+        // }
+      }).then(function(res) {
+        SDFService.getAll().then(function(res) {
+          $scope.sallesDesFetes = res.data;
+          console.log($scope.sallesDesFetes);
+        });
+      });
+
+      $scope.nameSDF = '';
+      $scope.citySDF = '';
+      $scope.postalCodeSDF = '';
+      $scope.adressSDF = '';
+      $scope.capacitySDF = '';
+      $scope.surfaceSDF = '';
+      $scope.textSDF = '';
     };
 
     $scope.editSDF = function(index) {

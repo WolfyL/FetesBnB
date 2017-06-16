@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import Event from './evenement.js';
 
+import request from 'request';
+
 const sdfSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -129,50 +131,69 @@ export default class SDF {
   }
 
   create(req, res) {
+    let coordo;
     model.create(req.body,
       (err, salleDesFetes) => {
-        if (err || !salleDesFetes) {
+        if (err) {
           console.log(err);
           res.status(500).send(err.message);
         } else {
-          res.json({
-            success: true,
-            salleDesFetes: salleDesFetes,
+          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU', function(error, result, body) {
+            var donnee = JSON.parse(result.body)
+            console.log(donnee);
+             coordo = {
+              lat: donnee.results[0].geometry.location.lat,
+              lng: donnee.results[0].geometry.location.lng
+            }
+            model.findOneAndUpdate({_id:salleDesFetes._id},{coordo:coordo},{upsert:true, new:true}, (err, salleDesFetes) => {
+              console.log("JE SUIS DANS L UPDATE");
+              console.log(coordo);
+              if (err || !salleDesFetes) {
+                res.status(500).send(err.message);
+              } else {
+                res.json({
+                  success: true,
+                  salleDesFetes: salleDesFetes,
+                });
+              }
+            });
+            console.log("COORDO : ", coordo);
           });
-        }
-      });
-  }
 
-  update(req, res) {
-    console.log('body', req.body);
-    model.findByIdAndUpdate({
-        _id: req.params.id
-      }, {
-        $addToSet: {
-          evenement: req.body._id
         }
-      }, {
-        new: true
-      },
-      (err, salleDesFetes) => {
-        if (err || !salleDesFetes) {
+      })
+    }
+
+    update(req, res) {
+      console.log('body', req.body);
+      model.findByIdAndUpdate({
+          _id: req.params.id
+        }, {
+          $addToSet: {
+            evenement: req.body._id
+          }
+        }, {
+          new: true
+        },
+        (err, salleDesFetes) => {
+          if (err || !salleDesFetes) {
+            res.status(500).send(err.message);
+          } else {
+            res.json({
+              success: true,
+              salleDesFetes: salleDesFetes,
+            });
+          }
+        });
+    }
+
+    delete(req, res) {
+      model.findByIdAndRemove(req.params.id, (err) => {
+        if (err) {
           res.status(500).send(err.message);
         } else {
-          res.json({
-            success: true,
-            salleDesFetes: salleDesFetes,
-          });
+          res.sendStatus(200);
         }
       });
+    }
   }
-
-  delete(req, res) {
-    model.findByIdAndRemove(req.params.id, (err) => {
-      if (err) {
-        res.status(500).send(err.message);
-      } else {
-        res.sendStatus(200);
-      }
-    });
-  }
-}
