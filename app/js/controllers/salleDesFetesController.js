@@ -202,6 +202,9 @@ angular.module('app')
         ////////////////////////////////////////////////////////////////////////////////
 
         $scope.addSDF = function() {
+
+          $scope.citySDF = $scope.citySDF.toLowerCase().trim();
+
             SDFService.create({
                 name: $scope.nameSDF,
                 city: $scope.citySDF,

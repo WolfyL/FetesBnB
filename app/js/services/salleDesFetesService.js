@@ -19,6 +19,9 @@ angular.module('app')
             getOne: function(id) {
                 return $http.get('/sallesDesFetes/' + id);
             },
+            getResult: function(paramFilter) {
+                return $http.get('/sallesDesFetes/result',{params:paramFilter});
+            },
             create: function(sdf) {
                 return $http.post('/sallesDesFetes/', sdf);
             },
