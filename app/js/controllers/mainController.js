@@ -6,6 +6,7 @@ angular.module('app')
     //       console.log($scope.user.isAdmin);
     //   });
     $scope.searchShow = false;
+    $scope.sdfAll = [];
 
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
@@ -47,8 +48,15 @@ angular.module('app')
               radius: radius,
               capacity: capacity
             };
-            //faire un map pour envoyer un tableau de bool à filtrer
-            // boundContains(paramFilter);
+
+            SDFService.getAll().then(function(res) {
+              $scope.sallesDesFetes = res.data;
+              $scope.sdfAll = $scope.sallesDesFetes;
+              console.log($scope.sdfAll);
+              //faire un map pour envoyer un tableau de bool à filtrer
+              boundContains(paramFilter, $scope.sdfAll);
+            });
+
           });
         } else if(radius === null){
           paramFilter = {
@@ -63,15 +71,16 @@ angular.module('app')
       }
     };
 
-    function boundContains(paramFilter) {
+    function boundContains(paramFilter, sdfAll) {
+      var arrayTrueSDF =[];
+      console.log("MY SDF", sdfAll);
+      sdfAll.map(function(salle){
+        console.log('salle : ', salle.coordo.lat, salle.coordo.lng);
+        var latLngCenter = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng),
+        latLngX = new google.maps.LatLng(salle.coordo.lat, salle.coordo.lng);
 
-      console.log("CENTER LOC", paramFilter);
-      console.log(paramFilter.ville.lat, paramFilter.ville.lng);
-      var latLngCenter = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng),
-        latLngA = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng);
 
-
-      map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           center: latLngCenter
         }),
         markerCenter = new google.maps.Marker({
@@ -79,8 +88,8 @@ angular.module('app')
           title: 'Location',
           // map: map
         }),
-        markerA = new google.maps.Marker({
-          position: latLngA,
+        marker = new google.maps.Marker({
+          position: latLngX,
           title: 'Location',
           // map: map
         }),
@@ -89,9 +98,14 @@ angular.module('app')
           radius: paramFilter.radius * 1000
         });
 
-      circle.bindTo('center', markerCenter, 'position');
-      var bounds = circle.getBounds();
-      console.log("THE ANSWER IS HERE", bounds.contains(latLngA), "location", paramFilter.ville.lat, paramFilter.ville.lng);
+        circle.bindTo('center', markerCenter, 'position');
+        var bounds = circle.getBounds();
+        console.log("THE ANSWER IS HERE", bounds.contains(latLngX), "location", paramFilter.ville.lat, paramFilter.ville.lng);
+        if(bounds.contains(latLngX)){
+          arrayTrueSDF.push(salle);
+        }
+      });
+
 
     }
 
