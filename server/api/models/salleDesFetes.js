@@ -46,37 +46,41 @@ const sdfSchema = new mongoose.Schema({
 
 const model = mongoose.model('SDF', sdfSchema);
 
-function filterSalles(salles, array, ville, capacity, callback) {
-
-  if (ville === '' && capacity === undefined) {
-    salles.map(salle => {
-      array.push(salle);
-    });
-    callback(array);
-  }
-  if (ville !== '' && capacity !== undefined) {
-    salles.map(salle => {
-      if (salle.city === ville) {
+function filterSalles(salles, array, ville, radius, capacity, callback) {
+  if (radius === null) {
+    if (ville === '' && capacity === undefined) {
+      salles.map(salle => {
+        array.push(salle);
+      });
+      callback(array);
+    }
+    if (ville !== '' && capacity !== undefined) {
+      salles.map(salle => {
+        if (salle.city === ville) {
+          if (salle.capacity <= capacity) {
+            array.push(salle);
+          }
+        }
+      });
+      callback(array);
+    } else if (capacity !== undefined) {
+      salles.map(salle => {
         if (salle.capacity <= capacity) {
           array.push(salle);
         }
-      }
-    });
-    callback(array);
-  } else if (capacity !== undefined) {
-    salles.map(salle => {
-      if (salle.capacity <= capacity) {
-        array.push(salle);
-      }
-    });
-    callback(array);
-  } else if (ville !== '') {
-    salles.map(salle => {
-      if (salle.city === ville) {
-        array.push(salle);
-      }
-    });
-    callback(array);
+      });
+      callback(array);
+    } else if (ville !== '') {
+      salles.map(salle => {
+        if (salle.city === ville) {
+          array.push(salle);
+        }
+      });
+      callback(array);
+    }
+  }
+  else{
+    console.log('LOG : ',salles, array, ville, radius, capacity);
   }
 }
 
@@ -108,7 +112,7 @@ export default class SDF {
           console.log(err);
           res.status(500).json(err);
         } else {
-          filterSalles(sallesDesFetes, [], req.query.ville, req.query.capacity, function(result) {
+          filterSalles(sallesDesFetes, [], req.query.ville, req.query.radius, req.query.capacity, function(result) {
             res.json(result);
           });
           //res.json(sallesDesFetes);
@@ -138,15 +142,22 @@ export default class SDF {
           console.log(err);
           res.status(500).send(err.message);
         } else
-        //adress et city puis france
+          //adress et city puis france
           request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU', function(error, result, body) {
             var donnee = JSON.parse(result.body);
             console.log(donnee);
-             coordo = {
+            coordo = {
               lat: donnee.results[0].geometry.location.lat,
               lng: donnee.results[0].geometry.location.lng
             };
-            model.findOneAndUpdate({_id:salleDesFetes._id},{coordo:coordo},{upsert:true, new:true}, (err, salleDesFetes) => {
+            model.findOneAndUpdate({
+              _id: salleDesFetes._id
+            }, {
+              coordo: coordo
+            }, {
+              upsert: true,
+              new: true
+            }, (err, salleDesFetes) => {
               console.log("JE SUIS DANS L UPDATE");
               console.log(coordo);
               if (err || !salleDesFetes) {
@@ -160,40 +171,40 @@ export default class SDF {
             });
             console.log("COORDO : ", coordo);
           });
-        });
-      }
+      });
+  }
 
 
-    update(req, res) {
-      console.log('body', req.body);
-      model.findByIdAndUpdate({
-          _id: req.params.id
-        }, {
-          $addToSet: {
-            evenement: req.body._id
-          }
-        }, {
-          new: true
-        },
-        (err, salleDesFetes) => {
-          if (err || !salleDesFetes) {
-            res.status(500).send(err.message);
-          } else {
-            res.json({
-              success: true,
-              salleDesFetes: salleDesFetes,
-            });
-          }
-        });
-    }
-
-    delete(req, res) {
-      model.findByIdAndRemove(req.params.id, (err) => {
-        if (err) {
+  update(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.id
+      }, {
+        $addToSet: {
+          evenement: req.body._id
+        }
+      }, {
+        new: true
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
           res.status(500).send(err.message);
         } else {
-          res.sendStatus(200);
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
         }
       });
-    }
   }
+
+  delete(req, res) {
+    model.findByIdAndRemove(req.params.id, (err) => {
+      if (err) {
+        res.status(500).send(err.message);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  }
+}

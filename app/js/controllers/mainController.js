@@ -60,7 +60,7 @@ angular.module('app')
 
     $scope.addfav = function(sallesDesFetes_id) {
       UserService.addFav(userId, sallesDesFetes_id).then(function(res) {
-        console.log(res);
+        // console.log(res);
       }, function(err) {});
     };
 
