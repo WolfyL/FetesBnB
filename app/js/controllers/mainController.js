@@ -9,9 +9,11 @@ angular.module('app')
       console.log(res.data);
       $scope.sallesDesFetes = res.data;
     });
+
     NgMap.getMap().then(function(map) {
       $scope.map = map;
     });
+
     $scope.showStore = function(evt, index) {
       console.log('evt', evt);
       console.log('index', index);
@@ -31,9 +33,10 @@ angular.module('app')
 
     $scope.searchValid = function(ville, radius, capacity) {
 
+      $scope.searchShow = true;
+
       ville = ville.toLowerCase().trim();
 
-      $scope.searchShow = true;
       console.log(radius, 'coucou');
       if (ville === "" && radius !== null) {
         swal('Impossible !', 'Nous ne pouvons pas effectuer de recherche utilisant le rayon si vous n\'entrez pas de ville', 'error');
