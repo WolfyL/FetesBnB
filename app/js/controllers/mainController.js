@@ -38,25 +38,60 @@ angular.module('app')
           $scope.lat = $scope.coordo.lat;
           $scope.long = $scope.coordo.lng;
           console.log("lat", $scope.lat, " coordo;", $scope.coordo);
+          var paramFilter = {
+            ville: {
+              lat: $scope.lat,
+              lng: $scope.long
+            },
+            radius: radius,
+            capacity: capacity
+          };
+          //faire un map pour envoyer un tableau de bool à filtrer
+          boundContains(paramFilter);
         });
 
-        paramFilter = {
-          ville: {
-            lat: $scope.lat,
-            lng: $scope.long
-          },
-          radius: radius,
-          capacity: capacity
-        };
 
-        console.log(paramFilter);
 
-        SDFService.getResult(paramFilter).then(function(res) {
-          console.log(res.data);
-          $scope.cities = res.data;
-        });
+
+
+        // SDFService.getResult(paramFilter).then(function(res) {
+        //   console.log(res.data);
+        //   $scope.cities = res.data;
+        // });
       }
     };
+
+    function boundContains(paramFilter) {
+
+      console.log("CENTER LOC", paramFilter);
+      console.log(paramFilter.ville.lat, paramFilter.ville.lng);
+      var latLngCenter = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng),
+        latLngA = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng);
+
+
+      map = new google.maps.Map(document.getElementById('map'), {
+          center: latLngCenter
+        }),
+        markerCenter = new google.maps.Marker({
+          position: latLngCenter,
+          title: 'Location',
+          // map: map
+        }),
+        markerA = new google.maps.Marker({
+          position: latLngA,
+          title: 'Location',
+          // map: map
+        }),
+        circle = new google.maps.Circle({
+          // map: map,
+          radius: paramFilter.radius * 1000
+        });
+
+      circle.bindTo('center', markerCenter, 'position');
+      var bounds = circle.getBounds();
+      console.log("THE ANSWER IS HERE", bounds.contains(latLngA), "location", paramFilter.ville.lat, paramFilter.ville.lng);
+
+    }
 
     $scope.addfav = function(sallesDesFetes_id) {
       UserService.addFav(userId, sallesDesFetes_id).then(function(res) {

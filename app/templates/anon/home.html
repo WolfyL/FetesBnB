@@ -1,3 +1,4 @@
+<div id="map">test</div>
 <div class="container">
   <form class="marginTop" ng-submit="searchValid(searchText,searchRay,searchPeople)">
     <!-- <div class="row"> -->
@@ -10,7 +11,7 @@
           <!-- <input type="text" autocomplete="off" placeholder="Où ?" class="validate" ng-model="searchCity" /> -->
           <md-input-content>
             <label class="label">Ville</label>
-            <md-autocomplete  flex placeholder="Où ?" md-input-minlength="2" md-input-maxlength="18" md-selected-item="selectedItem" md-search-text="searchText" md-items="salleDesFetes in filterCity(searchText)" md-item-text="salleDesFetes.city" md-require-match>
+            <md-autocomplete flex placeholder="Où ?" md-input-minlength="2" md-input-maxlength="18" md-selected-item="selectedItem" md-search-text="searchText" md-items="salleDesFetes in filterCity(searchText)" md-item-text="salleDesFetes.city" md-require-match>
               <md-item-template>
                 <span md-highlight-text="searchText">{{ salleDesFetes.city }}</span>
               </md-item-template>

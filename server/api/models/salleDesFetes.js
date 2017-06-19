@@ -78,9 +78,10 @@ function filterSalles(salles, array, ville, radius, capacity, callback) {
       });
       callback(array);
     }
-  }
-  else{
-    console.log('LOG : ',salles, array, ville, radius, capacity);
+  } else {
+    console.log('LOG : ', salles, array, ville, radius, capacity);
+
+
   }
 }
 
