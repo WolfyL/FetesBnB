@@ -137,14 +137,15 @@ export default class SDF {
         if (err) {
           console.log(err);
           res.status(500).send(err.message);
-        } else {
-          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU', function(error, result, body) {
-            var donnee = JSON.parse(result.body)
+        } else
+        //adress et city puis france
+          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU', function(error, result, body) {
+            var donnee = JSON.parse(result.body);
             console.log(donnee);
              coordo = {
               lat: donnee.results[0].geometry.location.lat,
               lng: donnee.results[0].geometry.location.lng
-            }
+            };
             model.findOneAndUpdate({_id:salleDesFetes._id},{coordo:coordo},{upsert:true, new:true}, (err, salleDesFetes) => {
               console.log("JE SUIS DANS L UPDATE");
               console.log(coordo);
@@ -159,10 +160,9 @@ export default class SDF {
             });
             console.log("COORDO : ", coordo);
           });
+        });
+      }
 
-        }
-      })
-    }
 
     update(req, res) {
       console.log('body', req.body);
