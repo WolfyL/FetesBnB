@@ -77,6 +77,13 @@
               <td>{{ city.capacity }}</td>
             </tr>
           </tbody>
+          <tbody>
+            <tr ng-repeat="sdfRadiusFilter in sdfRadiusFilters">
+              <td>{{ sdfRadiusFilter.city }}</td>
+              <td>{{ sdfRadiusFilter.text }}</td>
+              <td>{{ sdfRadiusFilter.capacity }}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>

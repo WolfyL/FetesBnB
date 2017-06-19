@@ -6,8 +6,9 @@ angular.module('app')
     //       console.log($scope.user.isAdmin);
     //   });
     $scope.searchShow = false;
-    $scope.sdfAll = [];
-
+    var arrayTrueSDF = [],
+      sdfAll = [],
+      sdfCapacityFilter = [];
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
     });
@@ -51,14 +52,23 @@ angular.module('app')
 
             SDFService.getAll().then(function(res) {
               $scope.sallesDesFetes = res.data;
-              $scope.sdfAll = $scope.sallesDesFetes;
-              console.log($scope.sdfAll);
-              //faire un map pour envoyer un tableau de bool à filtrer
-              boundContains(paramFilter, $scope.sdfAll);
+              sdfAll = $scope.sallesDesFetes;
+              if (paramFilter.capacity !== null) {
+                sdfAll.map(function(salle) {
+                  if (paramFilter.capacity >= salle.capacity) {
+                    sdfCapacityFilter.push(salle);
+                  }
+                });
+                boundContains(paramFilter, sdfCapacityFilter);
+                $scope.sdfRadiusFilters = arrayTrueSDF;
+              }
+              else{
+                boundContains(paramFilter, sdfAll);
+                $scope.sdfRadiusFilters = arrayTrueSDF;
+              }
             });
-
           });
-        } else if(radius === null){
+        } else if (radius === null) {
           paramFilter = {
             ville: ville,
             radius: radius,
@@ -72,41 +82,34 @@ angular.module('app')
     };
 
     function boundContains(paramFilter, sdfAll) {
-      var arrayTrueSDF =[];
-      console.log("MY SDF", sdfAll);
-      sdfAll.map(function(salle){
-        console.log('salle : ', salle.coordo.lat, salle.coordo.lng);
+      sdfAll.map(function(salle) {
         var latLngCenter = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng),
-        latLngX = new google.maps.LatLng(salle.coordo.lat, salle.coordo.lng);
-
+          latLngX = new google.maps.LatLng(salle.coordo.lat, salle.coordo.lng);
 
         map = new google.maps.Map(document.getElementById('map'), {
-          center: latLngCenter
-        }),
-        markerCenter = new google.maps.Marker({
-          position: latLngCenter,
-          title: 'Location',
-          // map: map
-        }),
-        marker = new google.maps.Marker({
-          position: latLngX,
-          title: 'Location',
-          // map: map
-        }),
-        circle = new google.maps.Circle({
-          // map: map,
-          radius: paramFilter.radius * 1000
-        });
+            center: latLngCenter
+          }),
+          markerCenter = new google.maps.Marker({
+            position: latLngCenter,
+            title: 'Location',
+            // map: map
+          }),
+          marker = new google.maps.Marker({
+            position: latLngX,
+            title: 'Location',
+            // map: map
+          }),
+          circle = new google.maps.Circle({
+            // map: map,
+            radius: (paramFilter.radius * 1000)
+          });
 
         circle.bindTo('center', markerCenter, 'position');
         var bounds = circle.getBounds();
-        console.log("THE ANSWER IS HERE", bounds.contains(latLngX), "location", paramFilter.ville.lat, paramFilter.ville.lng);
-        if(bounds.contains(latLngX)){
+        if (bounds.contains(latLngX)) {
           arrayTrueSDF.push(salle);
         }
       });
-
-
     }
 
     $scope.addfav = function(sallesDesFetes_id) {
