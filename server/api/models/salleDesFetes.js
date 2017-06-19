@@ -47,7 +47,6 @@ const sdfSchema = new mongoose.Schema({
 const model = mongoose.model('SDF', sdfSchema);
 
 function filterSalles(salles, array, ville, radius, capacity, callback) {
-  if (radius === null) {
     if (ville === '' && capacity === undefined) {
       salles.map(salle => {
         array.push(salle);
@@ -78,11 +77,6 @@ function filterSalles(salles, array, ville, radius, capacity, callback) {
       });
       callback(array);
     }
-  } else {
-    console.log('LOG : ', salles, array, ville, radius, capacity);
-
-
-  }
 }
 
 export default class SDF {
@@ -104,6 +98,8 @@ export default class SDF {
 
 
   findResult(req, res) {
+    console.log("YOHO ET UNE BOUTEILLE DE SKY");
+
     model.find({}, {
         password: 0
       })

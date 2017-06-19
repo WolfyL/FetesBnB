@@ -33,31 +33,33 @@ angular.module('app')
       if (ville === "" && radius !== null) {
         swal('Impossible !', 'Nous ne pouvons pas effectuer de recherche utilisant le rayon si vous n\'entrez pas de ville', 'error');
       } else {
-        SDFService.getCoordo(ville).then(function(res) {
-          $scope.coordo = res.data.results[0].geometry.location;
-          $scope.lat = $scope.coordo.lat;
-          $scope.long = $scope.coordo.lng;
-          console.log("lat", $scope.lat, " coordo;", $scope.coordo);
-          var paramFilter = {
-            ville: {
-              lat: $scope.lat,
-              lng: $scope.long
-            },
+        if (radius !== null) {
+          SDFService.getCoordo(ville).then(function(res) {
+            $scope.coordo = res.data.results[0].geometry.location;
+            $scope.lat = $scope.coordo.lat;
+            $scope.long = $scope.coordo.lng;
+            console.log("lat", $scope.lat, " coordo;", $scope.coordo);
+            var paramFilter = {
+              ville: {
+                lat: $scope.lat,
+                lng: $scope.long
+              },
+              radius: radius,
+              capacity: capacity
+            };
+            //faire un map pour envoyer un tableau de bool à filtrer
+            // boundContains(paramFilter);
+          });
+        } else if(radius === null){
+          paramFilter = {
+            ville: ville,
             radius: radius,
             capacity: capacity
           };
-          //faire un map pour envoyer un tableau de bool à filtrer
-          boundContains(paramFilter);
-        });
-
-
-
-
-
-        // SDFService.getResult(paramFilter).then(function(res) {
-        //   console.log(res.data);
-        //   $scope.cities = res.data;
-        // });
+          SDFService.getResult(paramFilter).then(function(res) {
+            $scope.cities = res.data;
+          });
+        }
       }
     };
 
