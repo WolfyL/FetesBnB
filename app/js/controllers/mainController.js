@@ -13,7 +13,6 @@ angular.module('app')
       $scope.sallesDesFetes = res.data;
     });
 
-
     NgMap.getMap().then(function(map) {
       $scope.map = map;
     });
@@ -29,9 +28,10 @@ angular.module('app')
       });
     };
 
-    $scope.searchValid = function(ville, radius, capacity) {
+    $scope.searchValid = function(ville, radius, capacit
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
+
       if (ville === "" && radius !== null) {
         swal('Impossible !', 'Nous ne pouvons pas effectuer de recherche utilisant le rayon si vous n\'entrez pas de ville', 'error');
       } else {
