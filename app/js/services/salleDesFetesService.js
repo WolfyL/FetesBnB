@@ -22,6 +22,12 @@ angular.module('app')
             getResult: function(paramFilter) {
                 return $http.get('/sallesDesFetes/result',{params:paramFilter});
             },
+            //AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU
+            //AIzaSyDsX7VokXB7CtKCl5wJSc-zsviHLySFJKk
+
+            getCoordo: function(city) {
+                return $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU');
+            },
             create: function(sdf) {
                 return $http.post('/sallesDesFetes/', sdf);
             },
