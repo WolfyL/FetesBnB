@@ -5,10 +5,19 @@ angular.module('app')
     //       $scope.user = res.data;
     //       console.log($scope.user.isAdmin);
     //   });
+
+    $scope.sendMail = function (){
+      console.log("Hi");  
+    };
+
+
     $scope.searchShow = false;
     var arrayTrueSDF = [],
       sdfAll = [],
       sdfCapacityFilter = [];
+
+
+
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
     });
