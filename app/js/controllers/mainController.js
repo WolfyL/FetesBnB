@@ -28,7 +28,7 @@ angular.module('app')
       });
     };
 
-    $scope.searchValid = function(ville, radius, capacit
+    $scope.searchValid = function(ville, radius, capacity){
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
 
