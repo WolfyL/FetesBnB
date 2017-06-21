@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('MainController', function($scope, CurrentUser, UserService, SDFService, NgMap) {
+  .controller('MainController', function($scope, CurrentUser, UserService, SDFService, NgMap, NodeMailerService) {
     /* Here is your main controller */
     // UserService.getOne(CurrentUser.user()._id).then(function(res) {
     //       $scope.user = res.data;
@@ -7,7 +7,10 @@ angular.module('app')
     //   });
 
     $scope.sendMail = function (){
-      console.log("Hi");  
+      console.log("Hi");
+      NodeMailerService.create().then(function(res){
+        console.log("I called my service");
+      });
     };
 
 

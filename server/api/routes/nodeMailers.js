@@ -6,9 +6,9 @@ let router = express.Router();
 
 module.exports = (app) => {
 
-    app.get('/token_status', Auth.hasAuthorization, (req, res, next) => {
-        res.sendStatus(200);
-    });
+    // app.get('/token_status', Auth.hasAuthorization, (req, res, next) => {
+    //     res.sendStatus(200);
+    // });
 
     var nodeMailer = new NM();
 
@@ -18,7 +18,7 @@ module.exports = (app) => {
     //
     // router.get('/:id', nodeMailer.findById);
     //
-    // router.post('/', nodeMailer.create);
+    router.post('/', nodeMailer.create);
     //
     // router.put('/:id', Auth.isAdministrator, nodeMailer.update);
     //
