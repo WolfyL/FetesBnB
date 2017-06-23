@@ -5,7 +5,7 @@ angular.module('app')
     //       $scope.user = res.data;
     //       console.log($scope.user.isAdmin);
     //   });
-    $scope.searchShow = false;
+
     var arrayTrueSDF = [],
       sdfAll = [],
       sdfCapacityFilter = [];
@@ -28,9 +28,16 @@ angular.module('app')
       });
     };
 
+    $scope.change = function (){
+      $scope.searchShow = false;
+    };
+
     $scope.searchValid = function(ville, radius, capacity){
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
+      $scope.cities = "";
+      sdfCapacityFilter = [];
+
 
       if (ville === "" && radius !== null) {
         swal('Impossible !', 'Nous ne pouvons pas effectuer de recherche utilisant le rayon si vous n\'entrez pas de ville', 'error');
@@ -50,15 +57,20 @@ angular.module('app')
               capacity: capacity
             };
 
+            //arrayTrueSDF = "";
+
+
             SDFService.getAll().then(function(res) {
               $scope.sallesDesFetes = res.data;
               sdfAll = $scope.sallesDesFetes;
               if (paramFilter.capacity !== null) {
                 sdfAll.map(function(salle) {
                   if (paramFilter.capacity >= salle.capacity) {
+                    console.log(sdfCapacityFilter, 'test');
                     sdfCapacityFilter.push(salle);
                   }
                 });
+
                 boundContains(paramFilter, sdfCapacityFilter);
                 $scope.sdfRadiusFilters = arrayTrueSDF;
               }
@@ -71,7 +83,6 @@ angular.module('app')
         } else if (radius === null) {
           paramFilter = {
             ville: ville,
-            radius: radius,
             capacity: capacity
           };
           SDFService.getResult(paramFilter).then(function(res) {
@@ -81,7 +92,9 @@ angular.module('app')
       }
     };
 
+
     function boundContains(paramFilter, sdfAll) {
+      arrayTrueSDF = [];
       sdfAll.map(function(salle) {
         var latLngCenter = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng),
           latLngX = new google.maps.LatLng(salle.coordo.lat, salle.coordo.lng);
@@ -104,6 +117,7 @@ angular.module('app')
             radius: (paramFilter.radius * 1000)
           });
 
+
         circle.bindTo('center', markerCenter, 'position');
         var bounds = circle.getBounds();
         if (bounds.contains(latLngX)) {
@@ -118,8 +132,24 @@ angular.module('app')
       }, function(err) {});
     };
 
-    $(document).ready(function() {
-      $('select').material_select();
+    // $scope.salleResearch = function(id) {
+    //   console.log(id);
+    // };
 
-    });
+    $scope.sendMail = function(){
+      var link = "mailto:s.leheup@gmail.com" + "?subject=" + escape("Tacitement") + "&body=" + escape('Nique');
+      window.location.href = link;
+    };
+
+
+    function modalWorks(){
+
+      $(document).ready(function() {
+        $('select').material_select();
+        $('.modal').modal();
+      });
+
+    }
+    setTimeout(modalWorks, 200);
+
   });

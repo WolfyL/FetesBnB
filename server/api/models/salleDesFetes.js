@@ -46,7 +46,7 @@ const sdfSchema = new mongoose.Schema({
 
 const model = mongoose.model('SDF', sdfSchema);
 
-function filterSalles(salles, array, ville, radius, capacity, callback) {
+function filterSalles(salles, array, ville, capacity, callback) {
     if (ville === '' && capacity === undefined) {
       salles.map(salle => {
         array.push(salle);
@@ -109,7 +109,7 @@ export default class SDF {
           console.log(err);
           res.status(500).json(err);
         } else {
-          filterSalles(sallesDesFetes, [], req.query.ville, req.query.radius, req.query.capacity, function(result) {
+          filterSalles(sallesDesFetes, [], req.query.ville, req.query.capacity, function(result) {
             res.json(result);
           });
           //res.json(sallesDesFetes);
