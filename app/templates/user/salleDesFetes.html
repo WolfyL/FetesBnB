@@ -41,7 +41,7 @@
             </div>
             </form>
         </div>
-        <div class="col s6"  id="verticalScroll">
+        <div class="col s6" id="verticalScroll">
             <div class="row">
                 <h4 class="center underline">Gestion des salles des fêtes :</h4>
             </div>
@@ -111,9 +111,35 @@
                                         <button type="button validate" class="btn" ng-click="editSDFDone($index, salleDesFetes._id,{name : newNameSDF, text: newTextSDF, capacity: newCapacitySDF, surface: newSurfaceSDF, city: newCitySDF, postalCode: newPostalCodeSDF, adress: newAdressSDF})">Valider vos modifications</button>
                                         <button type="button" class="btn" ng-click="editCancel($index)">Annuler la modification</button>
                                     </ng-show>
-                                    <h5 class="center underline">Calendrier d'évènement de la salle {{sallesDesFetes.name}}</h5>
-                                    <p><em>Pour créer un evenement, placer vous sur le jour voulu, et cliquer sur "CREATE"</em></p><br/>
                                     <div class="col s12">
+                                        <h5 class="center underline">Ajouter des photos {{sallesDesFetes.name}}</h5>
+
+                                        <form name="myForm">
+                                            <fieldset>
+                                                <legend>Ajouter une photo</legend>
+                                                <br>Photo:
+                                                <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="5MB" required ngf-model-invalid="errorFile">
+                                                <i ng-show="myForm.file.$error.required">Un fichier est requis</i><br>
+                                                <i ng-show="myForm.file.$error.maxSize">Image trop volumineuse
+          {{errorFile.size / 1000000|number:5}}MB: max 5MB</i>
+                                                <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Vider</button>
+                                                <br>
+                                                <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile, salleDesFetes._id)">Valider</button>
+                                                <span class="progress" ng-show="picFile.progress >= 0">
+        <div style="width:{{picFile.progress}}%" 
+            ng-bind="picFile.progress + '%'"></div>
+      </span>
+                                                <span ng-show="picFile.result">Upload Successful</span>
+                                                <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                                            </fieldset>
+                                            <br>
+                                        </form>
+                                    </div>
+                                    <div class="col s12">
+                                        <h5 class="center underline">Calendrier d'évènement de la salle {{sallesDesFetes.name}}</h5>
+                                        <p><em>Pour créer un evenement, placer vous sur le jour voulu, et cliquer sur "CREATE"</em></p><br/>
+
+
                                         <md-event-calendar class="md-primary" ng-model="salleDesFetes.selected" md-events="salleDesFetes.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($index,$date,event)"
                                             class="md-primary">
                                             <md-event-calendar-header class="md-center">
@@ -187,23 +213,4 @@
         </div>
     </div>
 </div>
-
-<!-- <form class="marginTop" name="form"> -->
-<!-- Upload on form submit or button click
-  Single Image with validations
-  <button ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-    ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
-    ngf-resize="{width: 100, height: 100}">Select</button>
-  Multiple files
-  <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
-  Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>
-  <button type="submit" ng-click="submit()">submit</button> -->
-<!-- </form>
-<div class="button" ngf-select="upload($file)">Upload on file select</div>
-<div class="button" ngf-select="uploadFiles($files)" multiple="multiple">Upload on files select</div> -->
-
-<!-- Drop File:
-<div ngf-drop="uploadFiles($files)" class="drop-box"
-  ngf-drag-over-class="'dragover'" ngf-multiple="true"
-  ngf-pattern="'image/*,application/pdf'">Drop Images or PDFs files here</div>
-<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div> -->
+<img src="../images/balise/{{sdf}}">

@@ -29,6 +29,9 @@ const sdfSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    image: {
+        type: String,
+    },
     evenement: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
@@ -93,6 +96,43 @@ export default class SDF {
                     evenement: req.body._id
                 }
             }, {
+                new: true
+            },
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.json({
+                        success: true,
+                        salleDesFetes: salleDesFetes,
+                    });
+                }
+            });
+    }
+
+    updateImg(req, res) {
+        console.log('body', req.body);
+        model.findByIdAndUpdate({
+                _id: req.params.id
+            }, req.body, {
+                new: true
+            },
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.json({
+                        success: true,
+                        salleDesFetes: salleDesFetes,
+                    });
+                }
+            });
+    }
+    getImg(req, res) {
+        console.log('body', req.body);
+        model.findByIdAndUpdate({
+                _id: req.params.image
+            }, req.body, {
                 new: true
             },
             (err, salleDesFetes) => {

@@ -1,5 +1,5 @@
 angular.module('app')
-    .controller('SDFController', function($scope, SDFService, EvenementService, Upload, $anchorScroll, $location, UserService, CurrentUser) {
+    .controller('SDFController', function($scope, SDFService, $http, $timeout, EvenementService, Upload, $anchorScroll, $location, UserService, CurrentUser, UploadService) {
         $scope.sallesDesFetes = [];
         $scope.sdf = {};
         $scope.user = CurrentUser.user();
@@ -12,7 +12,7 @@ angular.module('app')
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
-            console.log('res salle des fetes après service', $scope.sallesDesFetes);
+            console.log('res salle des fetes après service', $scope.sallesDesFetes, $scope.sallesDesFetes.image);
         });
 
         function modalWorks() {
@@ -283,6 +283,37 @@ angular.module('app')
             UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {
                 console.log("liked sdf");
                 $scope.user.liked = res.data.liked;
+            });
+        };
+        $scope.uploadPic = function(file, id) {
+            file.upload = Upload.upload({
+                url: '/img/send',
+                data: { file: file },
+            });
+
+            file.upload.then(function(response) {
+                $timeout(function() {
+                    file.result = response.data;
+                });
+
+                SDFService.updateImg(id, { image: response.data.filename }).then(
+                    function(res) {
+
+                    },
+                    function(err) {
+
+                    }
+                );
+
+
+
+
+            }, function(response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function(evt) {
+                // Math.min is to fix IE which reports 200% sometimes
+                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
         };
 

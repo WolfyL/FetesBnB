@@ -6,7 +6,6 @@
         <%= pkg.name %>
     </title>
     <link rel="stylesheet" type="text/css" href="<%= css %>" media="all" />
-
 <script src="https://use.fontawesome.com/faa7ea27b8.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

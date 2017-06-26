@@ -3,6 +3,14 @@ angular.module('app')
         $scope.user = CurrentUser.user();
         $scope.likeds = [];
 
+        SDFService.getAll().then(function(res) {
+            $scope.sallesDesFetes = res.data;
+            console.log('res salle des fetes après service', $scope.sallesDesFetes);
+        });
+        SDFService.getImg().then(function(res) {
+            console.log(res.body);
+        });
+
         function loadLikeds() {
             UserService.getOne(CurrentUser.user()._id).then(function(res) {
                 $scope.likeds = (res.data.liked);
@@ -16,5 +24,9 @@ angular.module('app')
             UserService.delFav($scope.user._id, salleDesFetes).then(function(res) {
                 loadLikeds();
             });
+
+
+
         };
+
     });
