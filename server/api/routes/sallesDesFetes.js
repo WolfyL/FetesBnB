@@ -16,11 +16,13 @@ module.exports = (app) => {
 
     router.get('/result', sdf.findResult);
 
+    router.get('/handler/:id', sdf.getHandler);
+
     router.get('/:id', sdf.findById);
 
     router.post('/', sdf.create);
 
-    //  app.post('/uploadImages/:sdfID', Auth.hasAuthorization, sdf.uploadImages);
+    //app.post('/uploadImages/:sdfID', Auth.hasAuthorization, sdf.uploadImages);
 
     router.put('/img/:id', Auth.isAdministrator, sdf.updateImg);
 

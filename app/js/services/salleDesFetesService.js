@@ -45,6 +45,9 @@ angular.module('app')
             },
             getById: function(sdfId) {
                 return $http.get('/sallesDesFetes/' + sdfId);
+            },
+            getSDFHandler: function(id) {
+              return $http.get('/sallesDesFetes/handler/' + id);
             }
         };
     });

@@ -209,7 +209,8 @@ angular.module('app')
                 adress: $scope.adressSDF,
                 capacity: $scope.capacitySDF,
                 surface: $scope.surfaceSDF,
-                text: $scope.textSDF
+                text: $scope.textSDF,
+                handler: $scope.user._id,
             }).then(function(res) {
                 SDFService.getAll().then(function(res) {
                     $scope.sallesDesFetes = res.data;
@@ -244,6 +245,7 @@ angular.module('app')
             });
             $scope.editSDF[index] = false;
         };
+
 
         $scope.deleteSDF = function(sdf) {
             swal({

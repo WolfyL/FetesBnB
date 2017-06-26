@@ -1,4 +1,6 @@
 <div id="map"></div>
+
+
 <div class="container">
   <form class="marginTop" ng-submit="searchValid(searchText,searchRay,searchPeople)">
     <!-- <div class="row"> -->
@@ -11,7 +13,8 @@
           <!-- <input type="text" autocomplete="off" placeholder="Où ?" class="validate" ng-model="searchCity" /> -->
           <md-input-content>
             <label class="label">Ville</label>
-            <md-autocomplete flex placeholder="Où ?" md-input-minlength="2" md-input-maxlength="18" md-selected-item="selectedItem" md-search-text="searchText" md-items="salleDesFetes in filterCity(searchText)" md-item-text="salleDesFetes.city" md-require-match>
+            <md-autocomplete flex placeholder="Où ?" md-search-text-change="change()" md-dropdown-items="2" md-input-minlength="2" md-input-maxlength="18" md-selected-item="selectedItem" md-search-text="searchText" md-items="salleDesFetes in filterCity(searchText)"
+              md-item-text="salleDesFetes.city" md-require-match>
               <md-item-template>
                 <span md-highlight-text="searchText">{{ salleDesFetes.city }}</span>
               </md-item-template>
@@ -25,7 +28,7 @@
         </div>
 
         <div class="input-field col l4 m4 s4 pitchBlack">
-          <select ng-model="searchRay">
+          <select ng-model="searchRay" ng-change="change()">
                       <option value="" disabled selected>Km</option>
                       <option  value="5">5</option>
                       <option  value="10">10</option>
@@ -37,7 +40,7 @@
         </div>
 
         <div class="input-field col l4 m4 s4 pitchBlack" class="active">
-          <select ng-model="searchPeople">
+          <select ng-model="searchPeople" ng-change="change()">
                       <option value="" disabled selected>Combien</option>
                       <option value="50">50</option>
                       <option value="100">100</option>
@@ -65,13 +68,15 @@
         <table ng-show="searchShow" class="striped">
           <thead>
             <tr>
+              <!-- <th>Lien</th> -->
               <th>Ville</th>
               <th>Text descriptif</th>
               <th>Capacité</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="city in cities | filter: searchText">
+            <tr ng-repeat="city in cities">
+              <td><button class="btn" data-target="modal11" ng-click="click(city._id)" type="submit">test</button></td>
               <td>{{ city.city }}</td>
               <td>{{ city.text }}</td>
               <td>{{ city.capacity }}</td>
@@ -79,6 +84,7 @@
           </tbody>
           <tbody>
             <tr ng-repeat="sdfRadiusFilter in sdfRadiusFilters">
+              <td><button class="btn" data-target="modal11" ng-click="click(sdfRadiusFilter._id)" type="submit">test</button></td>
               <td>{{ sdfRadiusFilter.city }}</td>
               <td>{{ sdfRadiusFilter.text }}</td>
               <td>{{ sdfRadiusFilter.capacity }}</td>
@@ -87,6 +93,17 @@
         </table>
       </div>
     </div>
+    <div id="modal11" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <h4>Salle : {{ ville.city }}</h4>
+        <p>Text: {{ ville.text }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" ng-click="sendMail(ville._id)" type="button" name="button">Envoie mail</button>
+        <a href="#!" class="btn waves-effect waves-light btn">Agree</a>
+      </div>
+    </div>
+
 
     <div class="row marginTop">
       <div class="col l12 m12 s12">
