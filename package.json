@@ -12,17 +12,17 @@
   "dependencies": {
     "angular-material-event-calendar": "^0.1.4",
     "angularjs-color-picker": "^3.2.1",
+    "body-parser": "^1.17.2",
     "express": "",
+    "jade": "^1.11.0",
     "lineman": "~0.37.0",
     "lineman-angular": "^0.3.0",
     "lineman-less": "^0.1.0",
     "moment": "^2.18.1",
-    "request": "^2.81.0"
+    "multer": "^1.3.0",
+    "ng-file-upload": "^12.2.13",
+    "node-dir": "^0.1.17",
+    "request": "^2.81.0",
   },
-  "devDependencies": {
-    "eslint-config-airbnb": "^15.0.1",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-jsx-a11y": "^5.0.3",
-    "eslint-plugin-react": "^7.0.1"
   }
 }

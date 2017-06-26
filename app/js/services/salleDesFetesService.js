@@ -3,17 +3,17 @@ angular.module('app')
         return {
             getAll: function() {
                 return $http.get('/sallesDesFetes').then(function(res) {
-                  res.data = res.data.map(function(salleDesFetes) {
-                      salleDesFetes.evenement = salleDesFetes.evenement.map(function(event) {
-                        event.end = new Date(event.end);
-                        event.start = new Date(event.start);
-                        return event;
+                    res.data = res.data.map(function(salleDesFetes) {
+                        salleDesFetes.evenement = salleDesFetes.evenement.map(function(event) {
+                            event.end = new Date(event.end);
+                            event.start = new Date(event.start);
+                            return event;
+                        });
+                        return salleDesFetes;
                     });
-                    return salleDesFetes;
-                  });
-                  return res;
+                    return res;
                 }, function(err) {
-                  return err;
+                    return err;
                 });
             },
             getOne: function(id) {
@@ -33,6 +33,12 @@ angular.module('app')
             },
             update: function(id, sdf) {
                 return $http.put('/sallesDesFetes/' + id, sdf);
+            },
+            updateImg: function(id, sdf) {
+                return $http.put('/sallesDesFetes/img/' + id, sdf);
+            },
+            getImg: function(id, sdf) {
+                return $http.get('/sallesDesFetes/img/' + id, sdf);
             },
             delete: function(id) {
                 return $http.delete('/sallesDesFetes/' + id);

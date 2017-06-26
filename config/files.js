@@ -23,7 +23,8 @@ module.exports = function(lineman) {
                 "app/js/factories/*.js",
                 "app/js/services/*.js",
                 "app/js/controllers/*.js",
-                "app/js/routes.js"
+                "app/js/routes.js",
+                "app/js/libs/*.js"
             ]
         },
         less: {

@@ -5,42 +5,46 @@ import Event from './evenement.js';
 import request from 'request';
 
 const sdfSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  city: {
-    type: String,
-    required: true,
-  },
-  postalCode: {
-    type: String,
-    required: true,
-  },
-  adress: {
-    type: String,
-    required: true,
-  },
-  capacity: {
-    type: Number,
-    required: true,
-  },
-  surface: {
-    type: Number,
-    required: true,
-  },
-  text: {
-    type: String,
-    required: true,
-  },
-  coordo: {
+    name: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    postalCode: {
+        type: String,
+        required: true
+    },
+    adress: {
+        type: String,
+        required: true
+    },
+    capacity: {
+        type: Number,
+        required: true
+    },
+    surface: {
+        type: Number,
+        required: true
+    },
+    text: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+    },
+    coordo: {
     lat: String,
     lng: String
   },
-  evenement: [{
+    evenement: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
   }],
+
 });
 
 
@@ -171,6 +175,54 @@ export default class SDF {
       });
   }
 
+
+    updateImg(req, res) {
+        console.log('body', req.body);
+        model.findByIdAndUpdate({
+                _id: req.params.id
+            }, req.body, {
+                new: true
+            },
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.json({
+                        success: true,
+                        salleDesFetes: salleDesFetes,
+                    });
+                }
+            });
+    }
+    getImg(req, res) {
+        console.log('body', req.body);
+        model.findByIdAndUpdate({
+                _id: req.params.image
+            }, req.body, {
+                new: true
+            },
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.json({
+                        success: true,
+                        salleDesFetes: salleDesFetes,
+                    });
+                }
+            });
+    }
+
+    delete(req, res) {
+        model.findByIdAndRemove(req.params.id, (err) => {
+            if (err) {
+                res.status(500).send(err.message);
+            } else {
+                res.sendStatus(200);
+            }
+        });
+    }
+}
 
   update(req, res) {
     console.log('body', req.body);
