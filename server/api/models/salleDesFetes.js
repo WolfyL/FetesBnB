@@ -5,6 +5,7 @@ import Event from './evenement.js';
 import request from 'request';
 
 const sdfSchema = new mongoose.Schema({
+
   name: {
     type: String,
     required: true,
@@ -45,6 +46,7 @@ const sdfSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
+
 });
 
 
@@ -81,9 +83,11 @@ function filterSalles(salles, array, ville, capacity, callback) {
     });
     callback(array);
   }
+
 }
 
 export default class SDF {
+
 
   findAll(req, res) {
     model.find({})
@@ -143,6 +147,42 @@ export default class SDF {
         }
       });
   }
+    updateImg(req, res) {
+        console.log('body', req.body);
+        model.findByIdAndUpdate({
+                _id: req.params.id
+            }, req.body, {
+                new: true
+            },
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.json({
+                        success: true,
+                        salleDesFetes: salleDesFetes,
+                    });
+                }
+            });
+    }
+    getImg(req, res) {
+        console.log('body', req.body);
+        model.findByIdAndUpdate({
+                _id: req.params.image
+            }, req.body, {
+                new: true
+            },
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.json({
+                        success: true,
+                        salleDesFetes: salleDesFetes,
+                    });
+                }
+            });
+    }
 
   create(req, res) {
     let coordo;
@@ -183,38 +223,37 @@ export default class SDF {
           });
       });
   }
+    update(req, res) {
+        console.log('body', req.body);
+        model.findByIdAndUpdate({
+                _id: req.params.id
 
+            }, {
+                $addToSet: {
+                    evenement: req.body._id
+                }
+            }, {
+                new: true
+            },
+            (err, salleDesFetes) => {
+                if (err || !salleDesFetes) {
+                    res.status(500).send(err.message);
+                } else {
+                    res.json({
+                        success: true,
+                        salleDesFetes: salleDesFetes,
+                    });
+                }
+            });
+    }
 
-  update(req, res) {
-    console.log('body', req.body);
-    model.findByIdAndUpdate({
-        _id: req.params.id
-      }, {
-        $addToSet: {
-          evenement: req.body._id
-        }
-      }, {
-        new: true
-      },
-      (err, salleDesFetes) => {
-        if (err || !salleDesFetes) {
-          res.status(500).send(err.message);
-        } else {
-          res.json({
-            success: true,
-            salleDesFetes: salleDesFetes,
-          });
-        }
-      });
-  }
-
-  delete(req, res) {
-    model.findByIdAndRemove(req.params.id, (err) => {
-      if (err) {
-        res.status(500).send(err.message);
-      } else {
-        res.sendStatus(200);
-      }
-    });
-  }
+    delete(req, res) {
+        model.findByIdAndRemove(req.params.id, (err) => {
+            if (err) {
+                res.status(500).send(err.message);
+            } else {
+                res.sendStatus(200);
+            }
+        });
+    }
 }

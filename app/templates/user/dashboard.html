@@ -3,8 +3,7 @@
     <div ng-repeat="liked in likeds track by $index" class="fav">
         <div class="card card small col s12 m4">
             <div class="card-image waves-effect waves-block ">
-                <img class="activator" src="http://lorempixel.com/100/190/nature/6">
-            </div>
+                <img ng-src="/upload/{{img.name}}" alt> </div>
             <div class="card-content ">
                 <span class="card-title activator  grey-text text-darken-4 left-align">{{liked.name}}</span>
                 <a ng-click="delFav(liked)" class=" pad right btn-floating btn-medium waves-effect waves-light green horizontal-align"><i class="material-icons">delete</i></a>
