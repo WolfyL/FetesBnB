@@ -304,10 +304,7 @@ angular.module('app')
 
                     }
                 );
-
-
-
-
+              
             }, function(response) {
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;

@@ -1,5 +1,6 @@
+<div id="map"></div>
 <div class="container">
-  <form class="marginTop" ng-submit="searchValid()">
+  <form class="marginTop" ng-submit="searchValid(searchText,searchRay,searchPeople)">
     <!-- <div class="row"> -->
     <div class="text center section">
       <h2>Trouver une salle à louer proche de chez vous</h2>
@@ -26,11 +27,11 @@
         <div class="input-field col l4 m4 s4 pitchBlack">
           <select ng-model="searchRay">
                       <option value="" disabled selected>Km</option>
-                      <option  value="1">5</option>
-                      <option  value="2">10</option>
-                      <option  value="3">20</option>
-                      <option  value="4">30</option>
-                      <option  value="5">50</option>
+                      <option  value="5">5</option>
+                      <option  value="10">10</option>
+                      <option  value="20">20</option>
+                      <option  value="30">30</option>
+                      <option  value="50">50</option>
                     </select> {{ raySearch }}
           <label class="black-text label">Rayon de recherche</label>
         </div>
@@ -38,11 +39,11 @@
         <div class="input-field col l4 m4 s4 pitchBlack" class="active">
           <select ng-model="searchPeople">
                       <option value="" disabled selected>Combien</option>
-                      <option value="1">50</option>
-                      <option value="2">100</option>
-                      <option value="3">150</option>
-                      <option value="4">250</option>
-                      <option value="5">500</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                      <option value="150">150</option>
+                      <option value="250">250</option>
+                      <option value="500">500</option>
                     </select>
           <label class="black-text label">Nbr de personnes : </label>
         </div>
@@ -66,12 +67,21 @@
             <tr>
               <th>Ville</th>
               <th>Text descriptif</th>
+              <th>Capacité</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="city in citys | filter: searchText">
+            <tr ng-repeat="city in cities | filter: searchText">
               <td>{{ city.city }}</td>
               <td>{{ city.text }}</td>
+              <td>{{ city.capacity }}</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr ng-repeat="sdfRadiusFilter in sdfRadiusFilters">
+              <td>{{ sdfRadiusFilter.city }}</td>
+              <td>{{ sdfRadiusFilter.text }}</td>
+              <td>{{ sdfRadiusFilter.capacity }}</td>
             </tr>
           </tbody>
         </table>
