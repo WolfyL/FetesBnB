@@ -1,6 +1,5 @@
 <div id="map"></div>
 
-<button class="btn" ng-click="sendMail()" type="button" name="button">Envoie mail</button>
 
 <div class="container">
   <form class="marginTop" ng-submit="searchValid(searchText,searchRay,searchPeople)">
@@ -76,8 +75,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="city in cities track by $index">
-              <!-- <td><button class="btn" data-target="modal{{$index}}" type="submit">test</button></td> -->
+            <tr ng-repeat="city in cities">
+              <td><button class="btn" data-target="modal11" ng-click="click(city._id)" type="submit">test</button></td>
               <td>{{ city.city }}</td>
               <td>{{ city.text }}</td>
               <td>{{ city.capacity }}</td>
@@ -85,6 +84,7 @@
           </tbody>
           <tbody>
             <tr ng-repeat="sdfRadiusFilter in sdfRadiusFilters">
+              <td><button class="btn" data-target="modal11" ng-click="click(sdfRadiusFilter._id)" type="submit">test</button></td>
               <td>{{ sdfRadiusFilter.city }}</td>
               <td>{{ sdfRadiusFilter.text }}</td>
               <td>{{ sdfRadiusFilter.capacity }}</td>
@@ -93,12 +93,13 @@
         </table>
       </div>
     </div>
-    <div id="modal{{$index}}" class="modal modal-fixed-footer">
+    <div id="modal11" class="modal modal-fixed-footer">
       <div class="modal-content">
-        <h4>Salle : {{ city }}</h4>
-        <p>A bunch of text</p>
+        <h4>Salle : {{ ville.city }}</h4>
+        <p>Text: {{ ville.text }}</p>
       </div>
       <div class="modal-footer">
+        <button class="btn" ng-click="sendMail(ville._id)" type="button" name="button">Envoie mail</button>
         <a href="#!" class="btn waves-effect waves-light btn">Agree</a>
       </div>
     </div>

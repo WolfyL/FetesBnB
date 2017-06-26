@@ -31,6 +31,11 @@ angular.module('app')
     $scope.change = function (){
       $scope.searchShow = false;
     };
+    $scope.click = function(index){
+      SDFService.getOne(index).then(function(res){
+        $scope.ville = res.data;
+      });
+    };
 
     $scope.searchValid = function(ville, radius, capacity){
       ville = ville.toLowerCase().trim();
@@ -136,10 +141,15 @@ angular.module('app')
     //   console.log(id);
     // };
 
-    $scope.sendMail = function(){
-      var link = "mailto:s.leheup@gmail.com" + "?subject=" + escape("Tacitement") + "&body=" + escape('Nique');
-      window.location.href = link;
-    };
+    $scope.sendMail = function(id) {
+          SDFService.getSDFHandler(id).then(function(res){
+            $scope.currentHandler = res.data.handler.email;
+            var link = "mailto:" + $scope.currentHandler +
+            "?subject=" + escape("Tacitement") +
+            "&body=" + escape("Nique");
+            window.location.href = link;
+          });
+        };
 
 
     function modalWorks(){

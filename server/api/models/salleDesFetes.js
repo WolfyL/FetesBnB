@@ -39,52 +39,54 @@ const sdfSchema = new mongoose.Schema({
   },
   evenement: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Event',
+    ref: 'Event'
   }],
+  handler: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 
 const model = mongoose.model('SDF', sdfSchema);
 
 function filterSalles(salles, array, ville, capacity, callback) {
-    if (ville === '' && capacity === undefined) {
-      salles.map(salle => {
-        array.push(salle);
-      });
-      callback(array);
-    }
-    if (ville !== '' && capacity !== undefined) {
-      salles.map(salle => {
-        if (salle.city === ville) {
-          if (salle.capacity <= capacity) {
-            array.push(salle);
-          }
-        }
-      });
-      callback(array);
-    } else if (capacity !== undefined) {
-      salles.map(salle => {
+  if (ville === '' && capacity === undefined) {
+    salles.map(salle => {
+      array.push(salle);
+    });
+    callback(array);
+  }
+  if (ville !== '' && capacity !== undefined) {
+    salles.map(salle => {
+      if (salle.city === ville) {
         if (salle.capacity <= capacity) {
           array.push(salle);
         }
-      });
-      callback(array);
-    } else if (ville !== '') {
-      salles.map(salle => {
-        if (salle.city === ville) {
-          array.push(salle);
-        }
-      });
-      callback(array);
-    }
+      }
+    });
+    callback(array);
+  } else if (capacity !== undefined) {
+    salles.map(salle => {
+      if (salle.capacity <= capacity) {
+        array.push(salle);
+      }
+    });
+    callback(array);
+  } else if (ville !== '') {
+    salles.map(salle => {
+      if (salle.city === ville) {
+        array.push(salle);
+      }
+    });
+    callback(array);
+  }
 }
 
 export default class SDF {
 
   findAll(req, res) {
-    model.find({}, {
-        password: 0
-      })
+    model.find({})
       .populate('evenement')
       .exec((err, sallesDesFetes) => {
         if (err || !sallesDesFetes) {
@@ -100,9 +102,7 @@ export default class SDF {
   findResult(req, res) {
     console.log("YOHO ET UNE BOUTEILLE DE SKY");
 
-    model.find({}, {
-        password: 0
-      })
+    model.find({})
       .populate('evenement')
       .exec((err, sallesDesFetes) => {
         if (err || !sallesDesFetes) {
@@ -118,15 +118,28 @@ export default class SDF {
   }
 
   findById(req, res) {
-    model.findById(req.params.id, {
-        password: 0
-      })
+    model.findById(req.params.id)
       .populate('evenement')
       .exec((err, salleDesFetes) => {
         if (err || !salleDesFetes) {
           res.status(500).json(err);
         } else {
-          res.json(sallesDesFetes);
+          res.json(salleDesFetes);
+        }
+      });
+  }
+  getHandler(req, res) {
+    model.findById(req.params.id)
+      .populate({
+        path: 'handler',
+        select: 'email'
+      })
+      .exec((err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).json(err);
+        } else {
+          res.json(salleDesFetes);
+          console.log(salleDesFetes, "testSendMail");
         }
       });
   }

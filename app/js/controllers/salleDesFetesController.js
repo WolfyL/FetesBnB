@@ -219,6 +219,7 @@ angular.module('app')
         capacity: $scope.capacitySDF,
         surface: $scope.surfaceSDF,
         text: $scope.textSDF,
+        handler: $scope.user._id,
         // coordo: {
         //   lat: $scope.lat,
         //   lng: $scope.lng
