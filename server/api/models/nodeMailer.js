@@ -7,8 +7,8 @@ import hbs from 'nodemailer-express-handlebars';
 var mailer = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'mail',
-    pass: 'mdp'
+    user: 's.leheup@gmail.com',
+    pass: '^^voyko^^'
   }
 });
 

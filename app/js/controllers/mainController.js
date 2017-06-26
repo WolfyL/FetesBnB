@@ -5,25 +5,27 @@ angular.module('app')
     //       $scope.user = res.data;
     //       console.log($scope.user.isAdmin);
     //   });
-
-    $scope.sendMail = function (){
-      console.log("Hi");
-      NodeMailerService.create().then(function(res){
-        console.log("I called my service");
-      });
-    };
-
-
     $scope.searchShow = false;
     var arrayTrueSDF = [],
-      sdfAll = [],
-      sdfCapacityFilter = [];
-
-
+    sdfAll = [],
+    sdfCapacityFilter = [];
 
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
     });
+
+    $scope.sendMail = function() {
+      SDFService.getSDFHandler(id).then(function(res){
+        $scope.currentHandler = res.data;
+        console.log($scope.currentHandler);
+      });
+      // var link = "mailto:olivier.goy.37@gmail.com" +
+      // "?subject=" + escape("Tacitement") +
+      // "&body=" + escape("Nique");
+      // window.location.href = link;
+    };
+
+
 
     NgMap.getMap().then(function(map) {
       $scope.map = map;
@@ -40,7 +42,7 @@ angular.module('app')
       });
     };
 
-    $scope.searchValid = function(ville, radius, capacity){
+    $scope.searchValid = function(ville, radius, capacity) {
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
 
@@ -73,8 +75,7 @@ angular.module('app')
                 });
                 boundContains(paramFilter, sdfCapacityFilter);
                 $scope.sdfRadiusFilters = arrayTrueSDF;
-              }
-              else{
+              } else {
                 boundContains(paramFilter, sdfAll);
                 $scope.sdfRadiusFilters = arrayTrueSDF;
               }

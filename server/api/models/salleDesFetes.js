@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import Event from './evenement.js';
 
+import User from './user.js';
+
 import request from 'request';
 
 const sdfSchema = new mongoose.Schema({
@@ -41,42 +43,46 @@ const sdfSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
   }],
+  handler: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }
 });
 
 
 const model = mongoose.model('SDF', sdfSchema);
 
 function filterSalles(salles, array, ville, radius, capacity, callback) {
-    if (ville === '' && capacity === undefined) {
-      salles.map(salle => {
-        array.push(salle);
-      });
-      callback(array);
-    }
-    if (ville !== '' && capacity !== undefined) {
-      salles.map(salle => {
-        if (salle.city === ville) {
-          if (salle.capacity <= capacity) {
-            array.push(salle);
-          }
-        }
-      });
-      callback(array);
-    } else if (capacity !== undefined) {
-      salles.map(salle => {
+  if (ville === '' && capacity === undefined) {
+    salles.map(salle => {
+      array.push(salle);
+    });
+    callback(array);
+  }
+  if (ville !== '' && capacity !== undefined) {
+    salles.map(salle => {
+      if (salle.city === ville) {
         if (salle.capacity <= capacity) {
           array.push(salle);
         }
-      });
-      callback(array);
-    } else if (ville !== '') {
-      salles.map(salle => {
-        if (salle.city === ville) {
-          array.push(salle);
-        }
-      });
-      callback(array);
-    }
+      }
+    });
+    callback(array);
+  } else if (capacity !== undefined) {
+    salles.map(salle => {
+      if (salle.capacity <= capacity) {
+        array.push(salle);
+      }
+    });
+    callback(array);
+  } else if (ville !== '') {
+    salles.map(salle => {
+      if (salle.city === ville) {
+        array.push(salle);
+      }
+    });
+    callback(array);
+  }
 }
 
 export default class SDF {
@@ -126,7 +132,24 @@ export default class SDF {
         if (err || !salleDesFetes) {
           res.status(500).json(err);
         } else {
-          res.json(sallesDesFetes);
+          res.json(salleDesFetes);
+        }
+      });
+  }
+
+  getHandler(req, res) {
+    model.findById(req.params.id, {
+        password: 0
+      })
+      .populate({
+        path: 'user',
+        select: 'email'
+      })
+      .exec((err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).json(err);
+        } else {
+          res.json(salleDesFetes);
         }
       });
   }

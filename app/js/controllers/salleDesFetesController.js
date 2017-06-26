@@ -219,6 +219,7 @@ angular.module('app')
         capacity: $scope.capacitySDF,
         surface: $scope.surfaceSDF,
         text: $scope.textSDF,
+        handler: $scope.user._id,
         // coordo: {
         //   lat: $scope.lat,
         //   lng: $scope.lng
@@ -291,7 +292,7 @@ angular.module('app')
     $scope.addFav = function(sallesDesFetes) {
       console.log('in addFav', $scope.likeds);
       if ($scope.user.liked.indexOf(sallesDesFetes._id) !== -1) {
-        console.log(sallesDesFetes._id + 'déjà prise')
+        console.log(sallesDesFetes._id + 'déjà prise');
         return $scope.msgdenied = alert('La salle est deja prise');
       }
       UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {

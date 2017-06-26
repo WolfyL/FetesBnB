@@ -16,6 +16,8 @@ module.exports = (app) => {
 
     router.get('/result', sdf.findResult);
 
+    router.get('/handler', sdf.getHandler);
+
     router.get('/:id', sdf.findById);
 
     router.post('/', sdf.create);

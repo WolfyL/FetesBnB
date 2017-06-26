@@ -22,6 +22,9 @@ angular.module('app')
             getResult: function(paramFilter) {
                 return $http.get('/sallesDesFetes/result',{params:paramFilter});
             },
+            getSDFHandler: function(sdf) {
+                return $http.get('/sallesDesFetes/handler', sdf);
+            },
             //AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU
             //AIzaSyDsX7VokXB7CtKCl5wJSc-zsviHLySFJKk
 
