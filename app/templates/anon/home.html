@@ -99,8 +99,11 @@
         <p>Text: {{ ville.text }}</p>
       </div>
       <div class="modal-footer">
-        <button class="btn" ng-click="sendMail(ville._id)" type="button" name="button">Envoie mail</button>
-        <a href="#!" class="btn waves-effect waves-light btn">Agree</a>
+        <button class="btn waves-effect waves-light btn modal-close" ng-click="resa(ville._id)">Réservation</button>
+        <!-- <button class="btn" ng-click="sendMail(ville._id)" type="button" name="button">Envoie mail</button> -->
+        <button  class="btn waves-effect waves-light btn modal-close">
+          Fermer
+        </button>
       </div>
     </div>
 

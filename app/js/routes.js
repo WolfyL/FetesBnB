@@ -72,6 +72,15 @@ angular.module('app')
           }
         }
       })
+      .state('user.reservation', {
+        url: '/reservation/:sdf',
+        views: {
+          'content@': {
+            templateUrl: 'user/reservation.html',
+            controller: 'ResaController'
+          }
+        }
+      })
       .state('user.dashboard', {
         url: '/dashboard',
         views: {
