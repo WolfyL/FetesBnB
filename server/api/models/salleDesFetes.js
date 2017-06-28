@@ -123,140 +123,155 @@ export default class SDF {
                 }
             });
     }
+  
+  findById(req, res) {
+    model.findById(req.params.id)
+      .populate('evenement')
+      .exec((err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).json(err);
+        } else {
+          res.json(salleDesFetes);
+        }
+      });
+  }
 
-    findById(req, res) {
-        model.findById(req.params.id)
-            .populate('evenement')
-            .exec((err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).json(err);
-                } else {
-                    res.json(salleDesFetes);
-                }
-            });
-    }
-    getHandler(req, res) {
-        model.findById(req.params.id)
-            .populate({
-                path: 'handler',
-                select: 'email'
-            })
-            .exec((err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).json(err);
-                } else {
-                    res.json(salleDesFetes);
-                    console.log(salleDesFetes, "testSendMail");
-                }
-            });
-    }
-    updateImg(req, res) {
-        console.log('body', req.body);
-        model.findByIdAndUpdate({
-                _id: req.params.id
-            }, req.body, {
-                new: true
-            },
-            (err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).send(err.message);
-                } else {
-                    res.json({
-                        success: true,
-                        salleDesFetes: salleDesFetes,
-                    });
-                }
-            });
-    }
-    getImg(req, res) {
-        console.log('body', req.body);
-        model.findByIdAndUpdate({
-                _id: req.params.image
-            }, req.body, {
-                new: true
-            },
-            (err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).send(err.message);
-                } else {
-                    res.json({
-                        success: true,
-                        salleDesFetes: salleDesFetes,
-                    });
-                }
-            });
-    }
+  getMySDF(req, res) {
+    model.find({
+        handler: req.params.handler
+      },
+      (err, salleDesFetes) => {
+        // console.log(req.body.handler);
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json(salleDesFetes);
+        }
+      }
+    );
+  }
+
+  getHandler(req, res) {
+    model.findById(req.params.id)
+      .populate({
+        path: 'handler',
+        select: 'email'
+      })
+      .exec((err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).json(err);
+        } else {
+          res.json(salleDesFetes);
+        }
+      });
+  }
+  updateImg(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.id
+      }, req.body, {
+        new: true
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
+        }
+      });
+  }
+  getImg(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.image
+      }, req.body, {
+        new: true
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
+        }
+      });
+  }
 
     create(req, res) {
-        let coordo;
-        model.create(req.body,
-            (err, salleDesFetes) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).send(err.message);
-                } else
-                //adress et city puis france
-                    request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU', function(error, result, body) {
-                    var donnee = JSON.parse(result.body);
-                    console.log(donnee);
-                    coordo = {
-                        lat: donnee.results[0].geometry.location.lat,
-                        lng: donnee.results[0].geometry.location.lng
-                    };
-                    model.findOneAndUpdate({
-                        _id: salleDesFetes._id
-                    }, {
-                        coordo: coordo
-                    }, {
-                        upsert: true,
-                        new: true
-                    }, (err, salleDesFetes) => {
-                        console.log("JE SUIS DANS L UPDATE");
-                        console.log(coordo);
-                        if (err || !salleDesFetes) {
-                            res.status(500).send(err.message);
-                        } else {
-                            res.json({
-                                success: true,
-                                salleDesFetes: salleDesFetes,
-                            });
-                        }
-                    });
-                    console.log("COORDO : ", coordo);
-                });
-            });
-    }
-    update(req, res) {
-        console.log('body', req.body);
-        model.findByIdAndUpdate({
-                _id: req.params.id
-
+    let coordo;
+    model.create(req.body,
+      (err, salleDesFetes) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err.message);
+        } else
+          //adress et city puis france
+          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU', function(error, result, body) {
+            var donnee = JSON.parse(result.body);
+            console.log(donnee);
+            coordo = {
+              lat: donnee.results[0].geometry.location.lat,
+              lng: donnee.results[0].geometry.location.lng
+            };
+            model.findOneAndUpdate({
+              _id: salleDesFetes._id
             }, {
-                $addToSet: {
-                    evenement: req.body._id
-                }
+              coordo: coordo
             }, {
-                new: true
-            },
-            (err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).send(err.message);
-                } else {
-                    res.json({
-                        success: true,
-                        salleDesFetes: salleDesFetes,
-                    });
-                }
-            });
-    }
-
-    delete(req, res) {
-        model.findByIdAndRemove(req.params.id, (err) => {
-            if (err) {
+              upsert: true,
+              new: true
+            }, (err, salleDesFetes) => {
+              console.log("JE SUIS DANS L UPDATE");
+              console.log(coordo);
+              if (err || !salleDesFetes) {
                 res.status(500).send(err.message);
-            } else {
-                res.sendStatus(200);
-            }
-        });
-    }
+              } else {
+                res.json({
+                  success: true,
+                  salleDesFetes: salleDesFetes,
+                });
+              }
+            });
+            console.log("COORDO : ", coordo);
+          });
+      });
+  }
+  update(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.id
+
+      }, {
+        $addToSet: {
+          evenement: req.body._id
+        }
+      }, {
+        new: true
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
+        }
+      });
+}
+
+  delete(req, res) {
+    model.findByIdAndRemove(req.params.id, (err) => {
+      if (err) {
+        res.status(500).send(err.message);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  }
 }

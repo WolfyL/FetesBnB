@@ -16,6 +16,8 @@ module.exports = (app) => {
 
     router.get('/result', sdf.findResult);
 
+    router.get('/adminSDF/:handler', sdf.getMySDF);
+
     router.get('/handler/:id', sdf.getHandler);
 
     router.get('/:id', sdf.findById);
