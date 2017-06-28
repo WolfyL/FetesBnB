@@ -34,6 +34,9 @@ const sdfSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  image: {
+    type: String,
+  },
   text: {
     type: String,
     required: true,
@@ -50,81 +53,80 @@ const sdfSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }
-
 });
 
 
 const model = mongoose.model('SDF', sdfSchema);
 
 function filterSalles(salles, array, ville, capacity, callback) {
-  if (ville === '' && capacity === undefined) {
-    salles.map(salle => {
-      array.push(salle);
-    });
-    callback(array);
-  }
-  if (ville !== '' && capacity !== undefined) {
-    salles.map(salle => {
-      if (salle.city === ville) {
-        if (salle.capacity <= capacity) {
-          array.push(salle);
-        }
-      }
-    });
-    callback(array);
-  } else if (capacity !== undefined) {
-    salles.map(salle => {
-      if (salle.capacity <= capacity) {
-        array.push(salle);
-      }
-    });
-    callback(array);
-  } else if (ville !== '') {
-    salles.map(salle => {
-      if (salle.city === ville) {
-        array.push(salle);
-      }
-    });
-    callback(array);
-  }
+    if (ville === '' && capacity === undefined) {
+        salles.map(salle => {
+            array.push(salle);
+        });
+        callback(array);
+    }
+    if (ville !== '' && capacity !== undefined) {
+        salles.map(salle => {
+            if (salle.city === ville) {
+                if (salle.capacity <= capacity) {
+                    array.push(salle);
+                }
+            }
+        });
+        callback(array);
+    } else if (capacity !== undefined) {
+        salles.map(salle => {
+            if (salle.capacity <= capacity) {
+                array.push(salle);
+            }
+        });
+        callback(array);
+    } else if (ville !== '') {
+        salles.map(salle => {
+            if (salle.city === ville) {
+                array.push(salle);
+            }
+        });
+        callback(array);
+    }
 
 }
 
 export default class SDF {
 
 
-  findAll(req, res) {
-    model.find({})
-      .populate('evenement')
-      .exec((err, sallesDesFetes) => {
-        if (err || !sallesDesFetes) {
-          console.log(err);
-          res.status(500).json(err);
-        } else {
-          res.json(sallesDesFetes);
-        }
-      });
-  }
+    findAll(req, res) {
+        model.find({})
+            .populate('evenement')
+            .exec((err, sallesDesFetes) => {
+                if (err || !sallesDesFetes) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    res.json(sallesDesFetes);
+                }
+            });
+    }
 
 
-  findResult(req, res) {
-    console.log("YOHO ET UNE BOUTEILLE DE SKY");
+    findResult(req, res) {
+        console.log("YOHO ET UNE BOUTEILLE DE SKY");
 
-    model.find({})
-      .populate('evenement')
-      .exec((err, sallesDesFetes) => {
-        if (err || !sallesDesFetes) {
-          console.log(err);
-          res.status(500).json(err);
-        } else {
-          filterSalles(sallesDesFetes, [], req.query.ville, req.query.capacity, function(result) {
-            res.json(result);
-          });
-          //res.json(sallesDesFetes);
-        }
-      });
-  }
-
+        model.find({})
+            .populate('evenement')
+            .exec((err, sallesDesFetes) => {
+                if (err || !sallesDesFetes) {
+                    console.log(err);
+                    res.status(500).json(err);
+                } else {
+                    filterSalles(sallesDesFetes, [], req.query.ville, req.query.capacity, function(result) {
+                        res.json(result);
+                    });
+                    //res.json(sallesDesFetes);
+                }
+            });
+    }
+  
   findById(req, res) {
     model.findById(req.params.id)
       .populate('evenement')
@@ -203,7 +205,7 @@ export default class SDF {
       });
   }
 
-  create(req, res) {
+    create(req, res) {
     let coordo;
     model.create(req.body,
       (err, salleDesFetes) => {
@@ -262,7 +264,7 @@ export default class SDF {
           });
         }
       });
-  }
+}
 
   delete(req, res) {
     model.findByIdAndRemove(req.params.id, (err) => {
