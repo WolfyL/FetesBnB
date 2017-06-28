@@ -16,6 +16,8 @@ module.exports = (app) => {
 
     router.get('/result', sdf.findResult);
 
+    router.get('/adminSDF/:handler', sdf.getMySDF);
+
     router.get('/handler/:id', sdf.getHandler);
 
     router.get('/:id', sdf.findById);
@@ -26,7 +28,6 @@ module.exports = (app) => {
 
     router.put('/img/:id', Auth.isAdministrator, sdf.updateImg);
 
-    router.get('/sdf/:id', Auth.isAdministrator, sdf.getImg);
 
     router.put('/:id', Auth.isAdministrator, sdf.update);
 

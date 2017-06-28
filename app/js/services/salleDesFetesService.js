@@ -22,11 +22,14 @@ angular.module('app')
             getResult: function(paramFilter) {
                 return $http.get('/sallesDesFetes/result',{params:paramFilter});
             },
+            getMySDF: function(handler) {
+                return $http.get('/sallesDesFetes/adminSDF/'+ handler);
+            },
             //AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU
             //AIzaSyDsX7VokXB7CtKCl5wJSc-zsviHLySFJKk
-
+            //last one : AIzaSyAwtHS2XSIYvSChTHcQPyf1Fs3K8GPSs7w
             getCoordo: function(city) {
-                return $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU');
+                return $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + city + '&key=AIzaSyAwtHS2XSIYvSChTHcQPyf1Fs3K8GPSs7w');
             },
             create: function(sdf) {
                 return $http.post('/sallesDesFetes/', sdf);

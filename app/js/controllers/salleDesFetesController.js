@@ -6,13 +6,15 @@ angular.module('app')
         $scope.showEdit = false;
         $scope.showCreate = false;
         $scope.modifOpen = false;
-        $scope.msgdenied = '';
         $scope.likeds = [];
-        console.log('user', $scope.user);
 
-        SDFService.getAll().then(function(res) {
-            $scope.sallesDesFetes = res.data;
-            console.log('res salle des fetes après service', $scope.sallesDesFetes, $scope.sallesDesFetes.image);
+        // SDFService.getAll().then(function(res) {
+        //     $scope.sallesDesFetes = res.data;
+        //     // console.log('res salle des fetes après service', $scope.sallesDesFetes, 'currentuser : ', $scope.user._id);
+        // });
+
+        SDFService.getMySDF($scope.user._id).then(function(res){
+          $scope.sallesDesFetes = res.data;
         });
 
         function modalWorks() {
@@ -45,7 +47,7 @@ angular.module('app')
                 let endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
 
                 if (minEnd === 0) {
-                    console.log("minEnd apres", minEnd);
+                    // console.log("minEnd apres", minEnd);
                     minEnd = '00';
                 }
 
@@ -192,7 +194,7 @@ angular.module('app')
                     $scope.modifOpen = false;
                 }
                 $scope.showEdit = false;
-                console.log($scope.showEdit);
+                // console.log($scope.showEdit);
             };
         };
 
@@ -209,13 +211,23 @@ angular.module('app')
                 adress: $scope.adressSDF,
                 capacity: $scope.capacitySDF,
                 surface: $scope.surfaceSDF,
+                price: $scope.priceSDF,
                 text: $scope.textSDF,
                 handler: $scope.user._id,
+            // SDFService.create({
+            //     name: 'brut',
+            //     city: 'la loupe',
+            //     postalCode: '28240',
+            //     adress: '3 rue wood bliss',
+            //     capacity: $scope.capacitySDF,
+            //     surface: $scope.surfaceSDF,
+            //     price: $scope.priceSDF,
+            //     text: $scope.textSDF,
+            //     handler: $scope.user._id,
             }).then(function(res) {
-                SDFService.getAll().then(function(res) {
-                    $scope.sallesDesFetes = res.data;
-                    console.log($scope.sallesDesFetes);
-                });
+              SDFService.getMySDF($scope.user._id).then(function(res){
+                $scope.sallesDesFetes = res.data;
+              });
             });
             $scope.nameSDF = '';
             $scope.citySDF = '';
@@ -223,6 +235,7 @@ angular.module('app')
             $scope.adressSDF = '';
             $scope.capacitySDF = '';
             $scope.surfaceSDF = '';
+            $scope.priceSDF = '';
             $scope.textSDF = '';
         };
 
@@ -237,8 +250,8 @@ angular.module('app')
         $scope.editSDFDone = function(index, id, maNewSDF) {
             SDFService.update(id, maNewSDF).then(function(res) {
                 console.log("Update success");
-                SDFService.getAll().then(function(res) {
-                    $scope.sallesDesFetes = res.data;
+                SDFService.getMySDF($scope.user._id).then(function(res){
+                  $scope.sallesDesFetes = res.data;
                 });
             }, function(err) {
                 console.log("Update failed");
@@ -264,9 +277,8 @@ angular.module('app')
                         swal("Salle supprimée!", "Votre salle a été supprimé définitivement!", "success");
                         SDFService.delete(sdf._id).then(function(res) {
                             console.log("delete succeed");
-                            SDFService.getAll().then(function(res) {
-                                $scope.sallesDesFetes = res.data;
-                                console.log($scope.sallesDesFetes);
+                            SDFService.getMySDF($scope.user._id).then(function(res){
+                              $scope.sallesDesFetes = res.data;
                             });
                         }, function(err) {
                             console.log("Delete failed");
@@ -277,14 +289,14 @@ angular.module('app')
                 });
         };
         $scope.addFav = function(sallesDesFetes) {
-            console.log('in addFav', $scope.likeds);
+            // console.log('in addFav', $scope.likeds);
             if ($scope.user.liked.indexOf(sallesDesFetes._id) !== -1) {
-                console.log(sallesDesFetes._id + 'déjà prise')
-                return $scope.msgdenied = alert('La salle est deja prise');
+                // console.log(sallesDesFetes._id + 'déjà prise')
+                return sweetAlert("Impossible", "La salle actuelle se trouve déjà dans vos favoris", "error");
             }
             UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {
-                console.log("liked sdf");
                 $scope.user.liked = res.data.liked;
+                return sweetAlert("Ok !", "La salle a bien été ajouté dans vos favoris", "success");
             });
         };
         $scope.uploadPic = function(file, id) {
@@ -306,7 +318,7 @@ angular.module('app')
 
                     }
                 );
-              
+
             }, function(response) {
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;

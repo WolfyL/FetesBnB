@@ -3,7 +3,7 @@
     <div ng-repeat="liked in likeds track by $index" class="fav">
         <div class="card card small col s12 m4">
             <div class="card-image waves-effect waves-block ">
-                <img ng-src="/upload/{{img.name}}" alt> </div>
+            </div>
             <div class="card-content ">
                 <span class="card-title activator  grey-text text-darken-4 left-align">{{liked.name}}</span>
                 <a ng-click="delFav(liked)" class=" pad right btn-floating btn-medium waves-effect waves-light green horizontal-align"><i class="material-icons">delete</i></a>
@@ -17,13 +17,14 @@
                     <li>Adresse: {{liked.adress}} </li>
                     <li>Code postal: {{liked.postalCode}} </li>
                     <li>Capacité: {{liked.capacity}}pers. </li>
+                    <li>NOM DE LIMAGE {{liked.image}}pers. </li>
                     <li>Surface: {{liked.surface}} <sup>m2</sup></li>
-                    </li>
-                    <p>{{liked.text}}</p>
+                    <img ng-src="upload/{{liked.image}}">
             </div>
         </div>
     </div>
     <div class="check-element animate-show-hide" ng-show="likeds.length === 0">
         <p class="center-align flow-text">Vous n'avez pas encore de favoris,<a ui-sref='user.home'> voir les salles </a> pour en ajouter.</p>
     </div>
+
 </div>

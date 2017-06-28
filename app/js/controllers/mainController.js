@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('MainController', function($scope, CurrentUser, UserService, SDFService, NgMap) {
+  .controller('MainController', function($scope, CurrentUser, UserService, SDFService, NgMap, $state) {
     /* Here is your main controller */
     // UserService.getOne(CurrentUser.user()._id).then(function(res) {
     //       $scope.user = res.data;
@@ -9,8 +9,10 @@ angular.module('app')
     var arrayTrueSDF = [],
       sdfAll = [],
       sdfCapacityFilter = [];
+
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
+      console.log(res.data);
     });
 
     NgMap.getMap().then(function(map) {
@@ -28,16 +30,17 @@ angular.module('app')
       });
     };
 
-    $scope.change = function (){
+    $scope.change = function() {
       $scope.searchShow = false;
     };
+
     $scope.clickSalle = function(index){
       SDFService.getOne(index).then(function(res){
         $scope.ville = res.data;
       });
     };
 
-    $scope.searchValid = function(ville, radius, capacity){
+    $scope.searchValid = function(ville, radius, capacity) {
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
       $scope.cities = "";
@@ -66,6 +69,7 @@ angular.module('app')
 
 
             SDFService.getAll().then(function(res) {
+              console.log(res.data);
               $scope.sallesDesFetes = res.data;
               sdfAll = $scope.sallesDesFetes;
               if (paramFilter.capacity !== null) {
@@ -78,8 +82,7 @@ angular.module('app')
 
                 boundContains(paramFilter, sdfCapacityFilter);
                 $scope.sdfRadiusFilters = arrayTrueSDF;
-              }
-              else{
+              } else {
                 boundContains(paramFilter, sdfAll);
                 $scope.sdfRadiusFilters = arrayTrueSDF;
               }
@@ -141,18 +144,24 @@ angular.module('app')
     //   console.log(id);
     // };
 
+    $scope.resa = function(id) {
+      $('#modal11').modal('close');
+      $state.go('user.reservation', {sdf : id});
+    };
+
     $scope.sendMail = function(id) {
-          SDFService.getSDFHandler(id).then(function(res){
-            $scope.currentHandler = res.data.handler.email;
-            var link = "mailto:" + $scope.currentHandler +
-            "?subject=" + escape("Tacitement") +
-            "&body=" + escape("Nique");
-            window.location.href = link;
-          });
-        };
+      SDFService.getSDFHandler(id).then(function(res) {
+        $scope.currentHandler = res.data.handler.email;
+        $scope.sdfName = res.data.name;
+        var link = "mailto:" + $scope.currentHandler +
+          "?subject=" + escape("Réservation de la salle" + $scope.sdfName) +
+          "&body=" + escape("Nous souhaiterions réserver la salle" + $scope.sdfName + " du " + "#datestart" + " au " + "# dateend" + ". -Précision de l'utilisateur : " + "#txtarea");
+        window.location.href = link;
+      });
+    };
 
 
-    function modalWorks(){
+    function modalWorks() {
 
       $(document).ready(function() {
         $('.materialboxed').materialbox();
