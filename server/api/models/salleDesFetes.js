@@ -132,6 +132,22 @@ export default class SDF {
         }
       });
   }
+
+  getMySDF(req, res) {
+    model.find({
+        handler: req.params.handler
+      },
+      (err, salleDesFetes) => {
+        // console.log(req.body.handler);
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json(salleDesFetes);
+        }
+      }
+    );
+  }
+
   getHandler(req, res) {
     model.findById(req.params.id)
       .populate({
@@ -143,46 +159,45 @@ export default class SDF {
           res.status(500).json(err);
         } else {
           res.json(salleDesFetes);
-          console.log(salleDesFetes, "testSendMail");
         }
       });
   }
-    updateImg(req, res) {
-        console.log('body', req.body);
-        model.findByIdAndUpdate({
-                _id: req.params.id
-            }, req.body, {
-                new: true
-            },
-            (err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).send(err.message);
-                } else {
-                    res.json({
-                        success: true,
-                        salleDesFetes: salleDesFetes,
-                    });
-                }
-            });
-    }
-    getImg(req, res) {
-        console.log('body', req.body);
-        model.findByIdAndUpdate({
-                _id: req.params.image
-            }, req.body, {
-                new: true
-            },
-            (err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).send(err.message);
-                } else {
-                    res.json({
-                        success: true,
-                        salleDesFetes: salleDesFetes,
-                    });
-                }
-            });
-    }
+  updateImg(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.id
+      }, req.body, {
+        new: true
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
+        }
+      });
+  }
+  getImg(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.image
+      }, req.body, {
+        new: true
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
+        }
+      });
+  }
 
   create(req, res) {
     let coordo;
@@ -223,37 +238,37 @@ export default class SDF {
           });
       });
   }
-    update(req, res) {
-        console.log('body', req.body);
-        model.findByIdAndUpdate({
-                _id: req.params.id
+  update(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.id
 
-            }, {
-                $addToSet: {
-                    evenement: req.body._id
-                }
-            }, {
-                new: true
-            },
-            (err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).send(err.message);
-                } else {
-                    res.json({
-                        success: true,
-                        salleDesFetes: salleDesFetes,
-                    });
-                }
-            });
-    }
+      }, {
+        $addToSet: {
+          evenement: req.body._id
+        }
+      }, {
+        new: true
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
+        }
+      });
+  }
 
-    delete(req, res) {
-        model.findByIdAndRemove(req.params.id, (err) => {
-            if (err) {
-                res.status(500).send(err.message);
-            } else {
-                res.sendStatus(200);
-            }
-        });
-    }
+  delete(req, res) {
+    model.findByIdAndRemove(req.params.id, (err) => {
+      if (err) {
+        res.status(500).send(err.message);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  }
 }
