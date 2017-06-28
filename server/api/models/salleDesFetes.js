@@ -4,6 +4,8 @@ import Event from './evenement.js';
 
 import request from 'request';
 
+import removeAccents from 'remove-accents';
+
 const sdfSchema = new mongoose.Schema({
 
   name: {
@@ -126,7 +128,7 @@ export default class SDF {
                 }
             });
     }
-  
+
   findById(req, res) {
     model.findById(req.params.id)
       .populate('evenement')
@@ -213,7 +215,7 @@ export default class SDF {
           res.status(500).send(err.message);
         } else
           //adress et city puis france
-          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyAwtHS2XSIYvSChTHcQPyf1Fs3K8GPSs7w', function(error, result, body) {
+          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + removeAccents(salleDesFetes.adress) + salleDesFetes.postalCode + removeAccents(salleDesFetes.city) + '&key=AIzaSyAwtHS2XSIYvSChTHcQPyf1Fs3K8GPSs7w', function(error, result, body) {
             var donnee = JSON.parse(result.body);
             coordo = {
               lat: donnee.results[0].geometry.location.lat,
