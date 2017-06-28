@@ -76,7 +76,7 @@
           <tbody>
             <tr ng-repeat="city in cities">
               <!-- <td><button class="btn" data-target="modal11" ng-click="clickSalle(city._id)" type="submit">test</button></td> -->
-              <td><a data-target="modal11" ng-click="clickSalle(city._id)" href="" type="submit" name="button"><img src="./img/imageSalle.jpg" alt="Salle Des Fêtes de la {{city.city}}" width="100%"></a></td>
+              <td><a data-target="modal11" ng-click="clickSalle(city._id)" href="" type="submit" name="button"><img src="./img/imageSalle.jpg" alt="Salle Des Fêtes de la {{city.city}}" width="20%"></a></td>
               <td>{{ city.city }}</td>
               <td>{{ city.text }}</td>
               <td>{{ city.capacity }}</td>
@@ -100,16 +100,7 @@
             <div class="slider">
               <ul class="slides">
                 <li>
-                  <img src="https://lorempixel.com/580/250/nature/1">
-                </li>
-                <li>
-                  <img src="https://lorempixel.com/580/250/nature/2">
-                </li>
-                <li>
-                  <img src="https://lorempixel.com/580/250/nature/3">
-                </li>
-                <li>
-                  <img src="https://lorempixel.com/580/250/nature/4">
+                  <img src="./upload/{{ uploadImg }}">
                 </li>
               </ul>
             </div>
@@ -117,7 +108,7 @@
             <p class="center-align"><b>Adresse</b></p>
             <p class="center-align toUpperCasse">{{ ville.adress }} {{ ville.postalCode }} {{ ville.city }}</p>
             <p class="center-align"><b>Tarif/Jour</b></p>
-            <p class="center-align">100 €</p>
+            <p class="center-align">{{ ville.price }} €</p>
           </div>
           <div class="col l8 m8 s8 styleModalBorder">
 
