@@ -211,8 +211,19 @@ angular.module('app')
                 adress: $scope.adressSDF,
                 capacity: $scope.capacitySDF,
                 surface: $scope.surfaceSDF,
+                price: $scope.priceSDF,
                 text: $scope.textSDF,
                 handler: $scope.user._id,
+            // SDFService.create({
+            //     name: 'brut',
+            //     city: 'la loupe',
+            //     postalCode: '28240',
+            //     adress: '3 rue wood bliss',
+            //     capacity: $scope.capacitySDF,
+            //     surface: $scope.surfaceSDF,
+            //     price: $scope.priceSDF,
+            //     text: $scope.textSDF,
+            //     handler: $scope.user._id,
             }).then(function(res) {
               SDFService.getMySDF($scope.user._id).then(function(res){
                 $scope.sallesDesFetes = res.data;
@@ -224,6 +235,7 @@ angular.module('app')
             $scope.adressSDF = '';
             $scope.capacitySDF = '';
             $scope.surfaceSDF = '';
+            $scope.priceSDF = '';
             $scope.textSDF = '';
         };
 

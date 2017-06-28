@@ -30,6 +30,10 @@ const sdfSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  price: {
+    type: Number,
+    required: true,
+  },
   text: {
     type: String,
     required: true,
@@ -204,13 +208,11 @@ export default class SDF {
     model.create(req.body,
       (err, salleDesFetes) => {
         if (err) {
-          console.log(err);
           res.status(500).send(err.message);
         } else
           //adress et city puis france
-          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU', function(error, result, body) {
+          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyAwtHS2XSIYvSChTHcQPyf1Fs3K8GPSs7w', function(error, result, body) {
             var donnee = JSON.parse(result.body);
-            console.log(donnee);
             coordo = {
               lat: donnee.results[0].geometry.location.lat,
               lng: donnee.results[0].geometry.location.lng
