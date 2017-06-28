@@ -6,15 +6,20 @@ import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import db from './db';
 import api from './api';
+import path from 'path';
 
 var app = express();
 app.server = http.createServer(app);
-
+/* Config Upload */
+let publicDir = path.join(__dirname, '../public/');
+app.use(express.static(publicDir));
+/* End Config upload */
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
     'extended': 'true'
 }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.json({
     type: 'application/vnd.api+json'

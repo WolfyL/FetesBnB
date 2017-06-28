@@ -47,16 +47,6 @@ export default class Image {
             res.json(fileNames);
         });
     }
-    getOne(req, res) {
-        dir.file(imageDir, function(err, file) {
-            if (err) throw err;
-            console.log(file);
-            let fileNames = files.map((file) => {
-                return { fileName: file };
-            });
-            console.log(fileName);
-            res.json(fileName);
-        });
-    }
+
 
 }
