@@ -26,7 +26,6 @@ module.exports = (app) => {
 
     router.put('/img/:id', Auth.isAdministrator, sdf.updateImg);
 
-    router.get('/sdf/:id', Auth.isAdministrator, sdf.getImg);
 
     router.put('/:id', Auth.isAdministrator, sdf.update);
 

@@ -12,7 +12,7 @@ module.exports = (app) => {
 
     router.get("/send", img.getAll);
 
-    router.get("/send", img.getOne);
+    app.use('/static/img', express.static('../public/upload'));
 
     app.use('/img', router);
 
