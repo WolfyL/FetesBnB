@@ -12,7 +12,6 @@ angular.module('app')
 
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
-      console.log(res.data);
     });
 
     NgMap.getMap().then(function(map) {
@@ -37,6 +36,7 @@ angular.module('app')
     $scope.clickSalle = function(index){
       SDFService.getOne(index).then(function(res){
         $scope.ville = res.data;
+        $scope.uploadImg = res.data.image;
       });
     };
 
@@ -159,7 +159,6 @@ angular.module('app')
         window.location.href = link;
       });
     };
-
 
     function modalWorks() {
 
