@@ -9,8 +9,10 @@ angular.module('app')
     var arrayTrueSDF = [],
       sdfAll = [],
       sdfCapacityFilter = [];
+
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
+      console.log(res.data);
     });
 
     NgMap.getMap().then(function(map) {
@@ -66,6 +68,7 @@ angular.module('app')
 
 
             SDFService.getAll().then(function(res) {
+              console.log(res.data);
               $scope.sallesDesFetes = res.data;
               sdfAll = $scope.sallesDesFetes;
               if (paramFilter.capacity !== null) {

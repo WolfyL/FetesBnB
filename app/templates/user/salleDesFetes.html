@@ -6,9 +6,13 @@
                 <form>
                     <br/>
                     <h5 class="underline">Informations relatives à la salle:</h5><br/>
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <label>Nom de la salle :</label>
                         <input type="text" ng-model="nameSDF">
+                    </div>
+                    <div class="input-field col s6">
+                        <label>Prix à la journée (en €) :</label>
+                        <input type="number" ng-model="priceSDF">
                     </div>
                     <div class="input-field col s6">
                         <label>Capacité maximale de la salle :</label>
@@ -48,7 +52,7 @@
             <div class="col s12" ng-repeat="salleDesFetes in sallesDesFetes track by $index">
                 <div class="row">
                     <div class="col s4 offset-s2">
-                        <button data-target="modal{{$index}}" class="btn">Salle: {{salleDesFetes.name}}</button>
+                        <button data-target="modal{{$index}}" class="btn">{{salleDesFetes.name}}</button>
                         <div id="modal{{$index}}" class="modal modal-fixed-footer">
                             <div class="modal-content">
                                 <div class="row">
@@ -83,6 +87,10 @@
                                         <div class="input-field col s6">
                                             <label>Nom de la salle :</label>
                                             <input type="text" ng-model="newNameSDF" placeholder="{{salleDesFetes.name}}">
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <label>Prix à la journée (en €) :</label>
+                                            <input type="text" ng-model="newPriceSDF" placeholder="{{salleDesFetes.price}}">
                                         </div>
                                         <div class="input-field col s6">
                                             <label>Capacité maximale de la salle :</label>
@@ -126,7 +134,7 @@
                                                 <br>
                                                 <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile, salleDesFetes._id)">Valider</button>
                                                 <span class="progress" ng-show="picFile.progress >= 0">
-        <div style="width:{{picFile.progress}}%" 
+        <div style="width:{{picFile.progress}}%"
             ng-bind="picFile.progress + '%'"></div>
       </span>
                                                 <span ng-show="picFile.result">Upload Successful</span>
@@ -206,7 +214,7 @@
                         </div>
                     </div>
                     <div class="col s6">
-                        <button type="button" class="btn delete" ng-click="deleteSDF(salleDesFetes)">Supprimer la salle : {{salleDesFetes.name}}</button>
+                        <button type="button" class="btn delete" ng-click="deleteSDF(salleDesFetes)">Supprimer : {{salleDesFetes.name}}</button>
                     </div>
                 </div>
             </div>

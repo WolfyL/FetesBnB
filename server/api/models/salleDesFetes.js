@@ -6,50 +6,53 @@ import request from 'request';
 
 const sdfSchema = new mongoose.Schema({
 
-    name: {
-        type: String,
-        required: true,
-    },
-    city: {
-        type: String,
-        required: true,
-    },
-    postalCode: {
-        type: String,
-        required: true,
-    },
-    adress: {
-        type: String,
-        required: true,
-    },
-    capacity: {
-        type: Number,
-        required: true,
-    },
-    surface: {
-        type: Number,
-        required: true,
-    },
-    image: {
-        type: String,
-    },
-    text: {
-        type: String,
-        required: true,
-    },
-    coordo: {
-        lat: String,
-        lng: String
-    },
-    evenement: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event'
-    }],
-    handler: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
-
+  name: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  postalCode: {
+    type: String,
+    required: true,
+  },
+  adress: {
+    type: String,
+    required: true,
+  },
+  capacity: {
+    type: Number,
+    required: true,
+  },
+  surface: {
+    type: Number,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  image: {
+    type: String,
+  },
+  text: {
+    type: String,
+    required: true,
+  },
+  coordo: {
+    lat: String,
+    lng: String
+  },
+  evenement: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Event'
+  }],
+  handler: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 
@@ -207,13 +210,11 @@ export default class SDF {
     model.create(req.body,
       (err, salleDesFetes) => {
         if (err) {
-          console.log(err);
           res.status(500).send(err.message);
         } else
           //adress et city puis france
-          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyCv5auTo8Sbai_cAn0L8vS1yTJi6WCIoDU', function(error, result, body) {
+          request('https://maps.googleapis.com/maps/api/geocode/json?address=' + salleDesFetes.adress + salleDesFetes.postalCode + salleDesFetes.city + '&key=AIzaSyAwtHS2XSIYvSChTHcQPyf1Fs3K8GPSs7w', function(error, result, body) {
             var donnee = JSON.parse(result.body);
-            console.log(donnee);
             coordo = {
               lat: donnee.results[0].geometry.location.lat,
               lng: donnee.results[0].geometry.location.lng
