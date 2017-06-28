@@ -21,11 +21,11 @@
       <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'>Déconnexion</a></li>
     </ul>
     <ul class="side-nav" id="mobile-demo" class="left hide-on-med-and-down">
-      <li ui-sref-active="active"><a ui-sref="user.home"><h4>Accueil</h4></a></li>
-      <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()"><h4>Favoris</h4></a></li>
-      <li ui-sref-active="active"><a ui-sref="user.profile" ng-show="auth.isAuthenticated()"><h4>Profil</h4></a></li>
-      <li ui-sref-active="active"><a ui-sref="user.salleDesFetes" ng-if="user.isAdmin"><h4>Mes salles des fêtes</h4></a></li>
-      <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'><h4>Déconnexion</h4></a></li>
+      <li ui-sref-active="active"><a ui-sref="user.home"><h5>Accueil</h5></a></li>
+      <li ui-sref-active="active"><a ui-sref="user.dashboard" ng-show="auth.isAuthenticated()"><h5>Favoris</h5></a></li>
+      <li ui-sref-active="active"><a ui-sref="user.profile" ng-show="auth.isAuthenticated()"><h5>Profil</h5></a></li>
+      <li ui-sref-active="active"><a ui-sref="user.salleDesFetes" ng-if="user.isAdmin"><h5>Mes salles des fêtes</h5></a></li>
+      <li><a ng-click="logout()" ng-show="auth.isAuthenticated()" href='#'><h5>Déconnexion</h5></a></li>
     </ul>
   </div>
 </nav>

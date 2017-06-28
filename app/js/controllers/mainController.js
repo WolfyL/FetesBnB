@@ -33,8 +33,9 @@ angular.module('app')
     $scope.change = function() {
       $scope.searchShow = false;
     };
-    $scope.click = function(index) {
-      SDFService.getOne(index).then(function(res) {
+
+    $scope.clickSalle = function(index){
+      SDFService.getOne(index).then(function(res){
         $scope.ville = res.data;
       });
     };
@@ -163,6 +164,8 @@ angular.module('app')
     function modalWorks() {
 
       $(document).ready(function() {
+        $('.materialboxed').materialbox();
+        $('.slider').slider();
         $('select').material_select();
         $('.modal').modal();
       });
