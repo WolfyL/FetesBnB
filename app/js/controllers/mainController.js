@@ -23,7 +23,9 @@ angular.module('app')
 
     $scope.showStore = function(evt, index) {
       $scope.sdf = $scope.sallesDesFetes[index];
-      $scope.map.showInfoWindow('window', this);
+      console.log("SDF", $scope.sdf);
+      $('#modalMap').modal('open');
+      // $scope.map.showInfoWindow('window', this);
     };
 
     $scope.filterCity = function(query) {
@@ -44,6 +46,7 @@ angular.module('app')
     };
 
     $scope.searchValid = function(ville, radius, capacity) {
+      console.log("NIIIIIIIIIIIIIIIIIIIIQUE");
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
       $scope.cities = "";

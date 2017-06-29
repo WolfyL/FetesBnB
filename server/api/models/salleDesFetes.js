@@ -38,9 +38,6 @@ const sdfSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  image: {
-    type: String,
-  },
   text: {
     type: String,
     required: true,
@@ -56,7 +53,8 @@ const sdfSchema = new mongoose.Schema({
   handler: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  }
+  },
+  image: [String]
 });
 
 
@@ -98,7 +96,27 @@ function filterSalles(salles, array, ville, capacity, callback) {
 
 
 export default class SDF {
-
+  updateImg(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate(
+      req.params.id, {
+        $push: {
+          image: req.body.image
+        }
+      }, {
+        upsert: true,
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
+        }
+      });
+  }
 
   findAll(req, res) {
     model.find({})
@@ -171,24 +189,7 @@ export default class SDF {
         }
       });
   }
-  updateImg(req, res) {
-    console.log('body', req.body);
-    model.findByIdAndUpdate({
-        _id: req.params.id
-      }, req.body, {
-        new: true
-      },
-      (err, salleDesFetes) => {
-        if (err || !salleDesFetes) {
-          res.status(500).send(err.message);
-        } else {
-          res.json({
-            success: true,
-            salleDesFetes: salleDesFetes,
-          });
-        }
-      });
-  }
+
   getImg(req, res) {
     console.log('body', req.body);
     model.findByIdAndUpdate({
@@ -241,15 +242,14 @@ export default class SDF {
                 });
               }
             });
-            console.log("COORDO : ", coordo);
           });
-      });
+      }
+    );
   }
   update(req, res) {
     console.log('body', req.body);
     model.findByIdAndUpdate({
         _id: req.params.id
-
       }, {
         $addToSet: {
           evenement: req.body._id
@@ -268,6 +268,7 @@ export default class SDF {
         }
       });
   }
+
 
   delete(req, res) {
     model.findByIdAndRemove(req.params.id, (err) => {

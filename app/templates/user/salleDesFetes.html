@@ -142,14 +142,16 @@
                   <div class="col s12">
                     <h5 class="center underline">Ajouter des photos {{sallesDesFetes.name}}</h5>
 
-                    <form name="myForm">
-                      <fieldset>
+
+
+                <form name="myForm">
+                    <fieldset>
                         <legend>Ajouter une photo</legend>
+                        <p><em>Pour ajouter une photo,sélectionner l'image voulue puis cliquer sur "Valider" ensuite vous pouvez cliquer "vider" et repeter pour ajouter une nouvelle image</em></p><br/>
                         <br>Photo:
                         <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="5MB" required ngf-model-invalid="errorFile">
                         <i ng-show="myForm.file.$error.required">Un fichier est requis</i><br>
-                        <i ng-show="myForm.file.$error.maxSize">Image trop volumineuse
-          {{errorFile.size / 1000000|number:5}}MB: max 5MB</i>
+                        <i ng-show="myForm.file.$error.maxSize">Image trop volumineuse {{errorFile.size / 1000000|number:5}}MB: max 5MB</i>
                         <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Vider</button>
                         <br>
                         <button ng-disabled="!myForm.$valid" ng-click="uploadPic(picFile, salleDesFetes._id)">Valider</button>
@@ -157,15 +159,17 @@
         <div style="width:{{picFile.progress}}%"
             ng-bind="picFile.progress + '%'"></div>
       </span>
-                        <span ng-show="picFile.result">Upload Successful</span>
-                        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-                      </fieldset>
-                      <br>
-                    </form>
-                  </div>
-                  <div class="col s12">
-                    <h5 class="center underline">Calendrier d'évènement de la salle {{sallesDesFetes.name}}</h5>
-                    <p><em>Pour créer un evenement, placer vous sur le jour voulu, et cliquer sur "CREATE"</em></p><br/>
+
+                         <span ng-show="picFile.result">Image ajouter avec succès</span>
+                         <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                     </fieldset>
+                     <br>
+                 </form>
+             </div>
+             <div class="col s12">
+                 <h5 class="center underline">Calendrier d'évènement de la salle {{sallesDesFetes.name}}</h5>
+                 <p><em>Pour créer un evenement, placer vous sur le jour voulu, et cliquer sur "CREATE"</em></p><br/>
+
 
 
                     <md-event-calendar class="md-primary" ng-model="salleDesFetes.selected" md-events="salleDesFetes.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="true" md-create-event-click="eventCreatea($index,$date,event)"
@@ -238,3 +242,4 @@
     </div>
   </div>
 </div>
+

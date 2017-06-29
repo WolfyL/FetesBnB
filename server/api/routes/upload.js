@@ -8,7 +8,7 @@ module.exports = (app) => {
     var img = new uploadImage();
 
 
-    router.post("/send", img.create);
+    router.post("/send/", img.create);
 
     router.get("/send", img.getAll);
 
