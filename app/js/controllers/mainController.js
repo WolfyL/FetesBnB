@@ -40,13 +40,13 @@ angular.module('app')
 
     $scope.clickSalle = function(index){
       SDFService.getOne(index).then(function(res){
-        $scope.ville = res.data;
+        console.log(res.data.image);
         $scope.uploadImg = res.data.image;
+        $scope.ville = res.data;
       });
     };
 
     $scope.searchValid = function(ville, radius, capacity) {
-      console.log("NIIIIIIIIIIIIIIIIIIIIQUE");
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
       $scope.cities = "";

@@ -313,7 +313,7 @@ angular.module('app')
                     file.result = response.data;
                 });
 
-                SDFService.updateImg(id, { image: response.data.filename }).then(
+                SDFService.updateImg(id, { image:{ imageRep: response.data.filename}}).then(
                     function(res) {
 
                     },
