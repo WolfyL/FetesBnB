@@ -125,6 +125,7 @@
                                         <form name="myForm">
                                             <fieldset>
                                                 <legend>Ajouter une photo</legend>
+                                                <p><em>Pour ajouter une photo,sélectionner l'image voulue puis cliquer sur "Valider" ensuite vous pouvez cliquer "vider" et repeter pour ajouter une nouvelle image</em></p><br/>
                                                 <br>Photo:
                                                 <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="5MB" required ngf-model-invalid="errorFile">
                                                 <i ng-show="myForm.file.$error.required">Un fichier est requis</i><br>
@@ -137,7 +138,7 @@
         <div style="width:{{picFile.progress}}%"
             ng-bind="picFile.progress + '%'"></div>
       </span>
-                                                <span ng-show="picFile.result">Upload Successful</span>
+                                                <span ng-show="picFile.result">Image ajouter avec succès</span>
                                                 <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
                                             </fieldset>
                                             <br>
