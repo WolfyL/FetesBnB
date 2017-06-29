@@ -213,38 +213,37 @@ export default class SDF {
             (err, salleDesFetes) => {
                 if (err) {
                     res.status(500).send(err.message);
-                } else {
-                    //adress et city puis france
+                } else
+                //adress et city puis france
                     request('https://maps.googleapis.com/maps/api/geocode/json?address=' + removeAccents(salleDesFetes.adress) + salleDesFetes.postalCode + removeAccents(salleDesFetes.city) + '&key=AIzaSyAwtHS2XSIYvSChTHcQPyf1Fs3K8GPSs7w', function(error, result, body) {
-                        var donnee = JSON.parse(result.body);
-                        coordo = {
-                            lat: donnee.results[0].geometry.location.lat,
-                            lng: donnee.results[0].geometry.location.lng
-                        };
-                        model.findOneAndUpdate({
-                            _id: salleDesFetes._id
-                        }, {
-                            coordo: coordo
-                        }, {
-                            upsert: true,
-                            new: true
-                        }, (err, salleDesFetes) => {
-                            console.log("JE SUIS DANS L UPDATE");
-                            console.log(coordo);
-                            if (err || !salleDesFetes) {
-                                res.status(500).send(err.message);
-                            } else {
-                                res.json({
-                                    success: true,
-                                    salleDesFetes: salleDesFetes,
-                                });
-                            }
-                        });
+                    var donnee = JSON.parse(result.body);
+                    coordo = {
+                        lat: donnee.results[0].geometry.location.lat,
+                        lng: donnee.results[0].geometry.location.lng
+                    };
+                    model.findOneAndUpdate({
+                        _id: salleDesFetes._id
+                    }, {
+                        coordo: coordo
+                    }, {
+                        upsert: true,
+                        new: true
+                    }, (err, salleDesFetes) => {
+                        console.log("JE SUIS DANS L UPDATE");
+                        console.log(coordo);
+                        if (err || !salleDesFetes) {
+                            res.status(500).send(err.message);
+                        } else {
+                            res.json({
+                                success: true,
+                                salleDesFetes: salleDesFetes,
+                            });
+                        }
                     });
-                }
-            });
+                });
+            }
+        );
     }
-
     update(req, res) {
         console.log('body', req.body);
         model.findByIdAndUpdate({
@@ -278,4 +277,6 @@ export default class SDF {
             }
         });
     }
+}
+}
 }
