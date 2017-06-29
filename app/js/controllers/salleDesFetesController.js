@@ -10,12 +10,15 @@ angular.module('app')
 
         // SDFService.getAll().then(function(res) {
         //     $scope.sallesDesFetes = res.data;
+        //     console.log('1',res.data);
         //     // console.log('res salle des fetes après service', $scope.sallesDesFetes, 'currentuser : ', $scope.user._id);
         // });
 
-        SDFService.getMySDF($scope.user._id).then(function(res) {
-            $scope.sallesDesFetes = res.data;
+        SDFService.getMySDF($scope.user._id).then(function(res){
+          $scope.sallesDesFetes = res.data;
+          console.log('2',res.data);
         });
+        console.log($scope);
 
         function modalWorks() {
             $(document).ready(function() {

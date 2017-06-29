@@ -9,10 +9,12 @@ angular.module('app')
     var arrayTrueSDF = [],
       sdfAll = [],
       sdfCapacityFilter = [];
+    $scope.sallesDesFetes = [];
+
 
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
-      console.log(res.data);
+      console.log($scope.sallesDesFetes);
     });
 
     NgMap.getMap().then(function(map) {
@@ -37,6 +39,7 @@ angular.module('app')
     $scope.clickSalle = function(index){
       SDFService.getOne(index).then(function(res){
         $scope.ville = res.data;
+        $scope.uploadImg = res.data.image;
       });
     };
 
@@ -149,17 +152,16 @@ angular.module('app')
       $state.go('user.reservation', {sdf : id});
     };
 
-    $scope.sendMail = function(id) {
-      SDFService.getSDFHandler(id).then(function(res) {
-        $scope.currentHandler = res.data.handler.email;
-        $scope.sdfName = res.data.name;
-        var link = "mailto:" + $scope.currentHandler +
-          "?subject=" + escape("Réservation de la salle" + $scope.sdfName) +
-          "&body=" + escape("Nous souhaiterions réserver la salle" + $scope.sdfName + " du " + "#datestart" + " au " + "# dateend" + ". -Précision de l'utilisateur : " + "#txtarea");
-        window.location.href = link;
-      });
-    };
-
+    // $scope.sendMail = function(id) {
+    //   SDFService.getSDFHandler(id).then(function(res) {
+    //     $scope.currentHandler = res.data.handler.email;
+    //     $scope.sdfName = res.data.name;
+    //     var link = "mailto:" + $scope.currentHandler +
+    //       "?subject=" + escape("Réservation de la salle" + $scope.sdfName) +
+    //       "&body=" + escape("Nous souhaiterions réserver la salle" + $scope.sdfName + " du " + "#datestart" + " au " + "# dateend" + ". -Précision de l'utilisateur : " + "#txtarea");
+    //     window.location.href = link;
+    //   });
+    // };
 
     function modalWorks() {
 
