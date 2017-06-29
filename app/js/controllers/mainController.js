@@ -9,9 +9,12 @@ angular.module('app')
     var arrayTrueSDF = [],
       sdfAll = [],
       sdfCapacityFilter = [];
+    $scope.sallesDesFetes = [];
+
 
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
+      console.log($scope.sallesDesFetes);
     });
 
     NgMap.getMap().then(function(map) {
