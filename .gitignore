@@ -1,6 +1,7 @@
 node_modules/
 generated/
-server/uploads/*
+server/public/upload/*
+!server/public/upload/.keep 
 
 ######################
 .DS_Store
