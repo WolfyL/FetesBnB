@@ -10,51 +10,53 @@ import moment from 'moment';
 
 const sdfSchema = new mongoose.Schema({
 
-    name: {
-        type: String,
-        required: true,
-    },
-    city: {
-        type: String,
-        required: true,
-    },
-    postalCode: {
-        type: String,
-        required: true,
-    },
-    adress: {
-        type: String,
-        required: true,
-    },
-    capacity: {
-        type: Number,
-        required: true,
-    },
-    surface: {
-        type: Number,
-        required: true,
-    },
-    price: {
-        type: Number,
-        required: true,
-    },
-    text: {
-        type: String,
-        required: true,
-    },
-    coordo: {
-        lat: String,
-        lng: String
-    },
-    evenement: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event'
-    }],
-    handler: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    image: [String]
+  name: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  postalCode: {
+    type: String,
+    required: true,
+  },
+  adress: {
+    type: String,
+    required: true,
+  },
+  capacity: {
+    type: Number,
+    required: true,
+  },
+  surface: {
+    type: Number,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  image: {
+    type: String,
+  },
+  text: {
+    type: String,
+    required: true,
+  },
+  coordo: {
+    lat: String,
+    lng: String
+  },
+  evenement: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Event'
+  }],
+  handler: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 
@@ -96,26 +98,8 @@ function filterSalles(salles, array, ville, capacity, callback) {
 
 
 export default class SDF {
-    updateImg(req, res) {
-        console.log('body', req.body);
-        model.findByIdAndUpdate(
-            req.params.id, {
-                $push: { image: req.body.image }
-            }, {
-                upsert: true,
-            },
-            (err, salleDesFetes) => {
-                if (err || !salleDesFetes) {
-                    res.status(500).send(err.message);
-                } else {
-                    res.json({
-                        success: true,
-                        salleDesFetes: salleDesFetes,
-                    });
-                }
-            });
-    }
- 
+
+
   findAll(req, res) {
     model.find({})
       .populate('evenement')
@@ -187,7 +171,24 @@ export default class SDF {
         }
       });
   }
-  
+  updateImg(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.id
+      }, req.body, {
+        new: true
+      },
+      (err, salleDesFetes) => {
+        if (err || !salleDesFetes) {
+          res.status(500).send(err.message);
+        } else {
+          res.json({
+            success: true,
+            salleDesFetes: salleDesFetes,
+          });
+        }
+      });
+  }
   getImg(req, res) {
     console.log('body', req.body);
     model.findByIdAndUpdate({
@@ -238,12 +239,17 @@ export default class SDF {
                   success: true,
                   salleDesFetes: salleDesFetes,
                 });
+              }
             });
-    }
-    update(req, res) {
-        console.log('body', req.body);
-        model.findByIdAndUpdate({
-                _id: req.params.id
+            console.log("COORDO : ", coordo);
+          });
+      });
+  }
+  update(req, res) {
+    console.log('body', req.body);
+    model.findByIdAndUpdate({
+        _id: req.params.id
+
       }, {
         $addToSet: {
           evenement: req.body._id
@@ -263,14 +269,13 @@ export default class SDF {
       });
   }
 
-
-    delete(req, res) {
-        model.findByIdAndRemove(req.params.id, (err) => {
-            if (err) {
-                res.status(500).send(err.message);
-            } else {
-                res.sendStatus(200);
-            }
-        });
-    }
+  delete(req, res) {
+    model.findByIdAndRemove(req.params.id, (err) => {
+      if (err) {
+        res.status(500).send(err.message);
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  }
 }

@@ -217,20 +217,20 @@ angular.module('app')
                 price: $scope.priceSDF,
                 text: $scope.textSDF,
                 handler: $scope.user._id,
-                // SDFService.create({
-                //     name: 'brut',
-                //     city: 'la loupe',
-                //     postalCode: '28240',
-                //     adress: '3 rue wood bliss',
-                //     capacity: $scope.capacitySDF,
-                //     surface: $scope.surfaceSDF,
-                //     price: $scope.priceSDF,
-                //     text: $scope.textSDF,
-                //     handler: $scope.user._id,
+            // SDFService.create({
+            //     name: 'brut',
+            //     city: 'la loupe',
+            //     postalCode: '28240',
+            //     adress: '3 rue wood bliss',
+            //     capacity: $scope.capacitySDF,
+            //     surface: $scope.surfaceSDF,
+            //     price: $scope.priceSDF,
+            //     text: $scope.textSDF,
+            //     handler: $scope.user._id,
             }).then(function(res) {
-                SDFService.getMySDF($scope.user._id).then(function(res) {
-                    $scope.sallesDesFetes = res.data;
-                });
+              SDFService.getMySDF($scope.user._id).then(function(res){
+                $scope.sallesDesFetes = res.data;
+              });
             });
             $scope.nameSDF = '';
             $scope.citySDF = '';
@@ -253,8 +253,8 @@ angular.module('app')
         $scope.editSDFDone = function(index, id, maNewSDF) {
             SDFService.update(id, maNewSDF).then(function(res) {
                 console.log("Update success");
-                SDFService.getMySDF($scope.user._id).then(function(res) {
-                    $scope.sallesDesFetes = res.data;
+                SDFService.getMySDF($scope.user._id).then(function(res){
+                  $scope.sallesDesFetes = res.data;
                 });
             }, function(err) {
                 console.log("Update failed");
@@ -280,8 +280,8 @@ angular.module('app')
                         swal("Salle supprimée!", "Votre salle a été supprimé définitivement!", "success");
                         SDFService.delete(sdf._id).then(function(res) {
                             console.log("delete succeed");
-                            SDFService.getMySDF($scope.user._id).then(function(res) {
-                                $scope.sallesDesFetes = res.data;
+                            SDFService.getMySDF($scope.user._id).then(function(res){
+                              $scope.sallesDesFetes = res.data;
                             });
                         }, function(err) {
                             console.log("Delete failed");
