@@ -42,6 +42,7 @@ angular.module('app')
       SDFService.getOne(index).then(function(res){
         $scope.ville = res.data;
         $scope.uploadImg = res.data.image;
+        console.log($scope.uploadImg, $scope.ville.name);
       });
     };
 
