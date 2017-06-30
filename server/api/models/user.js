@@ -181,7 +181,7 @@ export default class User {
         console.log("body", req.body);
         console.log("params", req.params);
         model.findByIdAndUpdate(
-            req.params.id, { $addToSet: { "liked": req.body._id } }, { safe: true, upsert: true, new: true },
+            req.params.id, { $addToSet: { "liked": req.body.sdf } }, { safe: true, upsert: true, new: true },
             (err, user) => {
                 if (err || !user) {
                     res.status(500)

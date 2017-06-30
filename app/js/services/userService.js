@@ -1,6 +1,9 @@
 angular.module('app')
     .service('UserService', function($http) {
         return {
+            addFav: function(id, sdf) {
+            return $http.put('/users/sdf/liked/' + id, {sdf: sdf});
+            },
             getAll: function() {
                 return $http.get('/users');
             },
@@ -9,9 +12,6 @@ angular.module('app')
             },
             update: function(id, user) {
                 return $http.put('/users/' + id, user);
-            },
-            addFav: function(id, sdf) {
-                return $http.put('/users/sdf/liked/' + id, sdf);
             },
             delFav: function(id, sdf) {
                 return $http.put('/users/liked/' + id, sdf);
