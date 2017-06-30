@@ -8,7 +8,6 @@ angular.module('app')
 
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
-      console.log($scope.sallesDesFetes);
     });
 
     NgMap.getMap().then(function(map) {
