@@ -42,7 +42,9 @@ angular.module('app')
       SDFService.getOne(index).then(function(res){
         console.log(res.data.image);
         $scope.uploadImgs = res.data.image;
+        console.log($scope.uploadImgs);
         $scope.ville = res.data;
+        modalWorks();
       });
     };
 
@@ -170,7 +172,7 @@ angular.module('app')
 
       $(document).ready(function() {
         $('.materialboxed').materialbox();
-        $('.slider').slider();
+        $('.slider').slider({interval : 2500});
         $('select').material_select();
         $('.modal').modal();
       });
