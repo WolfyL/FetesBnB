@@ -40,13 +40,13 @@ angular.module('app')
 
     $scope.clickSalle = function(index){
       SDFService.getOne(index).then(function(res){
+        $scope.uploadImgs = res.data.image;
         $scope.ville = res.data;
-        $scope.uploadImg = res.data.image;
+        modalWorks();
       });
     };
 
     $scope.searchValid = function(ville, radius, capacity) {
-      console.log("NIIIIIIIIIIIIIIIIIIIIQUE");
       ville = ville.toLowerCase().trim();
       $scope.searchShow = true;
       $scope.cities = "";
@@ -170,7 +170,7 @@ angular.module('app')
 
       $(document).ready(function() {
         $('.materialboxed').materialbox();
-        $('.slider').slider();
+        $('.slider').slider({interval : 2500});
         $('select').material_select();
         $('.modal').modal();
       });

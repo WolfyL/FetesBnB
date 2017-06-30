@@ -76,7 +76,7 @@
           <tbody>
             <tr ng-repeat="city in cities">
               <!-- <td><button class="btn" data-target="modal11" ng-click="clickSalle(city._id)" type="submit">test</button></td> -->
-              <td><a data-target="modal11" ng-click="clickSalle(city._id)" href="" type="submit" name="button"><img src="./upload/{{ city.image }}" alt="Salle Des Fêtes de la {{city.city}}" width="150"></a></td>
+              <td><a data-target="modal11" ng-click="clickSalle(city._id)" href="" type="submit" name="button"><img src="./upload/{{ city.image[0].imageRep }}" alt="Salle Des Fêtes de la {{city.city}}" width="150"></a></td>
               <td class="toUpperCasse">{{ city.city }}</td>
               <td>{{ city.text }}</td>
               <td>{{ city.capacity }}</td>
@@ -84,7 +84,7 @@
           </tbody>
           <tbody>
             <tr ng-repeat="sdfRadiusFilter in sdfRadiusFilters">
-              <td><a data-target="modal11" ng-click="clickSalle(sdfRadiusFilter._id)" href="" type="submit" name="button"><img src="./upload/{{ sdfRadiusFilter.image }}" alt="Salle Des Fêtes de la {{city.city}}" width="150"></a></td>
+              <td><a data-target="modal11" ng-click="clickSalle(sdfRadiusFilter._id)" href="" type="submit" name="button"><img src="./upload/{{ sdfRadiusFilter.image[0].imageRep }}" alt="Salle Des Fêtes de la {{city.city}}" width="150"></a></td>
               <td class="toUpperCasse">{{ sdfRadiusFilter.city }}</td>
               <td>{{ sdfRadiusFilter.text }}</td>
               <td>{{ sdfRadiusFilter.capacity }}</td>
@@ -100,8 +100,8 @@
         <div class="col l4 m4 s4">
           <div class="slider">
             <ul class="slides">
-              <li>
-                <img src="./upload/{{ uploadImg }}">
+              <li ng-repeat="uploadImg in uploadImgs">
+                <img src="./upload/{{ uploadImg.imageRep }}">
               </li>
             </ul>
           </div>
@@ -157,8 +157,8 @@
         <div class="col l4 m4 s4">
           <div class="slider">
             <ul class="slides">
-              <li>
-                <img src="./upload/{{ uploadImg }}">
+              <li ng-repeat="uploadImg in uploadImgs">
+                <img src="./upload/{{ uploadImg.imageRep }}">
               </li>
             </ul>
           </div>
