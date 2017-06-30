@@ -41,7 +41,7 @@ angular.module('app')
     $scope.clickSalle = function(index){
       SDFService.getOne(index).then(function(res){
         console.log(res.data.image);
-        $scope.uploadImg = res.data.image;
+        $scope.uploadImgs = res.data.image;
         $scope.ville = res.data;
       });
     };
