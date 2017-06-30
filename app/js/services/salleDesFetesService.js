@@ -19,7 +19,6 @@ angular.module('app')
       getOne: function(id) {
         return $http.get('/sallesDesFetes/' + id).then(function(res) {
           res.data.evenement = res.data.evenement.map(function(event) {
-            console.log(event);
             event.end = new Date(event.end);
             event.start = new Date(event.start);
             return event
