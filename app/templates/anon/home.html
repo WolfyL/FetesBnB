@@ -104,7 +104,6 @@
                 <img src="./upload/{{ uploadImg.imageRep }}">
               </li>
             </ul>
-            <!-- <p>{{ uploadImg.imageRep }}</p> -->
           </div>
           <h5 class="center-align"><b>Nom de la salle : {{ ville.name }}</b></h5>
           <p class="center-align"><b>Adresse</b></p>
@@ -158,8 +157,8 @@
         <div class="col l4 m4 s4">
           <div class="slider">
             <ul class="slides">
-              <li>
-                <img src="./upload/{{ uploadImg.image }}">
+              <li ng-repeat="uploadImg in uploadImgs">
+                <img src="./upload/{{ uploadImg.imageRep }}">
               </li>
             </ul>
           </div>

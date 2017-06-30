@@ -40,9 +40,7 @@ angular.module('app')
 
     $scope.clickSalle = function(index){
       SDFService.getOne(index).then(function(res){
-        console.log(res.data.image);
         $scope.uploadImgs = res.data.image;
-        console.log($scope.uploadImgs);
         $scope.ville = res.data;
         modalWorks();
       });
