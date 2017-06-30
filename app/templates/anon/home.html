@@ -2,14 +2,13 @@
 
 <div class="container">
   <form class="marginTop" ng-submit="searchValid(searchText,searchRay,searchPeople)">
-    <!-- <div class="row"> -->
     <div class="text center section">
       <h2>Trouver une salle à louer proche de chez vous</h2>
     </div>
+
     <div class="row marginTop">
       <div class="col l12 m12 s12">
         <div class="col l4 m4 s4 pitchBlack">
-          <!-- <input type="text" autocomplete="off" placeholder="Où ?" class="validate" ng-model="searchCity" /> -->
           <md-input-content>
             <label class="label">Ville</label>
             <md-autocomplete flex placeholder="Où ?" md-search-text-change="change()" md-dropdown-items="2" md-input-minlength="2" md-input-maxlength="18" md-selected-item="selectedItem" md-search-text="searchText" md-items="salleDesFetes in filterCity(searchText)"
@@ -22,8 +21,6 @@
               </md-not-found>
             </md-autocomplete>
           </md-input-content>
-          <!-- <input type="text" placeholder="Où ?" id="autocomplete-input" class="autocomplete" ng-model="searchCity">
-              <label class="autocomplete-input black-text active">Ville ou code postal  :</label> -->
         </div>
 
         <div class="input-field col l4 m4 s4 pitchBlack">
@@ -50,16 +47,17 @@
           <label class="black-text label">Nbr de personnes : </label>
         </div>
       </div>
+
       <div class="" ng-repeat="peopleSearch in peopleSearchs track by $index">
         {{ peopleSearch.capacity }} {{ peopleSearch.city }}
       </div>
     </div>
-    <!-- </div> -->
+
     <div class="row marginTop">
       <div class="col l12 m12 s12 text center">
         <button type="submit" class="btn-large waves-effect waves-light light-green btn"><b>Lancer votre recherche</b>
                   <i class="material-icons right">search</i>
-                </button>
+        </button>
       </div>
     </div>
     <div class="row marginTop">
@@ -75,8 +73,9 @@
           </thead>
           <tbody>
             <tr ng-repeat="city in cities">
-              <!-- <td><button class="btn" data-target="modal11" ng-click="clickSalle(city._id)" type="submit">test</button></td> -->
-              <td><a data-target="modal11" ng-click="clickSalle(city._id)" href="" type="submit" name="button"><img src="./upload/{{ city.image[0].imageRep }}" alt="Salle Des Fêtes de la {{city.city}}" height="100" width="150"></a></td>
+
+              <td><a data-target="modal11" ng-click="clickSalle(city._id)" href="" type="submit" name="button"><img src="./upload/{{ city.image[0].imageRep }}" alt="Salle Des Fêtes de la {{city.city}}" width="150"></a></td>
+
               <td class="toUpperCasse">{{ city.city }}</td>
               <td>{{ city.text }}</td>
               <td>{{ city.capacity }}</td>
@@ -112,17 +111,14 @@
           <p class="center-align">{{ ville.price }} €</p>
         </div>
         <div class="col l8 m8 s8 styleModalBorder">
-
           <h4><b>Ville : </b><b class="toUpperCasse">{{ ville.city }}</b></h4>
           <p class="marginModaleHome"><b>Descriptif de la salle : </b>{{ ville.text }}</p>
           <p><b>Capacitée : </b>{{ ville.capacity }}</p>
           <p><b>Superficie : </b>{{ ville.surface }}</p>
-
         </div>
-        <!-- <div class="col s12" ng-repeat="salleDesFetes in sallesDesFetes track by $index"> -->
+
         <div class="col s12">
           <h5 class="center underline">Calendrier d'évènement de la salle {{sallesDesFetes.name}}</h5>
-
           <md-event-calendar class="md-primary" ng-model="ville.selected" md-events="ville.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="false" class="md-primary">
             <md-event-calendar-header class="md-center">
               <md-event-calendar-prev></md-event-calendar-prev>
@@ -169,17 +165,14 @@
           <p class="center-align">{{ sdf.price }} €</p>
         </div>
         <div class="col l8 m8 s8 styleModalBorder">
-
           <h4><b>Ville : </b><b class="toUpperCasse">{{ sdf.city }}</b></h4>
           <p class="marginModaleHome"><b>Descriptif de la salle : </b>{{ sdf.text }}</p>
           <p><b>Capacitée : </b>{{ sdf.capacity }}</p>
           <p><b>Superficie : </b>{{ sdf.surface }}</p>
-
         </div>
-        <!-- <div class="col s12" ng-repeat="salleDesFetes in sallesDesFetes track by $index"> -->
+
         <div class="col s12">
           <h5 class="center underline">Calendrier d'évènement de la salle {{sdf.name}}</h5>
-
           <md-event-calendar class="md-primary" ng-model="sdf.selected" md-events="sdf.evenement" md-event-click="eventClicked($selectedEvent)" md-label="title" , md-show-create-link="false" class="md-primary">
             <md-event-calendar-header class="md-center">
               <md-event-calendar-prev></md-event-calendar-prev>
