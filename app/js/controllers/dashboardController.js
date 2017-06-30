@@ -5,17 +5,13 @@ angular.module('app')
 
         SDFService.getAll().then(function(res) {
             $scope.sallesDesFetes = res.data;
-            console.log('res salle des fetes après service', $scope.sallesDesFetes);
         });
         SDFService.getImg().then(function(res) {
-            console.log(res.body);
         });
 
         function loadLikeds() {
             UserService.getOne(CurrentUser.user()._id).then(function(res) {
                 $scope.likeds = (res.data.liked);
-                console.log($scope.likeds);
-
             });
         }
         loadLikeds();
