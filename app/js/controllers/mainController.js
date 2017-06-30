@@ -143,6 +143,7 @@ angular.module('app')
 
     $scope.resa = function(id) {
       $('#modal11').modal('close');
+      $('#modalMap').modal('close');
       $state.go('user.reservation', {sdf : id});
     };
 
