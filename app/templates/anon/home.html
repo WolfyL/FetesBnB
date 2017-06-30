@@ -73,7 +73,9 @@
           </thead>
           <tbody>
             <tr ng-repeat="city in cities">
+
               <td><a data-target="modal11" ng-click="clickSalle(city._id)" href="" type="submit" name="button"><img src="./upload/{{ city.image[0].imageRep }}" alt="Salle Des Fêtes de la {{city.city}}" width="150"></a></td>
+
               <td class="toUpperCasse">{{ city.city }}</td>
               <td>{{ city.text }}</td>
               <td>{{ city.capacity }}</td>
