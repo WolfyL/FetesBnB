@@ -12,6 +12,7 @@ angular.module('app')
         function loadLikeds() {
             UserService.getOne(CurrentUser.user()._id).then(function(res) {
                 $scope.likeds = (res.data.liked);
+                console.log($scope.likeds);
             });
         }
         loadLikeds();

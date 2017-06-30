@@ -6,7 +6,6 @@ angular.module('app')
         $scope.showEdit = false;
         $scope.showCreate = false;
         $scope.modifOpen = false;
-        $scope.likeds = [];
 
         SDFService.getMySDF($scope.user._id).then(function(res){
           $scope.sallesDesFetes = res.data;
@@ -241,15 +240,7 @@ angular.module('app')
                     }
                 });
         };
-        $scope.addFav = function(sallesDesFetes) {
-            if ($scope.user.liked.indexOf(sallesDesFetes._id) !== -1) {
-                return sweetAlert("Impossible", "La salle actuelle se trouve déjà dans vos favoris", "error");
-            }
-            UserService.addFav($scope.user._id, sallesDesFetes).then(function(res) {
-                $scope.user.liked = res.data.liked;
-                return sweetAlert("Ok !", "La salle a bien été ajouté dans vos favoris", "success");
-            });
-        };
+
         $scope.uploadPic = function(file, id) {
             file.upload = Upload.upload({
                 url: '/img/send',

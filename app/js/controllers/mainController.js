@@ -5,6 +5,7 @@ angular.module('app')
       sdfAll = [],
       sdfCapacityFilter = [];
     $scope.sallesDesFetes = [];
+    $scope.user = CurrentUser.user();
 
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
@@ -128,9 +129,16 @@ angular.module('app')
       });
     }
 
-    $scope.addfav = function(sallesDesFetes_id) {
-      UserService.addFav(userId, sallesDesFetes_id).then(function(res) {
-      }, function(err) {});
+    $scope.addFav = function(city) {
+      console.log("YOOOOOOOOOOOOOOOOOOOOOO", city);
+      console.log("user", $scope.user._id);
+        if ($scope.user.liked.indexOf(city) !== -1) {
+            return sweetAlert("Impossible", "La salle actuelle se trouve déjà dans vos favoris", "error");
+        }
+        UserService.addFav($scope.user._id, city).then(function(res) {
+            $scope.user.liked = res.data.liked;
+            return sweetAlert("Ok !", "La salle a bien été ajouté dans vos favoris", "success");
+        });
     };
 
     $scope.resa = function(id) {
