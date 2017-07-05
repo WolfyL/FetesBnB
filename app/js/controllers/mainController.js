@@ -130,8 +130,6 @@ angular.module('app')
     }
 
     $scope.addFav = function(city) {
-      console.log("YOOOOOOOOOOOOOOOOOOOOOO", city);
-      console.log("user", $scope.user._id);
         if ($scope.user.liked.indexOf(city) !== -1) {
             return sweetAlert("Impossible", "La salle actuelle se trouve déjà dans vos favoris", "error");
         }

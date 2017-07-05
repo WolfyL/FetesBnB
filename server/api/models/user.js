@@ -40,7 +40,6 @@ const userSchema = new mongoose.Schema({
     },
     liked: [{
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         ref: 'SDF',
     }]
 });
@@ -181,10 +180,10 @@ export default class User {
         console.log("body", req.body);
         console.log("params", req.params);
         model.findByIdAndUpdate(
-            req.params.id, { $addToSet: { "liked": req.body.sdf } }, { safe: true, upsert: true, new: true },
+            req.params.id, { $addToSet: { liked: req.body.sdf } }, { safe: true, upsert: true, new: true },
             (err, user) => {
                 if (err || !user) {
-                    res.status(500)
+                    res.status(500);
                 } else {
                     res.json({ liked: user.liked });
                 }
@@ -201,12 +200,12 @@ export default class User {
     }
 
     delFav(req, res) {
-        console.log('body', req.body);
-        model.findOneAndUpdate(req.params.id, {
+        console.log('body', req.body._id, 'params', req.params);
+        model.findByIdAndUpdate(req.params.id, {
                 $pull: {
-                    "liked": req.body._id
+                    liked: req.body._id
                 }
-            },
+            },{upsert:true, new:true},
             (err, test) => {
                 if (err) {
                     res.status(500).send(err.message);
