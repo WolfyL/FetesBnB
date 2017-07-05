@@ -136,13 +136,23 @@ angular.module('app')
     }
 
     $scope.addFav = function(city) {
-        if ($scope.user.liked.indexOf(city) !== -1) {
-            return sweetAlert("Impossible", "La salle actuelle se trouve déjà dans vos favoris", "error");
+      UserService.getOne($scope.user._id, city).then(function(res) {
+        var forUserLiked = res.data.liked;
+        var searchId = {};
+        for(var i = 0; i<forUserLiked.length; i++){
+          searchId = forUserLiked[i];
         }
-        UserService.addFav($scope.user._id, city).then(function(res) {
-            $scope.user.liked = res.data.liked;
-            return sweetAlert("Ok !", "La salle a bien été ajouté dans vos favoris", "success");
-        });
+        console.log(city, "city", searchId._id, "searchId");
+        if (searchId._id == city) {
+          sweetAlert("Impossible", "La salle actuelle se trouve déjà dans vos favoris", "error");
+        } else {
+          UserService.addFav($scope.user._id, city).then(function(res) {
+            sweetAlert("Ok !", "La salle a bien été ajouté dans vos favoris", "success");
+          });
+        }
+      });
+
+
     };
 
     $scope.resa = function(id) {
