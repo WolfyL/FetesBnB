@@ -15,8 +15,13 @@ angular.module('app')
       $scope.map = map;
     });
 
-    $scope.showStore = function(evt, index) {
-      $scope.sdf = $scope.sallesDesFetes[index];
+    $scope.showStore = function(evt, index, id) {
+      SDFService.getOne(id).then(function(res){
+        $scope.uploadMarkers = [];
+        $scope.uploadMarkers = res.data.image;
+        $scope.sdf = res.data;
+        modalWorks();
+      });
       $('#modalMap').modal('open');
     };
 
@@ -31,6 +36,7 @@ angular.module('app')
     };
 
     $scope.clickSalle = function(index){
+      $scope.uploadImgs = [];
       SDFService.getOne(index).then(function(res){
         $scope.uploadImgs = res.data.image;
         $scope.ville = res.data;
