@@ -1,14 +1,13 @@
-<h2 class="text center section">Salles préférées de {{user.firstName}}</h2>
+<h2 class="text center section">Salles préférées de {{user.firstName}} {{ user.lastName }}</h2>
 <div class="row">
     <div ng-repeat="liked in likeds track by $index" class="fav">
         <div class="card card small col s12 m4">
             <div class="card-image waves-effect waves-block ">
-              <img src="./upload/{{liked.image[0].imageRep}}">
+              <img class="activator" src="./upload/{{liked.image[0].imageRep}}">
             </div>
             <div class="card-content ">
-                <span class="card-title activator  grey-text text-darken-4 left-align">{{liked.name}}</span>
+                <span class="card-title activator grey-text text-darken-4 left-align">{{liked.name}}</span>
                 <a ng-click="delFav(liked)" class=" pad right btn-floating btn-medium waves-effect waves-light green horizontal-align"><i class="material-icons">delete</i></a>
-                <a href="">This is a link</a>
             </div>
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">{{liked.name}}<i class="material-icons right">close</i></span>
@@ -18,8 +17,9 @@
                     <li>Adresse: {{liked.adress}} </li>
                     <li>Code postal: {{liked.postalCode}} </li>
                     <li>Capacité: {{liked.capacity}}pers. </li>
-                    <li>NOM DE LIMAGE {{liked.image}}pers. </li>
-                    <li>Surface: {{liked.surface}} <sup>m2</sup></li>
+                    <li>Surface: {{liked.surface}} m<sup>2</sup></li>
+                    <li ng-repeat="uploadLiked in liked.image"><img class="materialboxed" src="./upload/{{uploadLiked.imageRep}}" alt="" width="590"></li>
+                </ul>
             </div>
         </div>
     </div>

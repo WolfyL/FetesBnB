@@ -11,15 +11,25 @@ angular.module('app')
     function loadLikeds() {
       UserService.getOne(CurrentUser.user()._id).then(function(res) {
         $scope.likeds = res.data.liked;
-        // console.log($scope.likeds);
+        modalWorks();
       });
+
     }
     loadLikeds();
 
     $scope.delFav = function(id) {
-      console.log(id);
       UserService.delFav($scope.user._id, id).then(function(res) {
-        loadLikeds();
+        UserService.getOne($scope.user._id).then(function(res) {
+          $scope.likeds = res.data.liked;
+        });
       });
     };
+
+    function modalWorks() {
+      $(document).ready(function() {
+        $('.materialboxed').materialbox();
+      });
+    }
+    setTimeout(modalWorks, 200);
+
   });
