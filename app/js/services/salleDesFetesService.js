@@ -21,7 +21,7 @@ angular.module('app')
           res.data.evenement = res.data.evenement.map(function(event) {
             event.end = new Date(event.end);
             event.start = new Date(event.start);
-            return event
+            return event;
           });
           return res;
         }, function(err) {

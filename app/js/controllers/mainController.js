@@ -15,6 +15,46 @@ angular.module('app')
       $scope.map = map;
     });
 
+    function modalWorks() {
+      $(document).ready(function() {
+        $('.materialboxed').materialbox();
+        $('.slider').slider({
+          interval: 2500
+        });
+        $('select').material_select();
+        $('.modal').modal();
+      });
+    }
+    setTimeout(modalWorks, 200);
+
+    function boundContains(paramFilter, sdfAll) {
+      arrayTrueSDF = [];
+      sdfAll.map(function(salle) {
+        var latLngCenter = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng),
+          latLngX = new google.maps.LatLng(salle.coordo.lat, salle.coordo.lng);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: latLngCenter
+          }),
+          markerCenter = new google.maps.Marker({
+            position: latLngCenter,
+            title: 'Location',
+          }),
+          marker = new google.maps.Marker({
+            position: latLngX,
+            title: 'Location',
+          }),
+          circle = new google.maps.Circle({
+            radius: (paramFilter.radius * 1000)
+          });
+
+        circle.bindTo('center', markerCenter, 'position');
+        var bounds = circle.getBounds();
+        if (bounds.contains(latLngX)) {
+          arrayTrueSDF.push(salle);
+        }
+      });
+    }
 
     $scope.showStore = function(evt, index, id) {
       $scope.indexOf = index;
@@ -52,7 +92,6 @@ angular.module('app')
       $scope.cities = "";
       sdfCapacityFilter = [];
 
-
       if (ville === "" && radius !== null) {
         swal('Impossible !', 'Nous ne pouvons pas effectuer de recherche utilisant le rayon si vous n\'entrez pas de ville', 'error');
       } else {
@@ -70,9 +109,6 @@ angular.module('app')
               capacity: capacity
             };
 
-            //arrayTrueSDF = "";
-
-
             SDFService.getAll().then(function(res) {
               $scope.sallesDesFetes = res.data;
               sdfAll = $scope.sallesDesFetes;
@@ -82,7 +118,6 @@ angular.module('app')
                     sdfCapacityFilter.push(salle);
                   }
                 });
-
                 boundContains(paramFilter, sdfCapacityFilter);
                 $scope.sdfRadiusFilters = arrayTrueSDF;
               } else {
@@ -103,45 +138,11 @@ angular.module('app')
       }
     };
 
-
-    function boundContains(paramFilter, sdfAll) {
-      arrayTrueSDF = [];
-      sdfAll.map(function(salle) {
-        var latLngCenter = new google.maps.LatLng(paramFilter.ville.lat, paramFilter.ville.lng),
-          latLngX = new google.maps.LatLng(salle.coordo.lat, salle.coordo.lng);
-
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: latLngCenter
-          }),
-          markerCenter = new google.maps.Marker({
-            position: latLngCenter,
-            title: 'Location',
-            // map: map
-          }),
-          marker = new google.maps.Marker({
-            position: latLngX,
-            title: 'Location',
-            // map: map
-          }),
-          circle = new google.maps.Circle({
-            // map: map,
-            radius: (paramFilter.radius * 1000)
-          });
-
-
-        circle.bindTo('center', markerCenter, 'position');
-        var bounds = circle.getBounds();
-        if (bounds.contains(latLngX)) {
-          arrayTrueSDF.push(salle);
-        }
-      });
-    }
-
     $scope.addFav = function(city) {
       UserService.getOne($scope.user._id).then(function(res) {
         $scope.liked = res.data.liked;
         if ($scope.liked.filter(function(el) {
-            return el._id == city;
+            return el._id === city;
           }).length > 0) {
           sweetAlert("Impossible", "La salle actuelle se trouve déjà dans vos favoris", "error");
         } else {
@@ -159,16 +160,4 @@ angular.module('app')
         sdf: id
       });
     };
-
-    function modalWorks() {
-      $(document).ready(function() {
-        $('.materialboxed').materialbox();
-        $('.slider').slider({
-          interval: 2500
-        });
-        $('select').material_select();
-        $('.modal').modal();
-      });
-    }
-    setTimeout(modalWorks, 200);
   });
