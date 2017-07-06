@@ -31,20 +31,20 @@ angular.module('app')
             };
 
             $scope.createEventValidate = function(event) {
-                let hourStart = moment(event.eventStart).get('hour');
-                let minStart = moment(event.eventStart).get('minute');
-                let startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
-
-                let hourEnd = moment(event.eventEnd).get('hour');
-                let minEnd = moment(event.eventEnd).get('minute');
-                let endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
+                var hourStart = moment(event.eventStart).get('hour');
+                var minStart = moment(event.eventStart).get('minute');
+                var startDate = moment(date).add(hourStart, 'h').add(minStart, 'm');
+                var hourEnd = moment(event.eventEnd).get('hour');
+                var minEnd = moment(event.eventEnd).get('minute');
+                var endDate = moment(event.dayEnd).add(hourEnd, 'h').add(minEnd, 'm');
+                var title = "";
 
                 if (minEnd === 0) {
                     minEnd = '00';
                 }
 
                 if (event.dayEnd !== undefined && event.eventEnd !== undefined && event.dayEnd !== '' && event.eventEnd !== '') {
-                    let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
+                     title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
                     EvenementService.create({
                         title: title,
                         start: new Date(startDate),
@@ -75,7 +75,7 @@ angular.module('app')
                         });
                     });
                 } else if (event.dayEnd === undefined || event.dayEnd === '') {
-                    let title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
+                     title = event.eventTitle + " fini à:" + hourEnd + ':' + minEnd;
                     EvenementService.create({
                         title: title,
                         start: new Date(startDate),
@@ -262,8 +262,9 @@ angular.module('app')
                 );
 
             }, function(response) {
-                if (response.status > 0)
-                    $scope.errorMsg = response.status + ': ' + response.data;
+                if (response.status > 0){
+                  $scope.errorMsg = response.status + ': ' + response.data;
+                }
             }, function(evt) {
                 file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });

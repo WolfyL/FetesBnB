@@ -3,6 +3,13 @@ angular.module('app')
     $scope.user = CurrentUser.user();
     $scope.likeds = [];
 
+    function modalWorks() {
+      $(document).ready(function() {
+        $('.materialboxed').materialbox();
+      });
+    }
+    setTimeout(modalWorks, 200);
+
     SDFService.getAll().then(function(res) {
       $scope.sallesDesFetes = res.data;
     });
@@ -24,12 +31,5 @@ angular.module('app')
         });
       });
     };
-
-    function modalWorks() {
-      $(document).ready(function() {
-        $('.materialboxed').materialbox();
-      });
-    }
-    setTimeout(modalWorks, 200);
 
   });
