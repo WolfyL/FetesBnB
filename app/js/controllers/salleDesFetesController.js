@@ -193,6 +193,8 @@ angular.module('app')
             $scope.surfaceSDF = '';
             $scope.priceSDF = '';
             $scope.textSDF = '';
+
+            location.reload();
         };
 
         $scope.editSDF = function(index) {
