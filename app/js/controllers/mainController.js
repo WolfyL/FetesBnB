@@ -15,8 +15,10 @@ angular.module('app')
       $scope.map = map;
     });
 
+
     $scope.showStore = function(evt, index, id) {
-      SDFService.getOne(id).then(function(res){
+      $scope.indexOf = index;
+      SDFService.getOne(id).then(function(res) {
         $scope.uploadMarkers = [];
         $scope.uploadMarkers = res.data.image;
         $scope.sdf = res.data;
@@ -35,9 +37,9 @@ angular.module('app')
       $scope.searchShow = false;
     };
 
-    $scope.clickSalle = function(index){
+    $scope.clickSalle = function(index) {
       $scope.uploadImgs = [];
-      SDFService.getOne(index).then(function(res){
+      SDFService.getOne(index).then(function(res) {
         $scope.uploadImgs = res.data.image;
         $scope.ville = res.data;
         modalWorks();
@@ -136,35 +138,34 @@ angular.module('app')
     }
 
     $scope.addFav = function(city) {
-      UserService.getOne($scope.user._id, city).then(function(res) {
-        var forUserLiked = res.data.liked;
-        var searchId = {};
-        for(var i = 0; i<forUserLiked.length; i++){
-          searchId = forUserLiked[i];
-        }
-        console.log(city, "city", searchId._id, "searchId");
-        if (searchId._id == city) {
+      UserService.getOne($scope.user._id).then(function(res) {
+        $scope.liked = res.data.liked;
+        if ($scope.liked.filter(function(el) {
+            return el._id == city;
+          }).length > 0) {
           sweetAlert("Impossible", "La salle actuelle se trouve déjà dans vos favoris", "error");
         } else {
           UserService.addFav($scope.user._id, city).then(function(res) {
-            sweetAlert("Ok !", "La salle a bien été ajouté dans vos favoris", "success");
+            sweetAlert("Ok !", "La salle a été ajouté dans vos favoris", "success");
           });
         }
       });
-
-
     };
 
     $scope.resa = function(id) {
       $('#modal11').modal('close');
       $('#modalMap').modal('close');
-      $state.go('user.reservation', {sdf : id});
+      $state.go('user.reservation', {
+        sdf: id
+      });
     };
 
     function modalWorks() {
       $(document).ready(function() {
         $('.materialboxed').materialbox();
-        $('.slider').slider({interval : 2500});
+        $('.slider').slider({
+          interval: 2500
+        });
         $('select').material_select();
         $('.modal').modal();
       });

@@ -19,7 +19,9 @@ angular.module('app')
 
     $scope.delFav = function(id) {
       UserService.delFav($scope.user._id, id).then(function(res) {
-        location.reload();
+        UserService.getOne($scope.user._id).then(function(res) {
+          $scope.likeds = res.data.liked;
+        });
       });
     };
 
