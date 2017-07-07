@@ -35,15 +35,15 @@ angular.module('app')
 
         map = new google.maps.Map(document.getElementById('map'), {
             center: latLngCenter
-          }),
+          });
           markerCenter = new google.maps.Marker({
             position: latLngCenter,
             title: 'Location',
-          }),
+          });
           marker = new google.maps.Marker({
             position: latLngX,
             title: 'Location',
-          }),
+          });
           circle = new google.maps.Circle({
             radius: (paramFilter.radius * 1000)
           });
